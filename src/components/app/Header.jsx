@@ -7,7 +7,7 @@ class Header extends Component {
             <div className="header">
                 <div className="title">in touch</div>
                 <div className="find">
-                    <input type="text" size="30" placeholder="Search"/>
+                    <input type="text" size="40" placeholder="Search"/>
                     <i id="search-icon" className="fa fa-search"></i>
                 </div>
                 <div className="message-badge" data-badge="1">
@@ -16,7 +16,7 @@ class Header extends Component {
                 <div className="notify-badge" data-badge="3">
                     <i className="fa fa-comment"></i>
                 </div>
-                <div className="profile">
+                <div className="profile-badge">
                     <i className="fa fa-user"></i>
                 </div>
             </div>
