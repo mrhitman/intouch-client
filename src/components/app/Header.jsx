@@ -5,7 +5,7 @@ class Header extends Component {
     render() {
         return (
             <div className="header">
-                <div className="title">test test</div>
+                <div className="title">in touch</div>
                 <div className="find">
                     <input type="text" size="30" placeholder="Search"/>
                     <i id="search-icon" className="fa fa-search"></i>
