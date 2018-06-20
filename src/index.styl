@@ -1,3 +1,7 @@
+mainBackground = #4C77A4
+lightBackgroud = #F5F8FA
+mainTextColor = #8296A4
+
 body 
   color #ECEDEF
 
@@ -6,99 +10,131 @@ body
   width 925px
   font-family -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 
-.header 
-  background #4C77A4
-  padding 12px 30px 12px 80px
+  .header 
+    background mainBackground
+    padding 12px 30px 12px 80px
 
-.title 
-  display inline-block
-  font-size 1.34em
-  font-weight bold
-  color #fff
+    .title 
+      display inline-block
+      font-size 1.34em
+      font-weight bold
+      color #fff
 
-.find 
-  display inline-block
-  margin 0 0 0 12px
+    .find 
+      display inline-block
+      margin 0 0 0 12px
 
-.find input 
-  size 180px
-  height 35px
-  border-radius 20px
-  text-indent 12px
-  font-size 0.9em
-  border none
+      input 
+        size 180px
+        height 35px
+        border-radius 20px
+        text-indent 12px
+        font-size 0.9em
+        border none
 
-input::focus 
-  outline none
+        &:focus 
+          outline none
 
-#search-icon 
-  position relative
-  margin 10px 0 0 -30px
-  color #8296A4
+    #search-icon 
+      position relative
+      margin 10px 0 0 -30px
+      color mainTextColor
 
-.message-badge 
-  display inline-block
-  position relative
-  margin 0 12px 0 100px
+    .message-badge 
+      display inline-block
+      position relative
+      margin 0 12px 0 100px
 
-.notify-badge 
-  display inline-block
-  position relative
-  margin 0 12px
+    .notify-badge 
+      display inline-block
+      position relative
+      margin 0 12px
 
-.profile-badge 
-  display inline-block
-  position relative
-  margin 0 12px
+    .profile-badge 
+      display inline-block
+      position relative
+      margin 0 12px
 
-.message-badge[data-badge]::after,
-.notify-badge[data-badge]::after 
-  content:attr(data-badge)
-  position absolute
-  top -9px
-  right -9px
-  font-size .7em
-  background red
-  color white
-  width 16px
-  height 16px
-  text-align center
-  line-height 16px
-  border-radius 50%
-  border solid 2px #4C77A4
-
-.content 
-  display flex
-
-  .left-menu 
-    width 220px
-    color #8296A4
-    background-color #F5F8FA
-
-    ul 
-      list-style-type none
-      padding-top 20px
-      padding-bottom 20px
-      margin-top 0
-
-    ul li 
-      height 28px
-
-    i
-      margin 2px 8px 2px 2px
-      width 20px
-
-  .middle
-    background-color #F5F8FA
-    height 800px
-    padding 25px
-
-    img
-      height 200px
-
-  .profile
-    display inline-block
-    margin 0 12px
+    .message-badge[data-badge]::after,
+    .notify-badge[data-badge]::after 
+      content:attr(data-badge)
+      position absolute
+      top -9px
+      right -9px
+      font-size .7em
+      background red
+      color white
+      width 16px
+      height 16px
+      text-align center
+      line-height 16px
+      border-radius 50%
+      border solid 2px mainBackground
 
 
+  .content 
+    display flex
 
+    .left-menu 
+      width 220px
+      color mainTextColor
+      background-color lightBackgroud
+
+      ul 
+        list-style-type none
+        padding-top 20px
+        padding-bottom 20px
+        margin-top 0
+
+      ul li 
+        height 28px
+
+      i
+        margin 2px 8px 2px 2px
+        width 20px
+
+    .middle
+      background-color lightBackgroud
+      height 800px
+      padding 25px
+
+      img
+        height 200px
+      
+      .sendButton
+        width 180px
+        height 34px
+        background #4c77a4
+        margin 10px
+        display block
+        border-radius 4px
+        font-size 0.8em
+        text-align center
+        font-weight bold
+        line-height 32px
+
+      .followers
+        img
+          height 50px
+          margin 7px
+
+    .profile
+      display inline-block margin 0 12px
+
+  .line
+    border 1px solid rgba(0, 0, 0, 0.1)
+    margin 0 10px 5px
+
+  .info
+    margin 20px 10px 20px 10px
+    font-size 0.82em
+    text-align center
+    font-weight bold
+    color mainTextColor
+
+  .status
+    margin 10px
+    font-size 0.8em
+    text-align left
+    font-weight bold
+    color mainBackground

@@ -14,7 +14,10 @@ class LeftMenu extends Component {
                     <li><i className="fa fa-image"></i>Photos</li>
                     <li><i className="fa fa-bookmark"></i>Bookmarks</li>
                 </ul>
+                <div className="line"></div>
                 <ul>
+                    <li><i className="fa fa-question-circle"></i>Help</li>
+                    <li><i className="fa fa-gear"></i>Settings</li>
                     <li><i className="fa fa-sign-out"></i>Logout</li>
                 </ul>
             </div>
