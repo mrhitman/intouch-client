@@ -137,6 +137,13 @@ body {
   font-weight: bold;
 }
 .app .content .profileUser__status {
+  color: #8296a4;
+  position: relative;
+  float: right;
+  font-size: 0.9em;
+  margin: 10px 8px 0 0;
+}
+.app .content .profileUser__quote {
   color: #000;
   margin: 10px;
   font-size: 0.9em;
