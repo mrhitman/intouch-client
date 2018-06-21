@@ -90,7 +90,7 @@ body {
 }
 .app .content .middle {
   background-color: #f5f8fa;
-  max-width: 220px;
+  width: 220px;
   height: 800px;
   padding: 20px;
 }
@@ -113,11 +113,11 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-left: 10px;
+  margin-left: 8px;
 }
 .app .content .middle .people .person img {
   height: 50px;
-  margin: 8px 10px 10px 8px;
+  margin: 8px;
 }
 .app .content .middle .people .person .name {
   color: #4c77a4;
@@ -128,7 +128,18 @@ body {
 }
 .app .content .profile {
   display: inline-block;
+  width: calc(925px - 450px);
   margin: 0 12px;
+}
+.app .content .profileUser__name {
+  color: #4c77a4;
+  margin: 10px;
+  font-weight: bold;
+}
+.app .content .profileUser__status {
+  color: #000;
+  margin: 10px;
+  font-size: 0.9em;
 }
 .app .line {
   border: 1px solid rgba(0,0,0,0.1);
