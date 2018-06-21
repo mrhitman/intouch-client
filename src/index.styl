@@ -5,168 +5,199 @@ bodyColor = #ECEDEF
 
 body 
   color bodyColor
+  background-color lightBackgroud
 
 .app 
   margin auto
   width 925px
   font-family -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 
-  .header
-    background mainBackground
-    padding 12px 30px 12px 80px
+.header
+  background mainBackground
+  padding 12px 30px 12px 80px
 
-    .title 
-      display inline-block
-      font-size 1.34em
-      font-weight bold
-      color bodyColor
+  .title 
+    display inline-block
+    font-size 1.34em
+    font-weight bold
+    color bodyColor
 
-    .find 
-      display inline-block
-      margin 0 0 0 12px
+  .find 
+    display inline-block
+    margin 0 0 0 12px
 
-      input 
-        size 180px
-        height 35px
-        border-radius 20px
-        text-indent 12px
-        font-size 0.9em
-        border none
+    input 
+      size 180px
+      height 35px
+      border-radius 20px
+      text-indent 12px
+      font-size 0.9em
+      border none
 
-        &:focus 
-          outline none
+      &:focus 
+        outline none
 
-    #search-icon 
-      position relative
-      margin 10px 0 0 -30px
-      color mainTextColor
+  #search-icon 
+    position relative
+    margin 10px 0 0 -30px
+    color mainTextColor
 
-    .message-badge 
-      display inline-block
-      position relative
-      margin 0 12px 0 100px
+  .message-badge 
+    display inline-block
+    position relative
+    margin 0 12px 0 100px
 
-    .notify-badge 
-      display inline-block
-      position relative
-      margin 0 12px
+  .notify-badge 
+    display inline-block
+    position relative
+    margin 0 12px
 
-    .profile-badge 
-      display inline-block
-      position relative
-      margin 0 12px
+  .profile-badge 
+    display inline-block
+    position relative
+    margin 0 12px
 
-    .message-badge[data-badge]::after,
-    .notify-badge[data-badge]::after 
-      content:attr(data-badge)
-      position absolute
-      top -9px
-      right -9px
-      font-size .7em
-      background red
-      color bodyColor
-      width 16px
-      height 16px
-      text-align center
-      line-height 16px
-      border-radius 50%
-      border solid 2px mainBackground
+  .message-badge[data-badge]::after,
+  .notify-badge[data-badge]::after 
+    content:attr(data-badge)
+    position absolute
+    top -9px
+    right -9px
+    font-size .7em
+    background red
+    color bodyColor
+    width 16px
+    height 16px
+    text-align center
+    line-height 16px
+    border-radius 50%
+    border solid 2px mainBackground
 
 
-  .content
+.content
+  display inline-block
+  background white
+
+.left-menu 
+  float left
+  width 220px
+  height 100vh
+  color mainTextColor
+  background-color lightBackgroud
+
+  ul 
+    list-style-type none
+    padding-top 20px
+    padding-bottom 20px
+    margin-top 0
+
+  ul li 
+    height 28px
+
+  i
+    margin 2px 8px 2px 2px
+    width 20px
+
+.middle
+  display inline-block
+  float left
+  background-color lightBackgroud
+  width 220px
+  height 100vh
+  padding 20px 5px 20px 10px
+
+  img
+    height 200px
+  
+  .sendButton
+    width 180px
+    height 34px
+    background #4c77a4
+    margin 10px
+    display block
+    border-radius 4px
+    font-size 0.8em
+    text-align center
+    font-weight bold
+    line-height 32px
+
+  .people
     display flex
+    flex-direction row
+    flex-wrap wrap
+    margin-left 8px
 
-    .left-menu 
-      width 220px
-      color mainTextColor
-      background-color lightBackgroud
-
-      ul 
-        list-style-type none
-        padding-top 20px
-        padding-bottom 20px
-        margin-top 0
-
-      ul li 
-        height 28px
-
-      i
-        margin 2px 8px 2px 2px
-        width 20px
-
-    .middle
-      background-color lightBackgroud
-      width 220px
-      height 800px
-      padding 20px
-
+    .person
       img
-        height 200px
-      
-      .sendButton
-        width 180px
-        height 34px
-        background #4c77a4
-        margin 10px
-        display block
-        border-radius 4px
+        height 50px
+        margin 8px 
+      .name
+        color mainBackground
         font-size 0.8em
         text-align center
         font-weight bold
-        line-height 32px
+        margin 0 0 8px 0
 
-      .people
-        display flex
-        flex-direction row
-        flex-wrap wrap
-        margin-left 8px
+.profile
+  background white
+  display inline-block
+  float right 
+  width 446px
+  margin 0 12px
+  &User
+    &__name
+      color mainBackground
+      margin 10px
+      font-weight bold
+    &__status
+      color mainTextColor
+      position relative
+      float right
+      font-size 0.9em
+      margin 10px 8px 0 0
+    &__quote
+      color black
+      margin 10px
+      font-size 0.9em
+    &__info
+      div
+        font-size 0.9em
+        color mainTextColor
+        margin 10px 5px 10px 20px
 
-        .person
-          img
-            height 50px
-            margin 8px 
-          .name
-            color mainBackground
-            font-size 0.8em
-            text-align center
-            font-weight bold
-            margin 0 0 8px 0
+.photos
+  background white
+  padding 12px
+  display flex
+  flex-wrap wrap
+  justify-content space-around
+  align-content flex-start
 
-    .profile
-      display inline-block
-      width calc(925px - 450px)
-      margin 0 12px
-      &User
-        &__name
-          color mainBackground
-          margin 10px
-          font-weight bold
-        &__status
-          color mainTextColor
-          position relative
-          float right
-          font-size 0.9em
-          margin 10px 8px 0 0
-        &__quote
-          color black
-          margin 10px
-          font-size 0.9em
-         
+  img
+    display block
+    max-width 230px
+    max-height 95px
+    width auto
+    height auto
+    margin 4px
 
-  .line
-    border 1px solid rgba(0, 0, 0, 0.1)
-    margin 5px 10px 5px
+.wall
+  height 40vh
 
-  .info
-    margin 20px 10px 20px 10px
-    font-size 0.82em
-    text-align center
-    font-weight bold
-    color mainTextColor
+.line
+  border 1px solid rgba(0, 0, 0, 0.1)
+  margin 5px 10px 5px
 
-  .status
-    margin 10px
-    font-size 0.8em
-    text-align left
-    font-weight bold
-    color mainBackground
+.info
+  margin 20px 10px 20px 10px
+  font-size 0.82em
+  text-align center
+  font-weight bold
+  color mainTextColor
+
+.status
+  margin 10px
+  font-size 0.8em
+  text-align left
+  font-weight bold
+  color mainBackground

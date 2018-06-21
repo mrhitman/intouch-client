@@ -3,6 +3,7 @@ import LeftMenu from './LeftMenu';
 import Middle from './Middle';
 import Profile from './Profile';
 import Wall from './Wall';
+import Photos from './Photos';
 
 class Content extends Component {
     render() {
@@ -11,6 +12,7 @@ class Content extends Component {
                 <LeftMenu/>
                 <Middle/>
                 <Profile/>
+                <Photos/>
                 <Wall/>
             </div>
         );

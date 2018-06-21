@@ -9,11 +9,13 @@ class Profile extends Component {
                 <div className="profileUser__name">{new Chance().name()}</div>
                 <div className="profileUser__quote">{new Chance().sentence()}</div>
                 <div className="line"></div>
-                <div>Birthday: </div>
-                <div>Hometown: </div>
-                <div>Relationship status: </div>
-                <div>Company: </div>
-                <div>Language: </div>
+                <div className="profileUser__info">
+                    <div>Birthday: </div>
+                    <div>Hometown: </div>
+                    <div>Relationship status: </div>
+                    <div>Company: </div>
+                    <div>Language: </div>
+                </div>
                 <div className="line"></div>
             </div>
         );
