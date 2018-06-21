@@ -10,8 +10,7 @@ class Content extends Component {
                 <LeftMenu/>
                 <Middle/>
                 <Profile/>
-                <div className="wall">
-                </div>
+                <Wall/>
             </div>
         );
     }

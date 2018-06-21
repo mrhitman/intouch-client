@@ -36,19 +36,19 @@ class Content extends Component {
                     <div className="status">
                         {followerCount} followers
                     </div>
-                    {this.rendenPeople(followers)}
+                    {this.renderPeople(followers)}
                     <div className="line"></div>
                     <div className="status">
                         {frientCount} friends
                     </div>
-                    {this.rendenPeople(friends)}
+                    {this.renderPeople(friends)}
                 </div>
                 <div className="line"></div>
             </div>
         );
     }
 
-    rendenPeople(people) {
+    renderPeople(people) {
          return (
                 <div className="people">
                     {people.map((person) => (
