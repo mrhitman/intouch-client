@@ -1,9 +1,10 @@
 mainBackground = #4C77A4
 lightBackgroud = #F5F8FA
 mainTextColor = #8296A4
+bodyColor = #ECEDEF
 
 body 
-  color #ECEDEF
+  color bodyColor
 
 .app 
   margin auto
@@ -18,7 +19,7 @@ body
       display inline-block
       font-size 1.34em
       font-weight bold
-      color #fff
+      color bodyColor
 
     .find 
       display inline-block
@@ -63,7 +64,7 @@ body
       right -9px
       font-size .7em
       background red
-      color white
+      color bodyColor
       width 16px
       height 16px
       text-align center
@@ -95,8 +96,9 @@ body
 
     .middle
       background-color lightBackgroud
+      max-width 220px
       height 800px
-      padding 25px
+      padding 20px
 
       img
         height 200px
@@ -113,17 +115,30 @@ body
         font-weight bold
         line-height 32px
 
-      .followers
-        img
-          height 50px
-          margin 7px
+      .people
+        display flex
+        flex-direction row
+        flex-wrap wrap
+        margin-left 10px
+
+        .person
+          img
+            height 50px
+            margin 8px 10px 10px 8px
+          .name
+            color mainBackground
+            font-size 0.8em
+            text-align center
+            font-weight bold
+            margin 0 0 8px 0
 
     .profile
-      display inline-block margin 0 12px
+      display inline-block
+      margin 0 12px
 
   .line
     border 1px solid rgba(0, 0, 0, 0.1)
-    margin 0 10px 5px
+    margin 5px 10px 5px
 
   .info
     margin 20px 10px 20px 10px

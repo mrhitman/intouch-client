@@ -1,7 +1,25 @@
 import React, {Component} from 'react';
+import * as Chance from 'chance';
 
 class Content extends Component {
     render() {
+        const followerCount = 5;
+        const followers = [
+            { id: 1, name: new Chance().word()},
+            { id: 2, name: new Chance().word()},
+            { id: 3, name: new Chance().word()},
+        ];
+        const frientCount = 8;
+        const friends = [
+            { id: 1, name: new Chance().word()},
+            { id: 2, name: new Chance().word()},
+            { id: 3, name: new Chance().word()},
+            { id: 4, name: new Chance().word()},
+            { id: 5, name: new Chance().word()},
+            { id: 6, name: new Chance().word()},
+            { id: 7, name: new Chance().word()},
+            { id: 8, name: new Chance().word()},
+        ];
         return (
             <div className="middle">
                 <div className="photo">
@@ -14,24 +32,34 @@ class Content extends Component {
                     Unknown is your friend
                 </div>
                 <div className="line"></div>
-                <div className="followers">
+                <div>
                     <div className="status">
-                        33 follower
+                        {followerCount} followers
                     </div>
-                    <img src="photo-mini.jpg" alt=""/>
-                    <img src="photo-mini.jpg" alt=""/>
-                    <img src="photo-mini.jpg" alt=""/>
+                    {this.rendenPeople(followers)}
+                    <div className="line"></div>
+                    <div className="status">
+                        {frientCount} friends
+                    </div>
+                    {this.rendenPeople(friends)}
                 </div>
                 <div className="line"></div>
-                <div className="followers">
-                    <div className="status">
-                        33 friends
-                    </div>
-                    <img src="photo-mini.jpg" alt=""/>
-                    <img src="photo-mini.jpg" alt=""/>
-                    <img src="photo-mini.jpg" alt=""/>
-                </div>
             </div>
+        );
+    }
+
+    rendenPeople(people) {
+         return (
+                <div className="people">
+                    {people.map((person) => (
+                        <div className="person" key={person.id}>
+                            <img src="photo-mini.jpg" alt=""/>
+                            <a href="#">
+                                <div className="name">{person.name}</div>
+                            </a>
+                        </div>)
+                    )}
+                </div>
         );
     }
 }

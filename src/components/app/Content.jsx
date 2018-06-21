@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import LeftMenu from './LeftMenu';
 import Middle from './Middle';
+import Profile from './Profile';
 
 class Content extends Component {
     render() {
@@ -8,8 +9,7 @@ class Content extends Component {
             <div className="content">
                 <LeftMenu/>
                 <Middle/>
-                <div className="profile">
-                </div>
+                <Profile/>
                 <div className="wall">
                 </div>
             </div>
