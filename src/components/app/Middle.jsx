@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import * as Chance from 'chance';
 
 class Content extends Component {
@@ -63,5 +64,11 @@ class Content extends Component {
         );
     }
 }
+const mapStateToProps = (state, ownProps) => {
 
-export default Content;
+};
+const mapDispatchToProps = (dispatch, ownProps) => {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content);
