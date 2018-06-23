@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 
 class Profile extends Component {
     render() {
+        const { status, name, quote } = this.props;
         return (
             <div className="profile">
-                <div className="profileUser__status">Online</div>
-                <div className="profileUser__name">{this.props.name}</div>
-                <div className="profileUser__quote">{this.props.quote}</div>
+                <div className="profileUser__status">{status ? 'Online' : 'Ofline'}</div>
+                <div className="profileUser__name">{name}</div>
+                <div className="profileUser__quote">{quote}</div>
                 <div className="line" />
                 <div className="profileUser__info">
                     <div>Birthday: </div>

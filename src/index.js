@@ -1,9 +1,9 @@
 import App from './components/app/App';
 import Chance from 'chance';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import './index.css';
 
 const chance = new Chance();
@@ -11,24 +11,27 @@ const reducer = (state) => state;
 const initialState = {
      profile: {
          name: chance.name(),
-         quote: chance.sentence()
+         quote: chance.sentence(),
+         status: chance.bool(),
+         messages: chance.natural({ min: 3, max: 10 }),
+         comments: chance.natural({ min: 3, max: 10 }),
      },
-    followerCount: 5,
+    followerCount: chance.natural({ min: 3, max: 10 }),
     followers : [
-        { id: 1, name: chance.name().split(' ')[0] },
-        { id: 2, name: chance.name().split(' ')[0] },
-        { id: 3, name: chance.name().split(' ')[0] },
+        { id: 1, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
+        { id: 2, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
+        { id: 3, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
     ],
-    friendCount: 8,
+    friendCount: chance.natural({ min: 8, max: 16 }),
     friends: [
-        { id: 1, name: chance.name().split(' ')[0] },
-        { id: 2, name: chance.name().split(' ')[0] },
-        { id: 3, name: chance.name().split(' ')[0] },
-        { id: 4, name: chance.name().split(' ')[0] },
-        { id: 5, name: chance.name().split(' ')[0] },
-        { id: 6, name: chance.name().split(' ')[0] },
-        { id: 7, name: chance.name().split(' ')[0] },
-        { id: 8, name: chance.name().split(' ')[0] },
+        { id: 1, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
+        { id: 2, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
+        { id: 3, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
+        { id: 4, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
+        { id: 5, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
+        { id: 6, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
+        { id: 7, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
+        { id: 8, name: chance.name().split(' ')[0], photoMini: "photo-mini.jpg" },
     ],
 };
 const store = createStore(reducer, initialState);

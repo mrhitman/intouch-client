@@ -6,7 +6,7 @@ class LeftMenu extends Component {
         return (
             <div className="left-menu">
                 <ul>
-                    <li><i className="fa fa-newspaper-o"></i>News</li>
+                    <li><a href='#'><i className="fa fa-newspaper-o"></i>News</a></li>
                     <li><i className="fa fa-comment"></i>Feedback</li>
                     <li><i className="fa fa-envelope"></i>Messages</li>
                     <li><i className="fa fa-user"></i>Friends</li>
