@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import LeftMenu from './LeftMenu';
 import Middle from './Middle';
 import Profile from './Profile';
@@ -9,11 +9,11 @@ class Content extends Component {
     render() {
         return (
             <div className="content">
-                <LeftMenu/>
-                <Middle/>
-                <Profile/>
-                <Photos/>
-                <Wall/>
+                <LeftMenu />
+                <Middle />
+                <Profile />
+                <Photos />
+                <Wall />
             </div>
         );
     }
