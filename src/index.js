@@ -4,7 +4,8 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import PersonalPage from "./components/PersonalPage/PersonalPage";
+import PersonalPage from "./components/PersonalPage";
+import News from "./components/News";
 import "./index.css";
 
 const chance = new Chance();
@@ -50,6 +51,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route path='/personal_page' component={PersonalPage} />
+        <Route path='/news' component={News} />
         <Route path='' component={PersonalPage} />
       </Switch>
     </BrowserRouter>

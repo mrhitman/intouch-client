@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import Header from '../common/Header';
 import Content from './Content';
 
 class PersonalPage extends Component {
