@@ -2,6 +2,9 @@ body {
   color: #ecedef;
   background-color: #f5f8fa;
 }
+a {
+  text-decoration: none;
+}
 .app {
   margin: auto;
   width: 925px;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Content from './Content';
 
-class App extends Component {
+class PersonalPage extends Component {
     render() {
         return (
             <div className="app">
@@ -13,4 +13,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default PersonalPage;
