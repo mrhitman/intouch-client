@@ -13,6 +13,13 @@ const initialState = {
          name: chance.name(),
          quote: chance.sentence(),
          status: chance.bool(),
+         info: {
+            birthday: chance.birthday({ string: true, child: true }),
+            town: chance.city(),
+            relationship: null,
+            company: null,
+            languages: ['Русский', 'English']
+         },
          messages: chance.natural({ min: 3, max: 10 }),
          comments: chance.natural({ min: 3, max: 10 }),
      },

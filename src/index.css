@@ -156,10 +156,21 @@ body {
   margin: 10px;
   font-size: 0.9em;
 }
-.profileUser__info div {
+.profileUser__info {
+  display: flex;
+  flex-wrap: wrap;
+}
+.profileUser__info .infoTag {
   font-size: 0.9em;
   color: #8296a4;
-  margin: 10px 5px 10px 20px;
+  margin: 7px 0 7px 14px;
+  flex: 50% 0;
+}
+.profileUser__info .infoData {
+  font-size: 0.86em;
+  font-weight: bold;
+  color: #4c77a4;
+  margin-top: 8px;
 }
 .photos {
   background: #fff;

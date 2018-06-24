@@ -4,6 +4,7 @@ import "font-awesome/css/font-awesome.min.css";
 
 class Header extends Component {
   render() {
+    const { messages, comments } = this.props;
     return (
       <div className="header">
         <div className="title">in touch</div>
@@ -11,10 +12,10 @@ class Header extends Component {
           <input type="text" size="40" placeholder="Search" />
           <i id="search-icon" className="fa fa-search" />
         </div>
-        <div className="message-badge" data-badge={this.props.messages}>
+        <div className="message-badge" data-badge={messages}>
           <i className="fa fa-envelope" />
         </div>
-        <div className="notify-badge" data-badge={this.props.comments}>
+        <div className="notify-badge" data-badge={comments}>
           <i className="fa fa-comment" />
         </div>
         <div className="profile-badge">
