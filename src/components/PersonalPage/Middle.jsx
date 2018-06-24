@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Content extends Component {
   render() {
@@ -29,9 +30,9 @@ class Content extends Component {
         {people.map(person => (
           <div className="person" key={person.id}>
             <img src={person.photoMini} alt="" />
-            <a href="#">
+            <Link to="/">
               <div className="name">{person.name}</div>
-            </a>
+            </Link>
           </div>
         ))}
       </div>
