@@ -135,6 +135,9 @@ a {
   font-weight: bold;
   margin: 0 0 8px 0;
 }
+.rightPart {
+  margin-left: 410px;
+}
 .profile {
   background: #fff;
   display: inline-block;
@@ -193,6 +196,28 @@ a {
 }
 .wall {
   height: 40vh;
+}
+.wallPosts {
+  display: block;
+}
+.wallPost {
+  color: #000;
+  padding: 10px 5px 12px 50px;
+  border-bottom: 1px solid #808080;
+}
+.wallPost__photo {
+  float: left;
+  margin: 0 10px 10px 5px;
+}
+.wallPost__name {
+  color: #4c77a4;
+  font-size: 0.9em;
+  font-weight: bold;
+  position: relative;
+}
+.wallPost__content {
+  margin: 4px 4px 4px 68px;
+  background-color: lightBackground;
 }
 .line {
   border: 1px solid rgba(0,0,0,0.1);

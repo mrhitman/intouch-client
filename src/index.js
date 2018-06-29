@@ -42,6 +42,22 @@ const initialState = {
     { id: 6, name: getName(), photoMini: "photo-mini.jpg" },
     { id: 7, name: getName(), photoMini: "photo-mini.jpg" },
     { id: 8, name: getName(), photoMini: "photo-mini.jpg" }
+  ],
+  posts: [
+    {
+      author: {
+        name: chance.name(),
+        photo: "photo-mini.jpg"
+      },
+      content: chance.paragraph()
+    },
+    {
+      author: {
+        name: chance.name(),
+        photo: "photo-mini.jpg"
+      },
+      content: chance.paragraph()
+    }
   ]
 };
 const store = createStore(reducer, initialState);
@@ -50,9 +66,9 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route path='/personal_page' component={PersonalPage} />
-        <Route path='/news' component={News} />
-        <Route path='' component={PersonalPage} />
+        <Route path="/personal_page" component={PersonalPage} />
+        <Route path="/news" component={News} />
+        <Route path="" component={PersonalPage} />
       </Switch>
     </BrowserRouter>
   </Provider>,

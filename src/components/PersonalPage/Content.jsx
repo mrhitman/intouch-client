@@ -11,9 +11,11 @@ class Content extends Component {
       <div className="content">
         <LeftMenu />
         <Middle />
-        <Profile />
-        <Photos />
-        <Wall />
+        <div className="rightPart">
+          <Profile />
+          <Photos />
+          <Wall />
+        </div>
       </div>
     );
   }

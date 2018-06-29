@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "chance": "^1.0.16",
+    "flow": "^0.2.3",
+    "flow-bin": "^0.75.0",
     "font-awesome": "^4.7.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
