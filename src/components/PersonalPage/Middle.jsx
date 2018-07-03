@@ -1,23 +1,22 @@
 import React, { Component } from "react";
-import Modal from 'react-modal';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Modal from 'react-modal';
 
 const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+    },
 };
-
 class Middle extends Component {
   state = {
-    modalIsOpen: false
-  };
+    modalIsOpen: true
+  }
 
   render() {
     return (
@@ -25,13 +24,16 @@ class Middle extends Component {
         <div className="photo">
           <img src="photo.jpg" alt="" onClick={this.openModal}/>
           <Modal
-            isOpen={this.state.modalIsOpen}
-            // onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            style={customStyles}
-            contentLabel="Example Modal"
-          >
-            <img src="photo.jpg" alt="" onClick={this.openModal}/>
+                isOpen={this.state.modalIsOpen}
+                onRequestClose={this.closeModal}
+                style={customStyles}
+                contentLabel="Example Modal">
+                <div>
+                    <img src="photo-full.jpg" alt="" style={{ width: '800px' }} />
+                    <div style={{marginLeft: '10px', width: '300px', float: 'right', display: 'block'}}>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis animi in magni incidunt quidem architecto expedita accusantium, quas nobis illo nesciunt dignissimos pariatur ea ullam aliquid doloremque, alias, delectus vel.Mollitia perferendis iure quibusdam ipsam voluptatum tenetur, rem pariatur officia sunt velit porro esse, alias quos molestias quod consequatur numquam exercitationem sed praesentium cumque ut. Soluta ex temporibus modi quam?
+                    </div>
+                </div>
           </Modal>
         </div>
         <div className="sendButton">Send a message</div>
@@ -49,13 +51,13 @@ class Middle extends Component {
     );
   }
 
-  openModal = () => {
-    this.setState({modalIsOpen: true});
-  }
+    openModal = () => {
+        this.setState({ modalIsOpen: true });
+    };
 
-  closeModal = () => {
-    this.setState({modalIsOpen: false});
-  }
+    closeModal = () => {
+        this.setState({ modalIsOpen: false });
+    };
 
   renderPeople(people) {
     return (
