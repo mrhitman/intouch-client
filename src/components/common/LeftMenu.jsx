@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
+import "../../styles/leftMenu.css";
 
 class LeftMenu extends Component {
     render() {

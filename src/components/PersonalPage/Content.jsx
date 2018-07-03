@@ -4,6 +4,8 @@ import Middle from "./Middle";
 import Profile from "./Profile";
 import Wall from "./Wall";
 import Photos from "./Photos";
+import "../../styles/middle.css";
+import "../../styles/rightPart.css";
 
 class Content extends Component {
   render() {

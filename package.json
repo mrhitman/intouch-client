@@ -17,7 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "stylus": "stylus src/index.styl",
+    "stylus": "stylus src/styles",
     "eject": "react-scripts eject"
   },
   "devDependencies": {

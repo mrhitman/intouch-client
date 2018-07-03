@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "font-awesome/css/font-awesome.min.css";
+import "../../styles/header.css";
 
 class Header extends Component {
   render() {

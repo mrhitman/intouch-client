@@ -6,7 +6,7 @@ import { createStore } from "redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PersonalPage from "./components/PersonalPage";
 import News from "./components/News";
-import "./index.css";
+import "./styles/index.css";
 
 const chance = new Chance();
 const reducer = state => state;
