@@ -45,6 +45,7 @@ const initialState = {
   ],
   posts: [
     {
+      id: chance.guid(),
       author: {
         name: chance.name(),
         photo: "photo-mini.jpg"
@@ -52,6 +53,7 @@ const initialState = {
       content: chance.paragraph()
     },
     {
+      id: chance.guid(),
       author: {
         name: chance.name(),
         photo: "photo-mini.jpg"

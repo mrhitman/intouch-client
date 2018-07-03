@@ -14,7 +14,7 @@ class Wall extends Component {
 
   renderPost(post) {
     return (
-      <div className="wallPost">
+      <div className="wallPost" key={post.id}>
         <div className="wallPost__photo">
           <img src={post.author.photo} alt="" />
         </div>
@@ -28,7 +28,8 @@ class Wall extends Component {
 const mapStateToProps = (state, ownProps) => {
   return { posts: state.posts };
 };
-const mapDispatchToState = (dispatch, ownProps) => {};
+const mapDispatchToState = (dispatch, ownProps) => ({});
+
 export default connect(
   mapStateToProps,
   mapDispatchToState

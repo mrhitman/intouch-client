@@ -31,7 +31,7 @@ const mapStateToProps = (state, ownProps) => ({
   messages: state.profile.messages,
   comments: state.profile.comments
 });
-const mapDispatchToProps = (dispatch, ownProps) => {};
+const mapDispatchToProps = (dispatch, ownProps) => ({});
 
 export default connect(
   mapStateToProps,

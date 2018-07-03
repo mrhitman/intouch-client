@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-class Content extends Component {
+class Middle extends Component {
   render() {
     return (
       <div className="middle">
@@ -46,8 +46,8 @@ const mapStateToProps = (state, ownProps) => ({
   friends: state.friends,
   ...ownProps,
 });
-const mapDispatchToProps = (dispatch, ownProps) => {};
+const mapDispatchToProps = (dispatch, ownProps) => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Content);
+)(Middle);
