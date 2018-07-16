@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import Header from '../common/Header';
 import axios from 'axios';
+import '../../styles/login.css';
 
 
-const baseUrl = 'http://localhost:3001';
+const port = 3000;
+const protocol = 'http';
+const host = 'localhost';
 
 class LoginForm extends Component {
 
@@ -15,7 +18,7 @@ class LoginForm extends Component {
 
     onClick = () => {
         const { email, password } = this.state;
-        axios.post(`${baseUrl}/user/login`, { email, password })
+        axios.post(`${protocol}://${host}:${port}/user/login`, { email, password })
             .then(response => this.setState({ userData: response.data }));
     }
 
@@ -41,7 +44,8 @@ class LoginForm extends Component {
                     <div className="login">
                         <input id="email" type="text" placeholder="email" value={email} onChange={this.changeValue} />
                         <input id="password" type="password" placeholder="password" value={password} onChange={this.changeValue} onKeyPress={this.onEnter}/>
-                        <button onClick={this.onClick}>Enter</button>
+                        <button onClick={this.onClick}>Login</button>
+                        <button onClick={this.onClick}>Register</button>
                     </div>
                 </div>
             </div>
