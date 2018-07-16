@@ -6,25 +6,37 @@ import { createStore } from "redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PersonalPage from "./components/PersonalPage";
 import News from "./components/News";
-import "./styles/index.css";
 import LoginForm from "./components/Login";
 import reducer from "./reducers";
+import "./styles/index.css";
 
 const chance = new Chance();
 const getName = () => chance.name().split(" ")[0];
 
+const userData = JSON.parse(localStorage.getItem('login')) || {
+  user: {
+      profile: {
+      name: '',
+      quote: '',
+      birthday: '',
+      company: '',
+      languages: '',
+    }
+  }
+};
+
 const initialState = {
   loggined: false,
   profile: {
-    name: chance.name(),
-    quote: chance.sentence(),
-    status: chance.bool(),
+    name: userData.user.profile.name,
+    quote: userData.user.profile.quote,
+    status: 'Online',
     info: {
-      birthday: chance.birthday({ string: true, child: true }),
-      town: chance.city(),
+      birthday: userData.user.profile.birthday,
+      town: userData.user.profile.town,
       relationship: null,
-      company: null,
-      languages: ["Русский", "English"]
+      company: userData.user.profile.company,
+      languages: [userData.user.profile.languages],
     },
     messages: chance.natural({ min: 3, max: 10 }),
     comments: chance.natural({ min: 3, max: 10 })

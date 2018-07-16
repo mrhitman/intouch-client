@@ -1,9 +1,10 @@
 export default (state, action) => {
 
     switch (action.type) {
+        case 'load':
         case 'login':
             const profile = action.payload.user.profile;
-            console.log(profile);
+            localStorage.setItem('login', JSON.stringify(action.payload));
             return {
                 ...state,
                 profile: {
