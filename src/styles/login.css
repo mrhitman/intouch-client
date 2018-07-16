@@ -30,3 +30,8 @@
 .login button:hover {
   background: #537ba8;
 }
+.loginError {
+  font-size: 0.8em;
+  margin: 10px;
+  color: rgba(255,0,0,0.6);
+}

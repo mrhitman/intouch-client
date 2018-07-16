@@ -15,7 +15,7 @@ const customStyles = {
 };
 class Middle extends Component {
   state = {
-    modalIsOpen: true
+    modalIsOpen: false
   }
 
   render() {

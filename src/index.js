@@ -8,10 +8,9 @@ import PersonalPage from "./components/PersonalPage";
 import News from "./components/News";
 import "./styles/index.css";
 import LoginForm from "./components/Login";
-// import axios from "axios";
+import reducer from "./reducers";
 
 const chance = new Chance();
-const reducer = state => state;
 const getName = () => chance.name().split(" ")[0];
 
 const initialState = {

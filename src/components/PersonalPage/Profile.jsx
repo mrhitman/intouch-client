@@ -6,7 +6,8 @@ const toggleCss = {
     textAlign: 'center',
     color: '#4c77a4',
     fontSize: '0.8em',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    cursor: 'pointer'
 };
 
 class Profile extends Component {
@@ -51,6 +52,7 @@ class Profile extends Component {
     renderMoreInfo() {
         return (
             <div>
+                <div onClick={this.toggleInfo} style={toggleCss}>Show less</div>
                 <div className="profileUser__info">
                     <div className="infoTag">Your life priorities: </div>
                     <div className="infoData">
@@ -61,7 +63,6 @@ class Profile extends Component {
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem amet, porro molestias sint ex blanditiis! Pariatur iusto, qui officiis nam laudantium, omnis vero alias facere ex sed at eligendi vitae.
                     </div>
                 </div>
-                <div onClick={this.toggleInfo} style={toggleCss}>Show less</div>
             </div>
         )
     }
