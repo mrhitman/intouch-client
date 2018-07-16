@@ -14,6 +14,7 @@ const chance = new Chance();
 const getName = () => chance.name().split(" ")[0];
 
 const initialState = {
+  loggined: false,
   profile: {
     name: chance.name(),
     quote: chance.sentence(),
