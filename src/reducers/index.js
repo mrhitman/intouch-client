@@ -2,13 +2,22 @@ export default (state, action) => {
 
     switch (action.type) {
         case 'login':
-            const data = action.payload.user;
-            console.log(data);
+            const profile = action.payload.user.profile;
+            console.log(profile);
             return {
                 ...state,
                 profile: {
                     ...state.profile,
-                    name: `${data.profile.first_name} ${data.profile.last_name}`
+                    name: profile.name,
+                    quote: profile.quote,
+                    status: 'Online',
+                    info: {
+                        ...state.profile.info,
+                        birthday: profile.birthday,
+                        town: profile.town,
+                        company: profile.company,
+                        languages: [profile.language],
+                    }
                 }
             };
         default:
