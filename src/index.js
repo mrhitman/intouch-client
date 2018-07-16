@@ -7,10 +7,13 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PersonalPage from "./components/PersonalPage";
 import News from "./components/News";
 import "./styles/index.css";
+import LoginForm from "./components/Login";
+// import axios from "axios";
 
 const chance = new Chance();
 const reducer = state => state;
 const getName = () => chance.name().split(" ")[0];
+
 const initialState = {
   profile: {
     name: chance.name(),
@@ -70,6 +73,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/personal_page" component={PersonalPage} />
         <Route path="/news" component={News} />
+        <Route path="/login" component={LoginForm} />
         <Route path="" component={PersonalPage} />
       </Switch>
     </BrowserRouter>
