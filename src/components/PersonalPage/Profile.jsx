@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Actions, baseUri } from '../../constats';
+import axios from 'axios';
 
 const toggleCss = {
     margin: '8px',
@@ -13,6 +15,14 @@ const toggleCss = {
 class Profile extends Component {
     state = {
         short: true
+    }
+
+    UNSAFE_componentWillMount() {
+        const { id, token } = this.props;
+        axios.get(`${baseUri}/user/get-profile/${id}`, {}, {
+            headers: { Authorization: `${token}` }
+        })
+        .then(this.getProfile);
     }
 
     render() {
@@ -70,7 +80,11 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => state.user;
-const mapDispatchToState = (dispatch, ownProps) => ({});
+const mapDispatchToState = dispatch => ({
+    getProfile: payload => {
+        dispatch({ type: Actions.getProfile, payload });
+    }
+});
 
 export default connect(
     mapStateToProps,

@@ -3,12 +3,9 @@ import Header from '../common/Header';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import axios from 'axios';
+import { Actions, baseUri } from "../../constats";
 import '../../styles/login.css';
 
-
-const port = 3001;
-const protocol = 'http';
-const host = 'localhost';
 
 class LoginForm extends Component {
 
@@ -22,7 +19,7 @@ class LoginForm extends Component {
     onClick = () => {
         const { email, password } = this.state;
         const { login } = this.props;
-        axios.post(`${protocol}://${host}:${port}/user/login`, { email, password })
+        axios.post(`${baseUri}/user/login`, { email, password })
             .then(response => {
                 this.setState({ loginSuccess: true });
                 login(response.data);
@@ -67,7 +64,8 @@ class LoginForm extends Component {
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
         login: payload => {
-            dispatch({ type: 'login', payload });
+            console.log(payload);
+            dispatch({ type: Actions.login, payload: payload });
         }
 });
 

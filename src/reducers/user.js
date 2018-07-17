@@ -3,6 +3,7 @@ import { Actions } from '../constats';
 
 const intitialState = {
     token: null,
+    id: null,
     profile: {
         name: '',
         first_name: '',
@@ -25,7 +26,7 @@ const intitialState = {
 export default (state = intitialState, action: Action ) => {
     switch (action.type) {
         case Actions.login:
-            return { ...state, token: action.payload, status: true };
+            return { ...state, token: action.payload.token, id: action.payload.user.id, status: true };
         case Actions.logout:
             return intitialState;
         default:
