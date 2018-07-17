@@ -1,27 +1,12 @@
-export default (state, action) => {
+import { combineReducers } from 'redux';
+import user from './user';
+import followers from './followers';
+import friends from './friends';
+import posts from './posts';
 
-    switch (action.type) {
-        case 'load':
-        case 'login':
-            const profile = action.payload.user.profile;
-            localStorage.setItem('login', JSON.stringify(action.payload));
-            return {
-                ...state,
-                profile: {
-                    ...state.profile,
-                    name: profile.name,
-                    quote: profile.quote,
-                    status: 'Online',
-                    info: {
-                        ...state.profile.info,
-                        birthday: profile.birthday,
-                        town: profile.town,
-                        company: profile.company,
-                        languages: [profile.language],
-                    }
-                }
-            };
-        default:
-            return state;
-    }
-}
+export default combineReducers({
+    user,
+    followers,
+    friends,
+    posts,
+});

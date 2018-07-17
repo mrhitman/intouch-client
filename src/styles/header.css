@@ -32,16 +32,19 @@
   display: inline-block;
   position: relative;
   margin: 0 12px 0 100px;
+  cursor: pointer;
 }
 .header .notify-badge {
   display: inline-block;
   position: relative;
   margin: 0 12px;
+  cursor: pointer;
 }
 .header .profile-badge {
   display: inline-block;
   position: relative;
   margin: 0 12px;
+  cursor: pointer;
 }
 .header .message-badge[data-badge]::after,
 .header .notify-badge[data-badge]::after {

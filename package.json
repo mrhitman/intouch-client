@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "chance": "^1.0.16",
     "font-awesome": "^4.7.0",
+    "immutable": "^3.8.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-modal": "^3.4.5",
@@ -23,6 +24,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@types/immutable": "^3.8.7",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-react": "^6.0.0",
     "eslint-plugin-import": "^2.12.0",

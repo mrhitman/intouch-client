@@ -6,7 +6,7 @@ import axios from 'axios';
 import '../../styles/login.css';
 
 
-const port = 3000;
+const port = 3001;
 const protocol = 'http';
 const host = 'localhost';
 
@@ -30,13 +30,13 @@ class LoginForm extends Component {
             .catch(response => this.setState({ loginError: true }));
     }
 
-    onEnter = (e) => {
+    onEnter = e => {
         if (e.key === 'Enter') {
             this.onClick();
         }
     }
 
-    changeValue = (e) => {
+    changeValue = e => {
         this.setState({
             [e.target.id]: e.target.value
         })
@@ -64,19 +64,11 @@ class LoginForm extends Component {
 
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return state;
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
+const mapStateToProps = state => state;
+const mapDispatchToProps = dispatch => ({
         login: payload => {
-            dispatch({
-                type: 'login',
-                payload
-            })
+            dispatch({ type: 'login', payload });
         }
-    };
-}
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

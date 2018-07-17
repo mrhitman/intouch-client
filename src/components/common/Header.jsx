@@ -5,7 +5,7 @@ import "../../styles/header.css";
 
 class Header extends Component {
   render() {
-    const { messages, comments } = this.props;
+    const { messages, comments, isAuthentificated } = this.props;
     return (
       <div className="header">
         <div className="title">in touch</div>
@@ -13,24 +13,28 @@ class Header extends Component {
           <input type="text" size="40" placeholder="Search" />
           <i id="search-icon" className="fa fa-search" />
         </div>
-        <div className="message-badge" data-badge={messages}>
+        {isAuthentificated && <div className="message-badge" data-badge={messages}>
           <i className="fa fa-envelope" />
-        </div>
-        <div className="notify-badge" data-badge={comments}>
+        </div>}
+        {isAuthentificated && <div className="notify-badge" data-badge={comments}>
           <i className="fa fa-comment" />
-        </div>
-        <div className="profile-badge">
+        </div>}
+        {isAuthentificated && <div className="profile-badge">
           <i className="fa fa-user" />
-        </div>
+        </div>}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  messages: state.profile.messages,
-  comments: state.profile.comments
-});
+const mapStateToProps = (state, ownProps) => {
+  const { messages, comments } = state.user.profile;
+  return {
+     messages: messages > 0 ? messages : undefined,
+     comments: comments > 0 ? comments : undefined,
+     isAuthentificated: state.user.status,
+  };
+}
 const mapDispatchToProps = (dispatch, ownProps) => ({});
 
 export default connect(
