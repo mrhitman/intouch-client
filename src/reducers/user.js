@@ -2,10 +2,11 @@ import { Action } from 'redux';
 import { Actions } from '../constats';
 
 const intitialState = {
-    token: null,
-    id: null,
+    token: localStorage.getItem('token'),
+    id: localStorage.getItem('id'),
     profile: {
         name: '',
+        email: '',
         first_name: '',
         last_name: '',
         birthday: '',
@@ -20,15 +21,35 @@ const intitialState = {
         comments: 0,
         messages: 0,
     },
-    status: false,
+    status: !!localStorage.getItem('id'),
 };
 
 export default (state = intitialState, action: Action ) => {
+    console.log(action.type);
     switch (action.type) {
         case Actions.login:
-            return { ...state, token: action.payload.token, id: action.payload.user.id, status: true };
+            localStorage.setItem('id', action.payload.user.id);
+            localStorage.setItem('token', action.payload.token);
+            return {
+                ...state,
+                token: action.payload.token,
+                id: action.payload.user.id,
+                status: true
+            };
         case Actions.logout:
+            localStorage.clear();
             return intitialState;
+        case Actions.getProfile:
+            const userData = action.payload.data[0];
+            console.log(userData);
+            return { 
+                ...state,
+                email: userData.email,
+                profile: {
+                    ...state.profile,
+                    ...userData.profile,
+                }
+            };
         default:
             return state;
     }

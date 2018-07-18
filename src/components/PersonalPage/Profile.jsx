@@ -18,11 +18,11 @@ class Profile extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        const { id, token } = this.props;
-        axios.get(`${baseUri}/user/get-profile/${id}`, {}, {
+        const { id, token, getProfile } = this.props;
+        axios.get(`${baseUri}/user/get-profile/${id}`, {
             headers: { Authorization: `${token}` }
         })
-        .then(this.getProfile);
+        .then(getProfile);
     }
 
     render() {
@@ -86,7 +86,4 @@ const mapDispatchToState = dispatch => ({
     }
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToState,
-)(Profile);
+export default connect(mapStateToProps, mapDispatchToState)(Profile);

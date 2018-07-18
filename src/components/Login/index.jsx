@@ -12,8 +12,7 @@ class LoginForm extends Component {
     state = {
         email: '',
         password: '',
-        loginError: null,
-        loginSuccess: false
+        loginError: null
     }
 
     onClick = () => {
@@ -21,7 +20,6 @@ class LoginForm extends Component {
         const { login } = this.props;
         axios.post(`${baseUri}/user/login`, { email, password })
             .then(response => {
-                this.setState({ loginSuccess: true });
                 login(response.data);
             })
             .catch(response => this.setState({ loginError: true }));
@@ -40,11 +38,11 @@ class LoginForm extends Component {
     }
 
     render() {
-        const { email, password, loginError, loginSuccess } = this.state;
+        const { email, password, loginError } = this.state;
+        const { status } = this.props;
         return (
             <div className="app">
                 <Header />
-
                 <div className="content">
                     <div className="login">
                         <input id="email" type="text" placeholder="email" value={email} onChange={this.changeValue} />
@@ -52,7 +50,7 @@ class LoginForm extends Component {
                         {loginError && <div className="loginError">Invalid user email or password</div>}
                         <button onClick={this.onClick}>Login</button>
                         <button onClick={this.onClick}>Register</button>
-                        {loginSuccess && <Redirect to="/" />}
+                        {status && <Redirect to="/" />}
                     </div>
                 </div>
             </div>
@@ -61,10 +59,9 @@ class LoginForm extends Component {
 
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => state.user;
 const mapDispatchToProps = dispatch => ({
         login: payload => {
-            console.log(payload);
             dispatch({ type: Actions.login, payload: payload });
         }
 });

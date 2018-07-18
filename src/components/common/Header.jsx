@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import "font-awesome/css/font-awesome.min.css";
 import "../../styles/header.css";
@@ -19,8 +20,8 @@ class Header extends Component {
         {isAuthentificated && <div className="notify-badge" data-badge={comments}>
           <i className="fa fa-comment" />
         </div>}
-        {isAuthentificated && <div className="profile-badge">
-          <i className="fa fa-user" />
+        {!isAuthentificated && <div className="profile-badge">
+          <Link to='/login'><i className="fa fa-user" /></Link>
         </div>}
       </div>
     );

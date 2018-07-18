@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Actions } from '../../constats';
 import 'font-awesome/css/font-awesome.min.css';
 import "../../styles/leftMenu.css";
 
@@ -8,7 +10,6 @@ class LeftMenu extends Component {
         return (
             <div className="left-menu">
                 <ul>
-                    <li><Link to='/login'><i className="fa fa-user"></i>Login</Link></li>
                     <li><Link to='/personal_page'><i className="fa fa-file-text-o"></i>My page</Link></li>
                     <li><Link to='/news'><i className="fa fa-newspaper-o"></i>News</Link></li>
                     <li><Link to=''><i className="fa fa-comment"></i>Feedback</Link></li>
@@ -22,11 +23,17 @@ class LeftMenu extends Component {
                 <ul>
                     <li><Link to=''><i className="fa fa-question-circle"></i>Help</Link></li>
                     <li><Link to=''><i className="fa fa-gear"></i>Settings</Link></li>
-                    <li><Link to=''><i className="fa fa-sign-out"></i>Logout</Link></li>
+                    <li><Link to='/' onClick={this.props.logout}><i className="fa fa-sign-out"></i>Logout</Link></li>
                 </ul>
             </div>
         );
     }
 }
 
-export default LeftMenu;
+const mapStateToProps = state => state;
+const mapDispatchToProps = dispatch => ({
+    logout: () => {
+        dispatch({ type: Actions.logout });
+    }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(LeftMenu);
