@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Header from '../common/Header';
+import RegistrationForm from '../Registration';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Actions, baseUri } from "../../constats";
@@ -17,12 +18,8 @@ class LoginForm extends Component {
 
     onClick = () => {
         const { email, password } = this.state;
-        const { login } = this.props;
-        console.log(baseUri, email, password);
         api.login(email, password)
-            .then(response => {
-                login(response.data);
-            })
+            .then(this.props.login)
             .catch(response => this.setState({ loginError: true }));
     }
 
@@ -50,20 +47,21 @@ class LoginForm extends Component {
                         <input id="password" type="password" placeholder="password" value={password} onChange={this.changeValue} onKeyPress={this.onEnter}/>
                         {loginError && <div className="loginError">Invalid user email or password</div>}
                         <button onClick={this.onClick}>Login</button>
-                        <button onClick={this.onClick}>Register</button>
                         {status && <Redirect to="/" />}
+                    </div>
+                    <div className="register">
+                        <RegistrationForm />
                     </div>
                 </div>
             </div>
         );
     }
-
 }
 
 const mapStateToProps = state => state.user;
 const mapDispatchToProps = dispatch => ({
         login: payload => {
-            dispatch({ type: Actions.login, payload: payload });
+            dispatch({ type: Actions.login, payload: payload.data });
         }
 });
 
