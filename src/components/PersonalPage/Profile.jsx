@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions, baseUri } from '../../constats';
-import axios from 'axios';
+import api from '../../services/api';
 
 const toggleCss = {
     margin: '8px',
@@ -19,10 +19,8 @@ class Profile extends Component {
 
     UNSAFE_componentWillMount() {
         const { id, token, getProfile } = this.props;
-        axios.get(`${baseUri}/user/get-profile/${id}`, {
-            headers: { Authorization: `${token}` }
-        })
-        .then(getProfile);
+        api.getProfile(token, id)
+            .then(getProfile);
     }
 
     render() {

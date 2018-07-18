@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Header from '../common/Header';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import axios from 'axios';
 import { Actions, baseUri } from "../../constats";
+import api from '../../services/api';
 import '../../styles/login.css';
 
 
@@ -18,7 +18,8 @@ class LoginForm extends Component {
     onClick = () => {
         const { email, password } = this.state;
         const { login } = this.props;
-        axios.post(`${baseUri}/user/login`, { email, password })
+        console.log(baseUri, email, password);
+        api.login(email, password)
             .then(response => {
                 login(response.data);
             })
