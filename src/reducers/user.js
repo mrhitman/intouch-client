@@ -41,7 +41,6 @@ export default (state = intitialState, action: Action ) => {
             return intitialState;
         case Actions.getProfile:
             const userData = action.payload.data[0];
-            console.log(userData);
             return { 
                 ...state,
                 email: userData.email,
