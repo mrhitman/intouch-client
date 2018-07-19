@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { baseUri } from '../constats';
+import { registerDecorator } from 'handlebars';
 
 export default {
     login(email, password) {
@@ -10,5 +11,15 @@ export default {
         return axios.get(`${baseUri}/user/profile/${id}`, {
             headers: { Authorization: `${token}` }
         })
+    },
+
+    register({ email, password, id }) {
+        return axios.post(`${baseUri}/user/register`, {
+            email,
+            password,
+            first_name: "",
+            last_name: "",
+            birthday: 1123
+        });
     }
 }
