@@ -7,7 +7,7 @@ export default {
     },
 
     getProfile(token, id) {
-        return axios.get(`${baseUri}/user/get-profile/${id}`, {
+        return axios.get(`${baseUri}/user/profile/${id}`, {
             headers: { Authorization: `${token}` }
         })
     }
