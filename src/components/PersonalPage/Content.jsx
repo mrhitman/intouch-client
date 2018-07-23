@@ -9,12 +9,13 @@ import "../../styles/rightPart.css";
 
 class Content extends Component {
   render() {
+    const { user_id } = this.props;
     return (
       <div className="content">
         <LeftMenu />
         <Middle />
         <div className="rightPart">
-          <Profile />
+          <Profile user_id={user_id}/>
           <Photos />
           <Wall />
         </div>

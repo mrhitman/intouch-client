@@ -11,6 +11,7 @@ import LoginForm from "./components/Login";
 import reducer from "./reducers";
 
 import "./styles/index.css";
+import UpdateProfile from "./components/PersonalPage/Update";
 
 
 const store = createStore(reducer);
@@ -19,10 +20,10 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route path="/personal_page" component={PersonalPage} />
+        <Route path="/update" component={UpdateProfile} />
         <Route path="/news" component={News} />
-        <Route path="/login" component={LoginForm} />
-        <Route path="" component={PersonalPage} />
+        <Route path="/:id" component={PersonalPage} />
+        <Route path="/" component={LoginForm} />
       </Switch>
     </BrowserRouter>
   </Provider>,

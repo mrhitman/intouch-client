@@ -4,10 +4,11 @@ import Content from './Content';
 
 class PersonalPage extends Component {
     render() {
+        const { match } = this.props;
         return (
             <div className="app">
                 <Header />
-                <Content />
+                <Content user_id={match.params.id} />
             </div>
         );
     }

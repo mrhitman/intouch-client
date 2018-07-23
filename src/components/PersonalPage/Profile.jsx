@@ -18,8 +18,8 @@ class Profile extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        const { id, token, getProfile } = this.props;
-        api.getProfile(token, id)
+        const { user_id, token, getProfile } = this.props;
+        api.getProfile(token, user_id)
             .then(getProfile);
     }
 

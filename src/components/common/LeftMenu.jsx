@@ -10,9 +10,9 @@ class LeftMenu extends Component {
         return (
             <div className="left-menu">
                 <ul>
-                    <li><Link to='/personal_page'><i className="fa fa-file-text-o"></i>My page</Link></li>
+                    <li><Link to='/'><i className="fa fa-file-text-o"></i>My page</Link></li>
                     <li><Link to='/news'><i className="fa fa-newspaper-o"></i>News</Link></li>
-                    <li><Link to=''><i className="fa fa-comment"></i>Feedback</Link></li>
+                    <li><Link to='/update'><i className="fa fa-comment"></i>Feedback</Link></li>
                     <li><Link to=''><i className="fa fa-envelope"></i>Messages</Link></li>
                     <li><Link to=''><i className="fa fa-user"></i>Friends</Link></li>
                     <li><Link to=''><i className="fa fa-users"></i>Communities</Link></li>

@@ -37,7 +37,8 @@ class LoginForm extends Component {
 
     render() {
         const { email, password, loginError } = this.state;
-        const { status } = this.props;
+        const { status, id } = this.props;
+        console.log(id);
         return (
             <div className="app">
                 <Header />
@@ -47,7 +48,7 @@ class LoginForm extends Component {
                         <input id="password" type="password" placeholder="password" value={password} onChange={this.changeValue} onKeyPress={this.onEnter}/>
                         {loginError && <div className="loginError">Invalid user email or password</div>}
                         <button onClick={this.onClick}>Login</button>
-                        {status && <Redirect to="/" />}
+                        {status && <Redirect to={`/${id}`} />}
                     </div>
                     <div className="register">
                         <RegistrationForm />
