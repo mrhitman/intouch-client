@@ -7,14 +7,15 @@
   font-size: 1.34em;
   font-weight: bold;
   color: #ecedef;
+  margin-left: calc((100vw - 925px) / 2);
 }
 .header .find {
   display: inline-block;
   margin: 0 0 0 12px;
 }
 .header .find input {
-  size: 180px;
-  height: 35px;
+  width: 280px;
+  height: 30px;
   border-radius: 20px;
   text-indent: 12px;
   font-size: 0.9em;
@@ -23,32 +24,19 @@
 .header .find input:focus {
   outline: none;
 }
-.header #search-icon {
+.header .find #search-icon {
   position: relative;
   margin: 10px 0 0 -30px;
   color: #8296a4;
 }
-.header .message-badge {
-  display: inline-block;
-  position: relative;
-  margin: 0 12px 0 100px;
-  cursor: pointer;
-}
-.header .notify-badge {
+.header .badge {
   display: inline-block;
   position: relative;
   margin: 0 12px;
   cursor: pointer;
 }
-.header .profile-badge {
-  display: inline-block;
-  position: relative;
-  margin: 0 12px;
-  cursor: pointer;
-}
-.header .message-badge[data-badge]::after,
-.header .notify-badge[data-badge]::after {
-  content: attr(data-badge);
+.header .badge[data-badge]::after,
+.header content:attr(data-badge) {
   position: absolute;
   top: -9px;
   right: -9px;

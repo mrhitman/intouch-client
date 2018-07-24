@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import Header from '../common/Header';
-import Content from './Content';
+import LeftMenu from '../common/LeftMenu';
+import Photos from './Photos';
+import Profile from './Profile';
+import Wall from './Wall';
+import Middle from './Middle';
+import "../../styles/middle.css";
+import "../../styles/rightPart.css";
 
 class PersonalPage extends Component {
     render() {
@@ -8,7 +14,15 @@ class PersonalPage extends Component {
         return (
             <div className="app">
                 <Header />
-                <Content user_id={match.params.id} />
+                <div className="content">
+                    <LeftMenu />
+                    <Middle />
+                    <div className="rightPart">
+                        <Profile user_id={match.params.id} />
+                        <Photos />
+                        <Wall />
+                    </div>
+                </div>
             </div>
         );
     }

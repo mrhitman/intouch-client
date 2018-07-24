@@ -9,18 +9,17 @@ const toggleCss = {
     color: '#4c77a4',
     fontSize: '0.8em',
     fontWeight: 'bold',
-    cursor: 'pointer'
+    cursor: 'pointer',
 };
 
 class Profile extends Component {
     state = {
-        short: true
-    }
+        short: true,
+    };
 
     UNSAFE_componentWillMount() {
         const { user_id, token, getProfile } = this.props;
-        api.getProfile(token, user_id)
-            .then(getProfile);
+        api.getProfile(token, user_id).then(getProfile);
     }
 
     render() {
@@ -43,7 +42,7 @@ class Profile extends Component {
                     <div className="infoTag">Language: </div>
                     <div className="infoData">{profile.languages}</div>
                 </div>
-                {this.state.short ? this.renderShortInfo() : this.renderMoreInfo() }
+                {this.state.short ? this.renderShortInfo() : this.renderMoreInfo()}
                 <div className="line" />
             </div>
         );
@@ -52,7 +51,9 @@ class Profile extends Component {
     renderShortInfo() {
         return (
             <div>
-                <div onClick={this.toggleInfo} style={toggleCss}>Show more</div>
+                <div onClick={this.toggleInfo} style={toggleCss}>
+                    Show more
+                </div>
             </div>
         );
     }
@@ -61,27 +62,32 @@ class Profile extends Component {
         const { profile } = this.props;
         return (
             <div>
-                <div onClick={this.toggleInfo} style={toggleCss}>Show less</div>
+                <div onClick={this.toggleInfo} style={toggleCss}>
+                    Show less
+                </div>
                 <div className="profileUser__info">
                     <div className="infoTag">Your life priorities: </div>
-                    <div className="infoData">{ profile.priorities }</div>
+                    <div className="infoData">{profile.priorities}</div>
                     <div className="infoTag">Your hobbies: </div>
-                    <div className="infoData">{ profile.hobbies }</div>
+                    <div className="infoData">{profile.hobbies}</div>
                 </div>
             </div>
-        )
+        );
     }
 
     toggleInfo = () => {
-        this.setState(({ short }) => ({ short: !short}));
-    }
+        this.setState(({ short }) => ({ short: !short }));
+    };
 }
 
 const mapStateToProps = state => state.user;
 const mapDispatchToState = dispatch => ({
     getProfile: payload => {
         dispatch({ type: Actions.getProfile, payload });
-    }
+    },
 });
 
-export default connect(mapStateToProps, mapDispatchToState)(Profile);
+export default connect(
+    mapStateToProps,
+    mapDispatchToState,
+)(Profile);
