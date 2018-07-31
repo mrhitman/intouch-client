@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Avatar, Badge, Dropdown, Menu, Layout, Input, Row, Col, Icon } from 'antd';
@@ -18,26 +18,30 @@ class Header extends Component {
                             style={{ width: 260 }}
                         />
                     </Col>
-                    <Col offset={5} span={1}>
-                        <Badge count={3} dot>
-                            <Icon type="message" />
-                        </Badge>
-                    </Col>
-                    <Col span={1}>
-                        <Badge count={3} dot>
-                            <Icon type="mail" />
-                        </Badge>
-                    </Col>
-                    <Col span={1}>
-                        <Badge count={3} dot>
-                            <Icon type="user" />
-                        </Badge>
-                    </Col>
-                    <Col span={1} offset={1}>
-                        <Dropdown overlay={this.drawMenu()} trigger={['click']}>
-                            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                        </Dropdown>
-                    </Col>
+                    {isAuthentificated && (
+                        <Fragment>
+                            <Col offset={5} span={1}>
+                                <Badge count={3} dot>
+                                    <Icon type="message" />
+                                </Badge>
+                            </Col>
+                            <Col span={1}>
+                                <Badge count={3} dot>
+                                    <Icon type="mail" />
+                                </Badge>
+                            </Col>
+                            <Col span={1}>
+                                <Badge count={3} dot>
+                                    <Icon type="user" />
+                                </Badge>
+                            </Col>
+                            <Col span={1}>
+                                <Dropdown overlay={this.drawMenu()} trigger={['click']}>
+                                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                </Dropdown>
+                            </Col>
+                        </Fragment>
+                    )}
                 </Row>
             </Layout.Header>
         );
