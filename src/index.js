@@ -10,7 +10,8 @@ import LoginForm from "./components/Login";
 
 import reducer from "./reducers";
 
-import "./styles/index.css";
+// import "./styles/index.css";
+import 'antd/dist/antd.css';
 import UpdateProfile from "./components/PersonalPage/Update";
 
 

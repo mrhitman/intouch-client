@@ -1,67 +1,24 @@
+import { Layout } from 'antd';
 import React, { Component } from 'react';
-import Header from '../common/Header';
-import RegistrationForm from '../Registration';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import { Actions, baseUri } from '../../constats';
-import api from '../../services/api';
-import '../../styles/login.css';
+import { Actions } from '../../constats';
+import Header from '../common/Header';
 
 class LoginForm extends Component {
-    state = {
-        email: '',
-        password: '',
-        loginError: null,
-    };
-
-    onClick = () => {
-        const { email, password } = this.state;
-        api.login(email, password)
-            .then(this.props.login)
-            .catch(response => this.setState({ loginError: true }));
-    };
-
-    onEnter = e => {
-        if (e.key === 'Enter') {
-            this.onClick();
-        }
-    };
-
-    changeValue = e => {
-        this.setState({
-            [e.target.id]: e.target.value,
-        });
-    };
-
     render() {
-        const { email, password, loginError } = this.state;
-        const { status, id } = this.props;
-        console.log(id);
         return (
-            <div className="app">
+            <Layout>
                 <Header />
-                <div className="content">
-                    <div className="login">
-                        <input id="email" type="text" placeholder="email" value={email} onChange={this.changeValue} />
-                        <input
-                            id="password"
-                            type="password"
-                            placeholder="password"
-                            value={password}
-                            onChange={this.changeValue}
-                            onKeyPress={this.onEnter}
-                        />
-                        {loginError && <div className="loginError">Invalid user email or password</div>}
-                        <button onClick={this.onClick}>Login</button>
-                        {status && <Redirect to={`/${id}`} />}
-                    </div>
-                    <div className="register">
-                        <RegistrationForm />
-                    </div>
-                </div>
-            </div>
+                <Layout>
+                    <Layout.Sider style={{ background: '#F2F3F4' }} ></Layout.Sider>
+                    <Layout.Content style={{ background: '#FDFEFE', height: 'calc(100vh - 114px)' }}>Content</Layout.Content>
+                    <Layout.Sider style={{ background: '#EAF2F8' }} ></Layout.Sider>
+                </Layout>
+                <Layout.Footer />
+            </Layout>
         );
     }
+
 }
 
 const mapStateToProps = state => state.user;

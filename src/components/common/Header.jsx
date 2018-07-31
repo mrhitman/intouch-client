@@ -1,30 +1,61 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import 'font-awesome/css/font-awesome.min.css';
-import '../../styles/header.css';
+import { Avatar, Badge, Dropdown, Menu, Layout, Input, Row, Col, Icon } from 'antd';
 
 class Header extends Component {
     render() {
         const { messages, comments, isAuthentificated } = this.props;
         return (
-            <div className="header">
-                <div className="title">in touch</div>
-                <div className="find">
-                    <input type="text" placeholder="Search" />
-                    <i id="search-icon" className="fa fa-search" />
-                </div>
-                {isAuthentificated && (
-                    <div className="badge" data-badge={messages}>
-                        <i className="fa fa-envelope" />
-                    </div>
-                )}
-                {isAuthentificated && (
-                    <div className="badge" data-badge={comments}>
-                        <i className="fa fa-comment" />
-                    </div>
-                )}
-            </div>
+            <Layout.Header className='header' style={{ background: '#2980B9' }}>
+                <Row>
+                    <Col offset={4} span={2} style={{ fontSize: 24 }}>
+                        in touch
+                        </Col>
+                    <Col span={4}>
+                        <Input.Search
+                            placeholder='search ...'
+                            style={{ width: 260 }}
+                        />
+                    </Col>
+                    <Col offset={5} span={1}>
+                        <Badge count={3} dot>
+                            <Icon type="message" />
+                        </Badge>
+                    </Col>
+                    <Col span={1}>
+                        <Badge count={3} dot>
+                            <Icon type="mail" />
+                        </Badge>
+                    </Col>
+                    <Col span={1}>
+                        <Badge count={3} dot>
+                            <Icon type="user" />
+                        </Badge>
+                    </Col>
+                    <Col span={1} offset={1}>
+                        <Dropdown overlay={this.drawMenu()} trigger={['click']}>
+                            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                        </Dropdown>
+                    </Col>
+                </Row>
+            </Layout.Header>
+        );
+    }
+
+    drawMenu() {
+        return (
+            <Menu>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3rd menu item</a>
+                </Menu.Item>
+            </Menu>
         );
     }
 }
@@ -32,8 +63,8 @@ class Header extends Component {
 const mapStateToProps = (state, ownProps) => {
     const { messages, comments } = state.user.profile;
     return {
-        messages: messages > 0 ? messages : undefined,
-        comments: comments > 0 ? comments : undefined,
+        messages,
+        comments,
         isAuthentificated: state.user.status,
     };
 };
