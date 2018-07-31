@@ -2,74 +2,40 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
-import 'font-awesome/css/font-awesome.min.css';
-import '../../styles/leftMenu.css';
+import { Menu, Icon } from 'antd';
+
+const { Item } = Menu;
 
 class LeftMenu extends Component {
     render() {
         return (
-            <div className="left-menu">
-                <ul>
-                    <li>
-                        <Link to="/">
-                            <i className="fa fa-file-text-o" />My page
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/news">
-                            <i className="fa fa-newspaper-o" />News
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/update">
-                            <i className="fa fa-comment" />Feedback
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="">
-                            <i className="fa fa-envelope" />Messages
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="">
-                            <i className="fa fa-user" />Friends
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="">
-                            <i className="fa fa-users" />Communities
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="">
-                            <i className="fa fa-image" />Photos
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="">
-                            <i className="fa fa-bookmark" />Bookmarks
-                        </Link>
-                    </li>
-                </ul>
-                <div className="line" />
-                <ul>
-                    <li>
-                        <Link to="">
-                            <i className="fa fa-question-circle" />Help
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="">
-                            <i className="fa fa-gear" />Settings
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" onClick={this.props.logout}>
-                            <i className="fa fa-sign-out" />Logout
-                        </Link>
-                    </li>
-                </ul>
-            </div>
+            <Menu mode='inline'>
+                <Item>
+                    <Icon type="profile" />
+                    <span>Personal page</span>
+                </Item>
+                <Item>
+                    <Icon type="message" />
+                    <span>Feed</span>
+                </Item>
+                <Item>
+                    <Icon type="mail" />
+                    <span>Messages</span>
+                </Item>
+                <Item>
+                    <Icon type="team" />
+                    <span>Groups</span>
+                </Item>
+                <Item>
+                    <Icon type="picture" />
+                    <span>Pictures</span>
+                </Item>
+                <br/>
+                <Item>
+                    <Icon type="setting" />
+                    <span>Setting</span>
+                </Item>
+            </Menu>
         );
     }
 }
