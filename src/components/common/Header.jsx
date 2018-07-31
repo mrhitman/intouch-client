@@ -1,7 +1,6 @@
+import { Avatar, Badge, Col, Dropdown, Icon, Input, Layout, Menu, Row } from 'antd';
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Avatar, Badge, Dropdown, Menu, Layout, Input, Row, Col, Icon } from 'antd';
 
 class Header extends Component {
     render() {

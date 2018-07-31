@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from '../common/Header';
+import Layout from '../common/Layout';
 import LeftMenu from '../common/LeftMenu';
 import Photos from './Photos';
 import Profile from './Profile';
@@ -12,18 +12,15 @@ class PersonalPage extends Component {
     render() {
         const { match } = this.props;
         return (
-            <div className="app">
-                <Header />
-                <div className="content">
-                    <LeftMenu />
-                    <Middle />
-                    <div className="rightPart">
-                        <Profile user_id={match.params.id} />
-                        <Photos />
-                        <Wall />
-                    </div>
+            <Layout>
+                <LeftMenu />
+                <Middle />
+                <div className="rightPart">
+                    <Profile user_id={match.params.id} />
+                    <Photos />
+                    <Wall />
                 </div>
-            </div>
+            </Layout>
         );
     }
 }

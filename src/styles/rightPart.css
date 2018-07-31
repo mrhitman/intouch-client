@@ -4,7 +4,6 @@
 .profile {
   background: #fff;
   display: inline-block;
-  float: right;
   width: 446px;
   margin: 0 12px;
 }
@@ -54,11 +53,9 @@
   max-width: 230px;
   max-height: 95px;
   width: auto;
-  height: auto;
   margin: 4px;
 }
 .wall {
-  height: 40vh;
 }
 .wallPosts {
   display: block;
