@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Divider } from 'antd';
 
 const { Item } = Menu;
 
@@ -30,7 +30,7 @@ class LeftMenu extends Component {
                     <Icon type="picture" />
                     <span>Pictures</span>
                 </Item>
-                <br/>
+                <Divider />
                 <Item>
                     <Icon type="setting" />
                     <span>Setting</span>

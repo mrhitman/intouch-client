@@ -1,4 +1,4 @@
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Divider } from 'antd';
 import React, { Component, Fragment } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
@@ -45,13 +45,13 @@ class Middle extends Component {
                 </div>
                 <Button type='primary'>Send a message</Button>
                 <div>Unknown is your friend</div>
-                <br />
+                <Divider />
                 <div >{this.props.followerCount} followers</div>
                 {this.renderPeople(this.props.followers)}
-                <br />
+                <Divider />
                 <div>{this.props.friendCount} friends</div>
                 {this.renderPeople(this.props.friends)}
-                <br />
+                <Divider />
             </div>
         );
     }
