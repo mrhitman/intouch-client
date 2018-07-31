@@ -1,4 +1,4 @@
-import { Button, Col, Row, Divider } from 'antd';
+import { Avatar, Button, Col, Divider, Row } from 'antd';
 import React, { Component, Fragment } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
@@ -46,9 +46,11 @@ class Middle extends Component {
                 <Button type='primary'>Send a message</Button>
                 <div>Unknown is your friend</div>
                 <Divider />
+
                 <div >{this.props.followerCount} followers</div>
                 {this.renderPeople(this.props.followers)}
                 <Divider />
+
                 <div>{this.props.friendCount} friends</div>
                 {this.renderPeople(this.props.friends)}
                 <Divider />
@@ -69,7 +71,7 @@ class Middle extends Component {
             <Row>
                 {people.map(person => (
                     <Col key={person.id} span={7}>
-                        <img src={person.photoMini} alt="" style={{ width: 40, height: 40 }} />
+                        <Avatar size="large" shape="square" src={person.photoMini} />
                         <Link to={`/${person.id}`}>
                             <div className="name">{person.name}</div>
                         </Link>
