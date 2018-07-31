@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import { Button, Col, Row } from 'antd';
+import React, { Component, Fragment } from 'react';
+import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Modal from 'react-modal';
 
 const customStyles = {
     content: {
@@ -22,14 +23,14 @@ class Middle extends Component {
         return (
             <div className="middle">
                 <div className="photo">
-                    <img src="photo.jpg" alt="" onClick={this.openModal} />
+                    <img src="photo.jpg" alt="" onClick={this.openModal} style={{ height: 200, margin: 12 }} />
                     <Modal
                         isOpen={this.state.modalIsOpen}
                         onRequestClose={this.closeModal}
                         style={customStyles}
                         contentLabel="Example Modal"
                     >
-                        <div>
+                        <Fragment>
                             <img src="photo-full.jpg" alt="" style={{ width: '800px' }} />
                             <div style={{ marginLeft: '10px', width: '300px', float: 'right', display: 'block' }}>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis animi in magni
@@ -39,20 +40,18 @@ class Middle extends Component {
                                 quos molestias quod consequatur numquam exercitationem sed praesentium cumque ut. Soluta
                                 ex temporibus modi quam?
                             </div>
-                        </div>
+                        </Fragment>
                     </Modal>
                 </div>
-                <div className="sendButton">Send a message</div>
-                <div className="info">Unknown is your friend</div>
-                <div className="line" />
-                <div>
-                    <div className="status">{this.props.followerCount} followers</div>
-                    {this.renderPeople(this.props.followers)}
-                    <div className="line" />
-                    <div className="status">{this.props.friendCount} friends</div>
-                    {this.renderPeople(this.props.friends)}
-                </div>
-                <div className="line" />
+                <Button type='primary'>Send a message</Button>
+                <div>Unknown is your friend</div>
+                <br />
+                <div >{this.props.followerCount} followers</div>
+                {this.renderPeople(this.props.followers)}
+                <br />
+                <div>{this.props.friendCount} friends</div>
+                {this.renderPeople(this.props.friends)}
+                <br />
             </div>
         );
     }
@@ -67,16 +66,16 @@ class Middle extends Component {
 
     renderPeople(people) {
         return (
-            <div className="people">
+            <Row>
                 {people.map(person => (
-                    <div className="person" key={person.id}>
-                        <img src={person.photoMini} alt="" />
-                        <Link to="/">
+                    <Col key={person.id} span={7}>
+                        <img src={person.photoMini} alt="" style={{ width: 40, height: 40 }} />
+                        <Link to={`/${person.id}`}>
                             <div className="name">{person.name}</div>
                         </Link>
-                    </div>
+                    </Col>
                 ))}
-            </div>
+            </Row>
         );
     }
 }

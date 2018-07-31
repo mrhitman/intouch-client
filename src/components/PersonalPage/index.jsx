@@ -6,7 +6,6 @@ import Profile from './Profile';
 import Wall from './Wall';
 import Middle from './Middle';
 import { Row, Col } from 'antd';
-import "../../styles/middle.css";
 import "../../styles/rightPart.css";
 
 class PersonalPage extends Component {
