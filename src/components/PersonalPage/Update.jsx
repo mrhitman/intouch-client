@@ -10,6 +10,11 @@ const formItemLayout = {
     wrapperCol: { span: 14 },
 };
 
+const formSubmitLayout = {
+    xs: { span: 24, offset: 0 },
+    sm: { span: 14, offset: 4 },
+}
+
 class UpdateProfile extends Component {
 
     handleSubmit = (e) => {
@@ -45,10 +50,7 @@ class UpdateProfile extends Component {
                                 <FormItem label='Company' {...formItemLayout}>
                                     {getFieldDecorator('Company', { rules: [{ required: true }] })(<Input />)}
                                 </FormItem>
-                                <FormItem wrapperCol={{
-                                    xs: { span: 24, offset: 0 },
-                                    sm: { span: 14, offset: 4 },
-                                }}>
+                                <FormItem wrapperCol={formSubmitLayout}>
                                     <Button type="primary" onClick={this.handleSubmit}>Update</Button>
                                 </FormItem>
                             </Tabs.TabPane>
@@ -59,10 +61,7 @@ class UpdateProfile extends Component {
                                 <FormItem label='Priorities' {...formItemLayout}>
                                     {getFieldDecorator('priorities')(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
                                 </FormItem>
-                                <FormItem wrapperCol={{
-                                    xs: { span: 24, offset: 0 },
-                                    sm: { span: 14, offset: 4 },
-                                }}>
+                                <FormItem wrapperCol={formSubmitLayout}>
                                     <Button type="primary" onClick={this.handleSubmit}>Update</Button>
                                 </FormItem>
                             </Tabs.TabPane>
