@@ -1,3 +1,4 @@
+import { Card } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -14,13 +15,13 @@ class Wall extends Component {
 
     renderPost(post) {
         return (
-            <div className="wallPost" key={post.id}>
+            <Card className="wallPost" key={post.id}>
                 <div className="wallPost__photo">
                     <img src={post.author.photo} alt="" />
                 </div>
                 <div className="wallPost__name">{post.author.name}</div>
                 <div className="wallPost__content">{post.content}</div>
-            </div>
+            </Card>
         );
     }
 }

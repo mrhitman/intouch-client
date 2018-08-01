@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions, baseUri } from '../../constats';
 import api from '../../services/api';
+import { Divider } from 'antd';
 
 const toggleCss = {
     margin: '8px',
@@ -29,7 +30,7 @@ class Profile extends Component {
                 <div className="profileUser__status">{status ? 'Online' : 'Offline'}</div>
                 <div className="profileUser__name">{profile.name}</div>
                 <div className="profileUser__quote">{profile.quote}</div>
-                <div className="line" />
+                <Divider />
                 <div className="profileUser__info">
                     <div className="infoTag">Birthday: </div>
                     <div className="infoData">{profile.birthday}</div>
@@ -43,7 +44,7 @@ class Profile extends Component {
                     <div className="infoData">{profile.languages}</div>
                 </div>
                 {this.state.short ? this.renderShortInfo() : this.renderMoreInfo()}
-                <div className="line" />
+                <Divider />
             </div>
         );
     }

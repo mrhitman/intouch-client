@@ -1,3 +1,4 @@
+import { Divider } from 'antd';
 import React, { Component } from 'react';
 
 class Photos extends Component {
@@ -8,6 +9,7 @@ class Photos extends Component {
                 <img src="photo.jpg" alt="" />
                 <img src="photo.jpg" alt="" />
                 <img src="photo.jpg" alt="" />
+                <Divider />
             </div>
         );
     }

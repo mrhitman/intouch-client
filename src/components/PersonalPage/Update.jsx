@@ -1,41 +1,52 @@
+import { Button, Checkbox, DatePicker, Col, Form, Icon, Input, Row } from 'antd';
 import React, { Component } from 'react';
+import Layout from '../common/Layout';
 import LeftMenu from '../common/LeftMenu';
-import Header from '../common/Header';
-import '../../styles/update.css';
+
+const FormItem = Form.Item;
+
+const formItemLayout = {
+    labelCol: { span: 5 },
+    wrapperCol: { span: 12 },
+};
 
 class UpdateProfile extends Component {
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            console.log(values);
+        });
+    }
+
     render() {
+        const { getFieldDecorator } = this.props.form;
         return (
-            <div className="app">
-                <Header />
-                <div className="content">
-                    <LeftMenu />
-                    <div className="options">
-                        <h3>Common</h3>
-                        <div className="attribute">
-                            <label htmlFor="name">Name: </label>
-                            <input id="name" type="text" />
-                        </div>
-                        <div className="attribute">
-                            <label htmlFor="last_name">Last name: </label>
-                            <input id="last_name" type="text" />
-                        </div>
-                        <div className="attribute">
-                            <label htmlFor="gender">Gender: </label>
-                            <select id="gender" type="text">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div>
-                        <div className="attribute">
-                            <label htmlFor="birthday">Birthday: </label>
-                            <input id="birthday" type="text" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Layout >
+                <Row>
+                    <Col span={5}>
+                        <LeftMenu />
+                    </Col>
+                    <Col span={18} style={{ margin: '30px 0 0 10px' }}>
+                        <Form onSubmit={this.handleSubmit} layout='vertical' >
+                            <FormItem label='Name' {...formItemLayout} >
+                                {getFieldDecorator('name', { rules: [{ required: true }] })(<Input />)}
+                            </FormItem>
+                            <FormItem label='Second name' {...formItemLayout}>
+                                {getFieldDecorator('name', { rules: [{ required: true }] })(<Input />)}
+                            </FormItem>
+                            <FormItem label='Birthday' {...formItemLayout}>
+                                {getFieldDecorator('birthday', { rules: [{ required: true }] })(<DatePicker />)}
+                            </FormItem>
+                            <FormItem span={24} offset={0}>
+                                <Button type="primary" htmlType="submit">Update</Button>
+                            </FormItem>
+                        </Form>
+                    </Col>
+                </Row>
+            </Layout >
         );
     }
 }
 
-export default UpdateProfile;
+export default Form.create()(UpdateProfile);
