@@ -12,7 +12,7 @@ class LeftMenu extends Component {
             <Menu mode='inline'>
                 <Item>
                     <Icon type="profile" />
-                    <span>Personal page</span>
+                    <span><Link to='/' >Personal page</Link></span>
                 </Item>
                 <Item>
                     <Icon type="message" />

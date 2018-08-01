@@ -1,7 +1,9 @@
 import { Button, Checkbox, Col, Form, Icon, Input, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import { Actions } from '../../constats';
+import api from '../../services/api';
 import Layout from '../common/Layout';
 
 const FormItem = Form.Item;
@@ -10,16 +12,19 @@ class LoginForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
+            const { email, password } = values;
+            api.login(email, password)
+                .then(this.props.login)
+                .catch(response => this.setState({ loginError: true }));
         });
     }
 
     render() {
         const { getFieldDecorator } = this.props.form;
+        const { id, status } = this.props;
         return (
             <Layout>
+                {status && <Redirect to={`/${id}`} />}
                 <Row>
                     <Col offset={1} span={7} style={{ margin: 12 }}>
                         <Form onSubmit={this.handleSubmit} className="login-form" style={{ maxWidth: 300 }}>

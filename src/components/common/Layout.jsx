@@ -12,11 +12,10 @@ class BasicLayout extends Component {
             <Layout>
                 <Header />
                 <Layout>
-                    <Sider style={{ background: '#F2F3F4' }} ></Sider>
-                    <Content style={{ background: '#FDFEFE', height: 'calc(100vh - 80px)' }}>
+                    <Sider width={180} style={{ background: '#FDFEFE' }} ></Sider>
+                    <Content style={{ background: '#FDFEFE', height: 'calc(100vh - 80px)', paddingRight: 180 }}>
                         {this.props.children}
                     </Content>
-                    <Sider style={{ background: '#EAF2F8' }} ></Sider>
                 </Layout>
             </Layout>
         );

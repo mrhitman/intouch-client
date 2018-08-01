@@ -1,6 +1,7 @@
-import { Avatar, Badge, Col, Dropdown, Icon, Input, Layout, Menu, Row } from 'antd';
+import { Avatar, Badge, Col, Divider, Dropdown, Icon, Input, Layout, Menu, Row } from 'antd';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
     render() {
@@ -19,7 +20,7 @@ class Header extends Component {
                     </Col>
                     {isAuthentificated && (
                         <Fragment>
-                            <Col offset={5} span={1}>
+                            <Col offset={7} span={1}>
                                 <Badge count={3} dot>
                                     <Icon type="message" />
                                 </Badge>
@@ -55,8 +56,9 @@ class Header extends Component {
                 <Menu.Item>
                     <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
                 </Menu.Item>
+                <Divider />
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3rd menu item</a>
+                    <Link to='/logout' >Logout</Link>
                 </Menu.Item>
             </Menu>
         );
