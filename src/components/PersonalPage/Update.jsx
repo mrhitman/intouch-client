@@ -6,8 +6,8 @@ import LeftMenu from '../common/LeftMenu';
 const FormItem = Form.Item;
 
 const formItemLayout = {
-    labelCol: { span: 5 },
-    wrapperCol: { span: 12 },
+    labelCol: { span: 4 },
+    wrapperCol: { span: 14 },
 };
 
 class UpdateProfile extends Component {
@@ -28,20 +28,27 @@ class UpdateProfile extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={18} style={{ margin: '30px 0 0 10px' }}>
-                        <Form onSubmit={this.handleSubmit} layout='vertical' >
-                            <FormItem label='Name' {...formItemLayout} >
-                                {getFieldDecorator('name', { rules: [{ required: true }] })(<Input />)}
-                            </FormItem>
-                            <FormItem label='Second name' {...formItemLayout}>
-                                {getFieldDecorator('name', { rules: [{ required: true }] })(<Input />)}
-                            </FormItem>
-                            <FormItem label='Birthday' {...formItemLayout}>
-                                {getFieldDecorator('birthday', { rules: [{ required: true }] })(<DatePicker />)}
-                            </FormItem>
-                            <FormItem span={24} offset={0}>
-                                <Button type="primary" htmlType="submit">Update</Button>
-                            </FormItem>
-                        </Form>
+                        <FormItem label='Name' {...formItemLayout} >
+                            {getFieldDecorator('name', { rules: [{ required: true }] })(<Input />)}
+                        </FormItem>
+                        <FormItem label='Second name' {...formItemLayout}>
+                            {getFieldDecorator('name', { rules: [{ required: true }] })(<Input />)}
+                        </FormItem>
+                        <FormItem label='Birthday' {...formItemLayout}>
+                            {getFieldDecorator('birthday', { rules: [{ required: true }] })(<DatePicker />)}
+                        </FormItem>
+                        <FormItem label='Hometown' {...formItemLayout}>
+                            {getFieldDecorator('hometown', { rules: [{ required: true }] })(<Input />)}
+                        </FormItem>
+                        <FormItem label='Company' {...formItemLayout}>
+                            {getFieldDecorator('Company', { rules: [{ required: true }] })(<Input />)}
+                        </FormItem>
+                        <FormItem wrapperCol={{
+                            xs: { span: 24, offset: 0 },
+                            sm: { span: 14, offset: 4 },
+                        }}>
+                            <Button type="primary" onClick={this.handleSubmit}>Update</Button>
+                        </FormItem>
                     </Col>
                 </Row>
             </Layout >
