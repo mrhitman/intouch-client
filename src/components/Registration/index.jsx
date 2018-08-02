@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Input, message, Select, Steps } from 'antd';
+import { Button, Checkbox, DatePicker, Form, Input, message, Select, Steps } from 'antd';
 import React, { Component, Fragment } from 'react';
 
 const FormItem = Form.Item;
@@ -14,6 +14,7 @@ const formItemLayout = {
         sm: { span: 16 },
     },
 };
+
 const tailFormItemLayout = {
     wrapperCol: {
         xs: {
@@ -114,7 +115,7 @@ class RegistrationForm extends Component {
                 )
             },
             {
-                title: 'Additional info',
+                title: 'Additional info && Finish',
                 content: (
                     <Fragment>
                         <FormItem label='Hobbies' {...formItemLayout}>
@@ -123,11 +124,11 @@ class RegistrationForm extends Component {
                         <FormItem label='Priorities' {...formItemLayout}>
                             {getFieldDecorator('priorities')(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
                         </FormItem>
+                        <FormItem {...tailFormItemLayout}>
+                            {getFieldDecorator('agreement', { valuePropName: 'checked' })(<Checkbox>I have read the <a href="">agreement</a></Checkbox>)}
+                        </FormItem>
                     </Fragment>
                 )
-            },
-            {
-                title: 'Finish'
             }
         ];
     }
