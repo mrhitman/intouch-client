@@ -1,5 +1,5 @@
-import { Button, DatePicker, Form, Input, message, Steps, Select } from 'antd';
-import React, { Component } from 'react';
+import { Button, DatePicker, Form, Input, message, Select, Steps } from 'antd';
+import React, { Component, Fragment } from 'react';
 
 const FormItem = Form.Item;
 const Step = Steps.Step;
@@ -37,6 +37,7 @@ class RegistrationForm extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             console.log(values);
+            message.success('Registration complete!');
         });
     }
 
@@ -55,11 +56,13 @@ class RegistrationForm extends Component {
             <div>
                 <div className="steps-action" style={{ margin: 40 }}>
                     {current < steps.length - 1 && <Button type="primary" onClick={this.next}>Next</Button>}
-                    {current === steps.length - 1 && <Button type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>}
-                    {current > 0 && (<Button style={{ marginLeft: 8 }} onClick={this.prev}> Previous </Button>)}
+                    {current === steps.length - 1 && <Button type="primary" onClick={this.handleSubmit}>Done</Button>}
+                    {current > 0 && (<Button style={{ marginLeft: 8 }} onClick={this.prev}>Previous</Button>)}
                 </div>
                 <div className="steps-content">
-                    {steps[current].content}
+                    <Form onSubmit={this.handleSubmit}>
+                        {steps[current].content}
+                    </Form>
                 </div>
                 <Steps current={current} style={{ margin: 60, marginTop: 180 }}>
                     {steps.map(step => <Step key={step.title} title={step.title} />)}
@@ -74,20 +77,20 @@ class RegistrationForm extends Component {
             {
                 title: 'Registration',
                 content: (
-                    <Form onSubmit={this.handleSubmit}>
+                    <Fragment>
                         <FormItem label='email' {...formItemLayout}>
                             {getFieldDecorator('email', { rules: [{ required: true }] })(<Input />)}
                         </FormItem>
                         <FormItem label='password' {...formItemLayout}>
                             {getFieldDecorator('password', { rules: [{ required: true }] })(<Input type="password" />)}
                         </FormItem>
-                    </Form>
+                    </Fragment>
                 )
             },
             {
                 title: 'Profile data',
                 content: (
-                    <Form onSubmit={this.handleSubmit}>
+                    <Fragment>
                         <FormItem label='First name' {...formItemLayout}>
                             {getFieldDecorator('first_name', { rules: [{ required: true }] })(<Input />)}
                         </FormItem>
@@ -107,11 +110,21 @@ class RegistrationForm extends Component {
                                     <Select.Option value={0}>female</Select.Option>
                                 </Select>)}
                         </FormItem>
-                    </Form>
+                    </Fragment>
                 )
             },
             {
-                title: 'Additional info'
+                title: 'Additional info',
+                content: (
+                    <Fragment>
+                        <FormItem label='Hobbies' {...formItemLayout}>
+                            {getFieldDecorator('hobbies')(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
+                        </FormItem>
+                        <FormItem label='Priorities' {...formItemLayout}>
+                            {getFieldDecorator('priorities')(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
+                        </FormItem>
+                    </Fragment>
+                )
             },
             {
                 title: 'Finish'
