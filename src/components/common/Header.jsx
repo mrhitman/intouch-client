@@ -9,7 +9,7 @@ class Header extends Component {
         return (
             <Layout.Header className='header' style={{ background: '#2980B9' }}>
                 <Row>
-                    <Col offset={4} span={2} style={{ fontSize: 24 }}>
+                    <Col offset={4} span={2} style={{ fontSize: 24, color: '#FDFEFE' }}>
                         in touch
                         </Col>
                     <Col span={4}>
@@ -21,17 +21,17 @@ class Header extends Component {
                     {isAuthentificated && (
                         <Fragment>
                             <Col offset={7} span={1}>
-                                <Badge count={3} dot>
+                                <Badge count={messages}>
                                     <Icon type="message" />
                                 </Badge>
                             </Col>
                             <Col span={1}>
-                                <Badge count={3} dot>
+                                <Badge count={comments}>
                                     <Icon type="mail" />
                                 </Badge>
                             </Col>
                             <Col span={1}>
-                                <Badge count={3} dot>
+                                <Badge count={3}>
                                     <Icon type="user" />
                                 </Badge>
                             </Col>
