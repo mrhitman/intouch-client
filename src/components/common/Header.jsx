@@ -13,10 +13,7 @@ class Header extends Component {
                         in touch
                         </Col>
                     <Col span={4}>
-                        <Input.Search
-                            placeholder='search ...'
-                            style={{ width: 260 }}
-                        />
+                        <Input.Search placeholder='search ...' style={{ width: 260 }} />
                     </Col>
                     {isAuthentificated && (
                         <Fragment>

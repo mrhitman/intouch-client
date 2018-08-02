@@ -2,7 +2,6 @@ import { Avatar, Button, Col, Divider, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PhotoDetail from '../common/PhotoDetail';
 
 class Middle extends Component {
     render() {

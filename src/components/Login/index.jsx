@@ -5,10 +5,12 @@ import { Redirect } from 'react-router';
 import { Actions } from '../../constats';
 import api from '../../services/api';
 import Layout from '../common/Layout';
+import RegistrationForm from '../Registration';
 
 const FormItem = Form.Item;
 
 class LoginForm extends Component {
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -51,6 +53,9 @@ class LoginForm extends Component {
                                 </Button>
                             </FormItem>
                         </Form>
+                    </Col>
+                    <Col offset={1} span={15} style={{ margin: 20 }}>
+                        <RegistrationForm />
                     </Col>
                 </Row>
             </Layout>

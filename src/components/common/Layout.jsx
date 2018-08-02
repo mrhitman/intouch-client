@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from '../../constats';
 import Header from '../common/Header';
 
-const { Sider, Content, Footer } = Layout;
+const { Sider, Content } = Layout;
 
 class BasicLayout extends Component {
     render() {
@@ -12,7 +12,7 @@ class BasicLayout extends Component {
             <Layout>
                 <Header />
                 <Layout>
-                    <Sider width={180} style={{ background: '#FDFEFE' }} ></Sider>
+                    <Sider width={180} style={{ background: '#FDFEFE' }} />
                     <Content style={{ background: '#FDFEFE', height: 'calc(100vh - 80px)', paddingRight: 180 }}>
                         {this.props.children}
                     </Content>
