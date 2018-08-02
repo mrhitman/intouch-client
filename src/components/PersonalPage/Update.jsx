@@ -1,5 +1,6 @@
-import { Button, Col, DatePicker, Form, Input, Row, Tabs } from 'antd';
+import { Button, Col, DatePicker, Form, Input, Row, Tabs, Select } from 'antd';
 import React, { Component } from 'react';
+import * as moment from 'moment';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
 import api from '../../services/api';
@@ -29,9 +30,6 @@ class UpdateProfile extends Component {
         e.preventDefault();
         const { id, token } = this.props;
         this.props.form.validateFields((err, values) => {
-            delete values.hobbies;
-            delete values.priorities;
-            delete values.birthday;
             api.setProfile(token, id, values);
         });
     }
@@ -51,11 +49,21 @@ class UpdateProfile extends Component {
                                 <FormItem label='Name' {...formItemLayout} >
                                     {getFieldDecorator('first_name', { initialValue: profile.first_name, rules: [{ required: true }] })(<Input />)}
                                 </FormItem>
-                                <FormItem label='Second name' {...formItemLayout}>
+                                <FormItem label='Middle name' {...formItemLayout} >
+                                    {getFieldDecorator('middle_name', { initialValue: profile.first_name, rules: [{ required: true }] })(<Input />)}
+                                </FormItem>
+                                <FormItem label='Last name' {...formItemLayout}>
                                     {getFieldDecorator('last_name', { initialValue: profile.last_name, rules: [{ required: true }] })(<Input />)}
                                 </FormItem>
+                                <FormItem label='gender' {...formItemLayout}>
+                                    {getFieldDecorator('gender', { initialValue: profile.gender, rules: [{ required: true }] })(
+                                        <Select>
+                                            <Select.Option value={1}>male</Select.Option>
+                                            <Select.Option value={0}>female</Select.Option>
+                                        </Select>)}
+                                </FormItem>
                                 <FormItem label='Birthday' {...formItemLayout}>
-                                    {getFieldDecorator('birthday', { rules: [{ required: true }] })(<DatePicker />)}
+                                    {getFieldDecorator('birthday', { initialValue: moment(profile.birthday, 'YYYY/MMMM/Do'), rules: [{ required: true }] })(<DatePicker format='YYYY/MMMM/Do' />)}
                                 </FormItem>
                                 <FormItem label='Hometown' {...formItemLayout}>
                                     {getFieldDecorator('town', { initialValue: profile.town, rules: [{ required: true }] })(<Input />)}
