@@ -53,15 +53,15 @@ class RegistrationForm extends Component {
         const steps = this.getSteps();
         return (
             <div>
-                <div className="steps-action" style={{ margin: '40px 0 0 0' }}>
-                    {current < 2 && <Button type="primary" onClick={this.next}>Next</Button>}
-                    {current === 2 && <Button type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>}
+                <div className="steps-action" style={{ margin: 40 }}>
+                    {current < steps.length - 1 && <Button type="primary" onClick={this.next}>Next</Button>}
+                    {current === steps.length - 1 && <Button type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>}
                     {current > 0 && (<Button style={{ marginLeft: 8 }} onClick={this.prev}> Previous </Button>)}
                 </div>
                 <div className="steps-content">
                     {steps[current].content}
                 </div>
-                <Steps current={current} style={{ margin: 30, marginTop: 180 }}>
+                <Steps current={current} style={{ margin: 60, marginTop: 180 }}>
                     {steps.map(step => <Step key={step.title} title={step.title} />)}
                 </Steps>
             </div>
@@ -109,6 +109,9 @@ class RegistrationForm extends Component {
                         </FormItem>
                     </Form>
                 )
+            },
+            {
+                title: 'Additional info'
             },
             {
                 title: 'Finish'
