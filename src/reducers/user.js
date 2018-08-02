@@ -25,7 +25,6 @@ const intitialState = {
 };
 
 export default (state = intitialState, action: Action ) => {
-    console.log(action.type);
     switch (action.type) {
         case Actions.login:
             localStorage.setItem('id', action.payload.user.id);

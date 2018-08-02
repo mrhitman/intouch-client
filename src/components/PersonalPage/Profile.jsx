@@ -1,8 +1,8 @@
+import { Divider } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Actions, baseUri } from '../../constats';
+import { Actions } from '../../constats';
 import api from '../../services/api';
-import { Divider } from 'antd';
 
 const toggleCss = {
     margin: '8px',
