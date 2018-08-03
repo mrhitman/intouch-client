@@ -30,6 +30,7 @@ class UpdateProfile extends Component {
         e.preventDefault();
         const { id, token } = this.props;
         this.props.form.validateFields((err, values) => {
+            console.log(values);
             api.setProfile(token, id, values);
         });
     }
@@ -53,7 +54,7 @@ class UpdateProfile extends Component {
                                     {getFieldDecorator('middle_name', { initialValue: profile.first_name, rules: [{ required: true }] })(<Input />)}
                                 </FormItem>
                                 <FormItem label='Last name' {...formItemLayout}>
-                                    {getFieldDecorator('last_name', { initialValue: profile.last_name, rules: [{ required: true }] })(<Input />)}
+                                    {getFieldDecorator('last_name', { initialValue: profile.last_name })(<Input />)}
                                 </FormItem>
                                 <FormItem label='gender' {...formItemLayout}>
                                     {getFieldDecorator('gender', { initialValue: profile.gender, rules: [{ required: true }] })(
@@ -66,10 +67,31 @@ class UpdateProfile extends Component {
                                     {getFieldDecorator('birthday', { initialValue: moment(profile.birthday, 'YYYY/MMMM/Do'), rules: [{ required: true }] })(<DatePicker format='YYYY/MMMM/Do' />)}
                                 </FormItem>
                                 <FormItem label='Hometown' {...formItemLayout}>
-                                    {getFieldDecorator('town', { initialValue: profile.town, rules: [{ required: true }] })(<Input />)}
+                                    {getFieldDecorator('town', { initialValue: profile.town })(<Input />)}
+                                </FormItem>
+                                <FormItem label='Relationships' {...formItemLayout}>
+                                    {getFieldDecorator('relationship', { initialValue: profile.relationship })(
+                                        <Select allowClear style={{ width: 200 }}>
+                                            <Select.Option value={0}>Single</Select.Option>
+                                            <Select.Option value={1}>In a relationship</Select.Option>
+                                            <Select.Option value={2}>Engaged</Select.Option>
+                                            <Select.Option value={3}>Married</Select.Option>
+                                            <Select.Option value={4}>It's complicated</Select.Option>
+                                            <Select.Option value={5}>It's open to relationship</Select.Option>
+                                            <Select.Option value={6}>Widowed</Select.Option>
+                                            <Select.Option value={7}>Separated</Select.Option>
+                                            <Select.Option value={8}>Divorced</Select.Option>
+                                        </Select>)}
+                                </FormItem>
+                                <FormItem label='Languages' {...formItemLayout}>
+                                    {getFieldDecorator('language', { initialValue: profile.language ? profile.language.split(',') : [] })(
+                                        <Select mode='multiple' style={{ width: 200 }} allowClear>
+                                            <Select.Option value='English'>English</Select.Option>
+                                            <Select.Option value='Russian'>Russian</Select.Option>
+                                        </Select>)}
                                 </FormItem>
                                 <FormItem label='Company' {...formItemLayout}>
-                                    {getFieldDecorator('company', { initialValue: profile.company, rules: [{ required: true }] })(<Input />)}
+                                    {getFieldDecorator('company', { initialValue: profile.company })(<Input />)}
                                 </FormItem>
                                 <FormItem wrapperCol={formSubmitLayout}>
                                     <Button type="primary" onClick={this.handleSubmit}>Update</Button>

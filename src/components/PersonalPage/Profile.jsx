@@ -13,6 +13,18 @@ const toggleCss = {
     cursor: 'pointer',
 };
 
+const Relationships = [
+    "Single",
+    "In a relationship",
+    "Engaged",
+    "Married",
+    "It's complicated",
+    "It's open to relationship",
+    "Widowed",
+    "Separated",
+    "Divorced",
+];
+
 class Profile extends Component {
     state = {
         short: true,
@@ -37,11 +49,11 @@ class Profile extends Component {
                     <div className="infoTag">Hometown: </div>
                     <div className="infoData">{profile.town}</div>
                     <div className="infoTag">Relationship status: </div>
-                    <div className="infoData">{profile.relationships}</div>
+                    <div className="infoData">{Relationships[profile.relationship]}</div>
                     <div className="infoTag">Company: </div>
                     <div className="infoData">{profile.company}</div>
                     <div className="infoTag">Language: </div>
-                    <div className="infoData">{profile.languages}</div>
+                    <div className="infoData">{profile.language}</div>
                 </div>
                 {this.state.short ? this.renderShortInfo() : this.renderMoreInfo()}
                 <Divider />
