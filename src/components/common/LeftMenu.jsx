@@ -2,13 +2,13 @@ import { Divider, Icon, Menu } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Actions } from '../../constats';
 
 const { Item } = Menu;
 
 class LeftMenu extends Component {
     render() {
-        return (
+        const { isAuthentificated } = this.props;
+        if (isAuthentificated) return (
             <Menu mode='inline'>
                 <Item>
                     <Icon type="profile" />
@@ -37,15 +37,12 @@ class LeftMenu extends Component {
                 </Item>
             </Menu>
         );
+        return null;
     }
 }
 
-const mapStateToProps = state => state;
-const mapDispatchToProps = dispatch => ({
-    logout: () => {
-        dispatch({ type: Actions.logout });
-    },
-});
+const mapStateToProps = state => ({ isAuthentificated: state.user.status })
+const mapDispatchToProps = dispatch => ({});
 export default connect(
     mapStateToProps,
     mapDispatchToProps,

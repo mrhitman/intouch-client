@@ -16,13 +16,7 @@ export default {
         return axios.post(`${baseUri}/user/profile/${id}`, data, { headers: { Authorization: `${token}` } })
     },
 
-    register({ email, password, id }) {
-        return axios.post(`${baseUri}/user/register`, {
-            email,
-            password,
-            first_name: "",
-            last_name: "",
-            birthday: 1123
-        });
+    register(data) {
+        return axios.post(`${baseUri}/user/register`, data);
     }
 }

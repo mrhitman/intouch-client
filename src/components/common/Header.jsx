@@ -2,6 +2,8 @@ import { Avatar, Badge, Col, Divider, Dropdown, Icon, Input, Layout, Menu, Row }
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Logout from '../common/Logout';
+import { Actions } from '../../constats';
 
 class Header extends Component {
     render() {
@@ -52,7 +54,7 @@ class Header extends Component {
                 </Menu.Item>
                 <Divider />
                 <Menu.Item>
-                    <Link to='/logout' >Logout</Link>
+                    <Logout />
                 </Menu.Item>
             </Menu>
         );
