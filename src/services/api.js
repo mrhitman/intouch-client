@@ -22,6 +22,10 @@ export default {
         return axios.get(`${baseUri}/friend/follow/${id}/${friend_id}`);
     },
 
+    unfollow(id, friend_id) {
+        return axios.get(`${baseUri}/friend/unfollow/${id}/${friend_id}`);
+    },
+
     setProfile(token, id, data) {
         return axios.post(`${baseUri}/user/profile/${id}`, data, { headers: { Authorization: `${token}` } })
     },
