@@ -7,6 +7,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PersonalPage from "./components/PersonalPage";
 import News from "./components/News";
 import LoginForm from "./components/Login";
+import Friends from "./components/Friends";
+import FriendsRecommend from "./components/Friends/FriendsRecommend";
 
 import reducer from "./reducers";
 
@@ -22,6 +24,8 @@ ReactDOM.render(
       <Switch>
         <Route path="/update" component={UpdateProfile} />
         <Route path="/news" component={News} />
+        <Route path="/friends/recommends" component={FriendsRecommend} />
+        <Route path="/friends" exact component={Friends} />
         <Route path="/:id" component={PersonalPage} />
         <Route path="/" component={LoginForm} />
       </Switch>

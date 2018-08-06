@@ -27,6 +27,10 @@ class LeftMenu extends Component {
                     <span>Groups</span>
                 </Item>
                 <Item>
+                    <Icon type="team" />
+                    <span><Link to='/friends' >Friends</Link></span>
+                </Item>
+                <Item>
                     <Icon type="picture" />
                     <span>Pictures</span>
                 </Item>

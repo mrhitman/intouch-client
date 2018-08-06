@@ -20,7 +20,7 @@ const intitialState = [
 export default (state: List = intitialState, action: Action ) => {
     switch (action.type) {
         case Actions.getFriends:
-            return state;
+            return { ...state };
         case Actions.follow:
             return state;
         case Actions.unfollow:

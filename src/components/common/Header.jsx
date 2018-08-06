@@ -11,9 +11,9 @@ class Header extends Component {
         return (
             <Layout.Header className='header' style={{ background: '#2980B9' }}>
                 <Row>
-                    <Col offset={4} span={2} style={{ fontSize: 24, color: '#FDFEFE' }}>
-                        in touch
-                        </Col>
+                    <Col offset={4} span={2} >
+                        <Link to='/' style={{ fontSize: 24, color: '#FDFEFE' }}>in touch</Link>
+                    </Col>
                     <Col span={4}>
                         <Input.Search placeholder='search ...' style={{ width: 260 }} />
                     </Col>

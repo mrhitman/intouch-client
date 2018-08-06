@@ -32,7 +32,10 @@ class Profile extends Component {
 
     UNSAFE_componentWillMount() {
         const { user_id, token, getProfile } = this.props;
-        api.getProfile(token, user_id).then(getProfile);
+        api.getProfile(token, user_id)
+            .then(getProfile)
+            .catch(() => {
+            });
     }
 
     render() {
