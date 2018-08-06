@@ -13,6 +13,13 @@ class FriendsRecommend extends Component {
         followings: [],
     }
 
+    pages = {
+        friends: {},
+        followers: {},
+        followings: {},
+        recommends: {},
+    }
+
     UNSAFE_componentWillMount() {
         const { id, token } = this.props;
         api.getFriends(token, id)
@@ -44,6 +51,7 @@ class FriendsRecommend extends Component {
                                     </Card>
                                 );
                             }) : 'No any friends'}
+                            <Pagination total={friends.length} hideOnSinglePage />
                         </Card>
                         <Card title='Followers' type='inner'>
                             {followers.length ? followers.map((user) => {
@@ -58,6 +66,7 @@ class FriendsRecommend extends Component {
                                     </Card>
                                 );
                             }) : 'No any followers'}
+                            <Pagination total={followers.length} hideOnSinglePage />
                         </Card>
                         <Card title='Followings' type='inner'>
                             {followings.length ? followings.map((user) => {
@@ -72,6 +81,7 @@ class FriendsRecommend extends Component {
                                     </Card>
                                 );
                             }) : 'No any followings'}
+                            <Pagination total={followings.length} hideOnSinglePage />
                         </Card>
                         <Card title='Recomended friends' type='inner'>
                             {recommendUsers.length ? recommendUsers.map((user) => {
@@ -86,8 +96,8 @@ class FriendsRecommend extends Component {
                                     </Card>
                                 );
                             }) : 'No any recommended friends'}
+                            <Pagination total={recommendUsers.length} hideOnSinglePage />
                         </Card>
-                        <Pagination total={1} hideOnSinglePage />
                     </Col>
                     <Col span={5}>
                         <Menu>
@@ -99,6 +109,12 @@ class FriendsRecommend extends Component {
                             </Menu.Item>
                             <Menu.Item>
                                 <span>Followings</span>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <span>Recomended</span>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <span>Search friends</span>
                             </Menu.Item>
                         </Menu>
                     </Col>
