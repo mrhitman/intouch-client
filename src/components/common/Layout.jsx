@@ -1,4 +1,4 @@
-import { Layout } from 'antd';
+import { Layout, BackTop } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
@@ -10,6 +10,7 @@ class BasicLayout extends Component {
     render() {
         return (
             <Layout>
+                <BackTop />
                 <Header />
                 <Layout>
                     <Sider width={180} style={{ background: '#FDFEFE' }} />

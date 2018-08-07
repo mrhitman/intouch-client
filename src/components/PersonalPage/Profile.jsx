@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
 import api from '../../services/api';
+import { Row, Col } from 'antd';
 
 const toggleCss = {
     margin: '8px',
@@ -31,36 +32,49 @@ class Profile extends Component {
     };
 
     UNSAFE_componentWillMount() {
-        const { user_id, token, getProfile } = this.props;
-        api.getProfile(token, user_id)
-            .then(getProfile)
-            .catch(() => {
-            });
+        const { user_id, token, getProfile, getFriends } = this.props;
+        Promise.all([
+            api.getProfile(token, user_id).then(getProfile),
+            api.getFriends(token, user_id).then(getFriends),
+        ])
     }
 
     render() {
-        const { profile, status } = this.props;
+        const { user, status } = this.props;
+        const profile = user.profile;
         return (
-            <div className="profile">
-                <div className="profileUser__status">{status ? 'Online' : 'Offline'}</div>
-                <div className="profileUser__name">{profile.name}</div>
-                <div className="profileUser__quote">{profile.quote}</div>
-                <Divider />
-                <div className="profileUser__info">
-                    <div className="infoTag">Birthday: </div>
-                    <div className="infoData">{profile.birthday}</div>
-                    <div className="infoTag">Hometown: </div>
-                    <div className="infoData">{profile.town}</div>
-                    <div className="infoTag">Relationship status: </div>
-                    <div className="infoData">{Relationships[profile.relationship]}</div>
-                    <div className="infoTag">Company: </div>
-                    <div className="infoData">{profile.company}</div>
-                    <div className="infoTag">Language: </div>
-                    <div className="infoData">{profile.language}</div>
-                </div>
+            <div>
+                <Row style={{ margin: '20px 0 0 10px' }}>
+                    <Col span={18}>{profile.name}</Col>
+                    <Col span={4}>{status ? 'Online' : 'Offline'}</Col>
+                </Row>
+                <Row>
+                    <Col>{profile.quote}</Col>
+                    <Divider />
+                </Row>
+                <Row>
+                    <Col span={15}>Birthday:</Col>
+                    <Col>{profile.birthday}</Col>
+                </Row>
+                <Row>
+                    <Col span={15}>Hometown:</Col>
+                    <Col>{profile.town}</Col>
+                </Row>
+                <Row>
+                    <Col span={15}>Relationship status:</Col>
+                    <Col>{Relationships[profile.relationship]}</Col>
+                </Row>
+                <Row>
+                    <Col span={15}>Company: </Col>
+                    <Col>{profile.company}</Col>
+                </Row>
+                <Row>
+                    <Col span={15}>Language: </Col>
+                    <Col>{profile.language}</Col>
+                </Row>
                 {this.state.short ? this.renderShortInfo() : this.renderMoreInfo()}
                 <Divider />
-            </div>
+            </div >
         );
     }
 
@@ -75,18 +89,20 @@ class Profile extends Component {
     }
 
     renderMoreInfo() {
-        const { profile } = this.props;
+        const { profile } = this.props.user;
         return (
             <div>
                 <div onClick={this.toggleInfo} style={toggleCss}>
                     Show less
                 </div>
-                <div className="profileUser__info">
-                    <div className="infoTag">Your life priorities: </div>
-                    <div className="infoData">{profile.priorities}</div>
-                    <div className="infoTag">Your hobbies: </div>
-                    <div className="infoData">{profile.hobbies}</div>
-                </div>
+                <Row>
+                    <Col span={15}>Your life priorities:</Col>
+                    <Col>{profile.priorities}</Col>
+                </Row>
+                <Row>
+                    <Col span={15}>Your hobbies:</Col>
+                    <Col>{profile.hobbies}</Col>
+                </Row>
             </div>
         );
     }
@@ -96,10 +112,17 @@ class Profile extends Component {
     };
 }
 
-const mapStateToProps = state => state.user;
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    };
+};
 const mapDispatchToState = dispatch => ({
     getProfile: payload => {
         dispatch({ type: Actions.getProfile, payload });
+    },
+    getFriends: payload => {
+        dispatch({ type: Actions.getFriends, payload });
     },
 });
 

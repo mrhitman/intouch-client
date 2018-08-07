@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import PersonalPage from "./components/PersonalPage";
 import News from "./components/News";
@@ -20,16 +20,15 @@ const store = createStore(reducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <Router>
       <Switch>
         <Route path="/update" component={UpdateProfile} />
         <Route path="/news" component={News} />
-        <Route path="/friends/recommends" component={FriendsRecommend} />
-        <Route path="/friends" exact component={Friends} />
+        <Route path="/friends" component={FriendsRecommend} />
         <Route path="/:id" component={PersonalPage} />
-        <Route path="/" component={LoginForm} />
+        <Route exact path="/" component={LoginForm} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

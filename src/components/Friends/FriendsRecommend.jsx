@@ -31,6 +31,7 @@ class FriendsRecommend extends Component {
 
     render() {
         const { friends, followers, followings, recommendUsers } = this.state;
+        const { id } = this.props;
         return (
             <Layout>
                 <Row>
@@ -42,7 +43,7 @@ class FriendsRecommend extends Component {
                             {friends.length ? friends.map((user) => {
                                 return (
                                     <Card title={user.profile.name} key={user.id} extra={
-                                        <Popover content={<a href='' onClick={api.unfollow(this.props.id, user.id)}>Delete</a>} trigger="click" >
+                                        <Popover content={<a href='' >Delete from friends</a>} trigger="click" >
                                             <Icon type='ellipsis' />
                                         </Popover>} >
                                         <Card.Meta
@@ -57,7 +58,7 @@ class FriendsRecommend extends Component {
                             {followers.length ? followers.map((user) => {
                                 return (
                                     <Card title={user.profile.name} key={user.id} extra={
-                                        <Popover content={<a href='' onClick={api.follow(this.props.id, user.id)}>Follow</a>} trigger="click" >
+                                        <Popover content={<a href='' onClick={() => api.follow(id, user.id)} >Add to friends</a>} trigger="click" >
                                             <Icon type='ellipsis' />
                                         </Popover>}>
                                         <Card.Meta
@@ -72,7 +73,7 @@ class FriendsRecommend extends Component {
                             {followings.length ? followings.map((user) => {
                                 return (
                                     <Card title={user.profile.name} key={user.id} extra={
-                                        <Popover content={<a href='' onClick={api.unfollow(this.props.id, user.id)}>Unfollow</a>} trigger="click" >
+                                        <Popover content={<a href='' onClick={() => api.unfollow(id, user.id)} >Unfollow</a>} trigger="click" >
                                             <Icon type='ellipsis' />
                                         </Popover>}>
                                         <Card.Meta
@@ -87,7 +88,7 @@ class FriendsRecommend extends Component {
                             {recommendUsers.length ? recommendUsers.map((user) => {
                                 return (
                                     <Card title={user.profile.name} key={user.id} extra={
-                                        <Popover content={<a href='' onClick={api.follow(this.props.id, user.id)}>Follow</a>} trigger="click" >
+                                        <Popover content={<a href='' onClick={() => api.follow(id, user.id)} >Follow</a>} trigger="click" >
                                             <Icon type='ellipsis' />
                                         </Popover>}>
                                         <Card.Meta
