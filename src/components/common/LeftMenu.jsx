@@ -20,15 +20,15 @@ class LeftMenu extends Component {
                 </Item>
                 <Item>
                     <Icon type="mail" />
-                    <span>Messages</span>
+                    <span><Link to='/messages'>Messages</Link></span>
+                </Item>
+                <Item>
+                    <Icon type="user" />
+                    <span><Link to='/friends' >Friends</Link></span>
                 </Item>
                 <Item>
                     <Icon type="team" />
                     <span>Groups</span>
-                </Item>
-                <Item>
-                    <Icon type="team" />
-                    <span><Link to='/friends' >Friends</Link></span>
                 </Item>
                 <Item>
                     <Icon type="picture" />

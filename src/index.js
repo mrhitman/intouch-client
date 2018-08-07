@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import PersonalPage from "./components/PersonalPage";
 import News from "./components/News";
+import Chat from "./components/Chat";
 import LoginForm from "./components/Login";
 import Friends from "./components/Friends";
 import FriendsRecommend from "./components/Friends/FriendsRecommend";
@@ -25,6 +26,7 @@ ReactDOM.render(
         <Route path="/update" component={UpdateProfile} />
         <Route path="/news" component={News} />
         <Route path="/friends" component={FriendsRecommend} />
+        <Route path="/messages" component={Chat} />
         <Route path="/:id" component={PersonalPage} />
         <Route exact path="/" component={LoginForm} />
       </Switch>
