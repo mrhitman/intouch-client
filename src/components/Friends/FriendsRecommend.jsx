@@ -1,6 +1,7 @@
-import { Avatar, Card, Col, Icon, Menu, Popover, Row, Pagination } from 'antd';
+import { Avatar, Card, Col, Icon, Menu, Pagination, Popover, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import Layout from '../common/Layout';
 import LeftMenu from '../common/LeftMenu';
@@ -49,6 +50,7 @@ class FriendsRecommend extends Component {
                                         <Card.Meta
                                             avatar={<Avatar size='large' shape='square' src='/photo-mini.jpg' />}
                                             description={user.profile.birthday} />
+                                        <Link to=''>Send message</Link>
                                     </Card>
                                 );
                             }) : 'No any friends'}
@@ -133,5 +135,4 @@ const mapDispatchToState = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToState
-)
-    (FriendsRecommend);
+)(FriendsRecommend);
