@@ -35,6 +35,7 @@ class Chat extends Component {
             this.setState({ messages });
             e.target.value = '';
             e.preventDefault();
+            e.stopPropagation();
         }
     };
 
@@ -50,7 +51,7 @@ class Chat extends Component {
                     <Col span={14}>
                         <div style={{ overflowY: 'scroll', height: '80vh' }}>
                             {messages.map(message => {
-                                return <Card>
+                                return <Card style={{ fontSize: 13, margin: 0, padding: 0 }}>
                                     <Card.Meta title={profile.name} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
                                     {message.text}
                                 </Card>;
