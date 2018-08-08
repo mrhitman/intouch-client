@@ -1,7 +1,8 @@
-import { Col, Input, Row, Card } from 'antd';
+import { Col, Input, Row, Card, Avatar } from 'antd';
 import React, { Component } from 'react';
 import Layout from '../common/Layout';
 import LeftMenu from '../common/LeftMenu';
+import { connect } from 'react-redux';
 
 
 class Chat extends Component {
@@ -17,6 +18,8 @@ class Chat extends Component {
 
     render() {
         const { socket, messages } = this.state;
+        const { profile } = this.props;
+        console.log(profile);
         return (
             <Layout>
                 <Row>
@@ -24,9 +27,12 @@ class Chat extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={14}>
-                        <div style={{ overflowY: false, height: '80vh' }}>
+                        <div style={{ overflowY: 'scroll', height: '80vh' }}>
                             {messages.map(message => {
-                                return <Card>{message}</Card>;
+                                return <Card>
+                                    <Card.Meta title={profile.name} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
+                                    {message}
+                                </Card>;
                             })}
                         </div>
                         <Input.TextArea onKeyPress={e => {
@@ -46,4 +52,6 @@ class Chat extends Component {
     }
 }
 
-export default Chat;
+const mapStateToProps = state => state.user;
+const mapDispatchToState = dispatch => ({});
+export default connect(mapStateToProps, mapDispatchToState)(Chat);
