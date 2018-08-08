@@ -4,22 +4,43 @@ import Layout from '../common/Layout';
 import LeftMenu from '../common/LeftMenu';
 import { connect } from 'react-redux';
 
-
 class Chat extends Component {
 
     state = {
         socket: null,
-        messages: ['asdasdas']
+        messages: [{ text: 'test message' }],
     }
 
     UNSAFE_componentWillMount() {
-        this.setState({ socket: new WebSocket('ws://localhost:3001/ws') });
+        const socket = new WebSocket('ws://localhost:3001/ws');
+        socket.onmessage = this.receive;
+        this.setState({ socket });
     }
+
+    receive = e => {
+        const messages = this.state.messages;
+        try {
+            messages.push(JSON.parse(e.data));
+            this.setState({ messages });
+        } catch (e) {
+
+        }
+    }
+
+    send = e => {
+        if (e.key === 'Enter') {
+            const { socket, messages } = this.state;
+            socket.send(e.target.value);
+            messages.push({ text: e.target.value });
+            this.setState({ messages });
+            e.target.value = '';
+            e.preventDefault();
+        }
+    };
 
     render() {
         const { socket, messages } = this.state;
         const { profile } = this.props;
-        console.log(profile);
         return (
             <Layout>
                 <Row>
@@ -31,18 +52,11 @@ class Chat extends Component {
                             {messages.map(message => {
                                 return <Card>
                                     <Card.Meta title={profile.name} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
-                                    {message}
+                                    {message.text}
                                 </Card>;
                             })}
                         </div>
-                        <Input.TextArea onKeyPress={e => {
-                            if (e.key === 'Enter') {
-                                socket.send(e.target.value);
-                                messages.push(e.target.value);
-                                this.setState({ messages });
-                                e.target.value = '';
-                            }
-                        }}
+                        <Input.TextArea onKeyPress={this.send}
                             style={{ position: 'absolute', top: '80vh' }} >
                         </Input.TextArea>
                     </Col>
