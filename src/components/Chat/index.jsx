@@ -8,7 +8,7 @@ class Chat extends Component {
 
     state = {
         socket: null,
-        messages: [{ text: 'test message' }],
+        messages: [],
     }
 
     UNSAFE_componentWillMount() {
