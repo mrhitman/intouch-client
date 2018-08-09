@@ -12,12 +12,17 @@ class Chat extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        const socket = new WebSocket('ws://localhost:3001/ws');
-        socket.onmessage = this.receive;
-        this.setState({ socket });
+        if (!this.state.socket) {
+            const socket = new WebSocket('ws://localhost:3001/ws');
+            socket.onopen = () => {
+                socket.send(JSON.stringify({ text: 'auth', from: this.props.id, name: this.props.profile.name }));
+            };
+            socket.onmessage = this.onmessage;
+            this.setState({ socket });
+        }
     }
 
-    receive = e => {
+    onmessage = e => {
         const messages = this.state.messages;
         try {
             messages.push(JSON.parse(e.data));
@@ -30,8 +35,8 @@ class Chat extends Component {
     send = e => {
         if (e.key === 'Enter') {
             const { socket, messages } = this.state;
-            socket.send(e.target.value);
-            messages.push({ text: e.target.value });
+            socket.send(JSON.stringify({ text: e.target.value, from: this.props.id, to: this.props.id == 1 ? 2 : 1, name: this.props.profile.name }));
+            messages.push({ text: e.target.value, name: this.props.profile.name });
             this.setState({ messages });
             e.target.value = '';
             e.preventDefault();
@@ -52,7 +57,7 @@ class Chat extends Component {
                         <div style={{ overflowY: 'scroll', height: '80vh' }}>
                             {messages.map(message => {
                                 return <Card style={{ fontSize: 13, margin: 0, padding: 0 }}>
-                                    <Card.Meta title={profile.name} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
+                                    <Card.Meta title={message.name} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
                                     {message.text}
                                 </Card>;
                             })}
