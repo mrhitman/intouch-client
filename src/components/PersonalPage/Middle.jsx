@@ -5,27 +5,27 @@ import { Link } from 'react-router-dom';
 
 class Middle extends Component {
     render() {
+        const { account, active_user } = this.props;
         return (
             <Row style={{ textAlign: 'center' }}>
                 <Col>
                     <img src="photo.jpg" alt="" style={{ height: 200, margin: 12 }} />
-                    <Button type='primary' style={{ marginBottom: 10 }} >Send a message</Button>
-
-                    {!!this.props.user.id && <div> {this.props.user.profile.name} is your friend</div>}
+                    {account.id != active_user.id && <Button type='primary' style={{ marginBottom: 10 }} ><a href={`/messages/${active_user.id}`}>Send a message</a></Button>}
+                    {account.id != active_user.id && <div>{active_user.profile.name} is your friend</div>}
                     <Divider />
 
-                    {this.props.followerCount > 0 &&
+                    {active_user.followers.length > 0 &&
                         <Fragment>
-                            <div style={{ marginBottom: 10 }}>{this.props.followerCount} followers</div>
-                            {this.renderPeople(this.props.followers)}
+                            <div style={{ marginBottom: 10 }}>{active_user.followers.length} followers</div>
+                            {this.renderPeople(active_user.followers)}
                             <Divider />
                         </Fragment>
                     }
 
-                    {this.props.friendCount > 0 &&
+                    {active_user.friends.length > 0 &&
                         <Fragment>
-                            <div style={{ marginBottom: 10 }}>{this.props.friendCount} friends</div>
-                            {this.renderPeople(this.props.friends)}
+                            <div style={{ marginBottom: 10 }}>{active_user.friends.length} friends</div>
+                            {this.renderPeople(active_user.friends)}
                             <Divider />
                         </Fragment>
                     }
@@ -50,15 +50,8 @@ class Middle extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    followerCount: state.active_user.followers.length,
-    friendCount: state.active_user.friends.length,
-    followers: state.active_user.followers,
-    friends: state.active_user.friends,
-    user: state.active_user,
-    ...ownProps,
-});
-const mapDispatchToProps = (dispatch, ownProps) => ({});
+const mapStateToProps = state => state;
+const mapDispatchToProps = dispatch => ({});
 export default connect(
     mapStateToProps,
     mapDispatchToProps,

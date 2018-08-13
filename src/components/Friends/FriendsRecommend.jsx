@@ -30,7 +30,7 @@ class FriendsRecommend extends Component {
                         <Card title='All friends' type='inner'>
                             {friends.length ? friends.map((user) => {
                                 return (
-                                    <Card title={user.profile.name} key={user.id} extra={
+                                    <Card title={(<Link to={`/${user.id}`}>{user.profile.name}</Link>)} key={user.id} extra={
                                         <Popover content={<a href='' >Delete from friends</a>} trigger="click" >
                                             <Icon type='ellipsis' />
                                         </Popover>} >
@@ -46,7 +46,7 @@ class FriendsRecommend extends Component {
                         <Card title='Followers' type='inner'>
                             {followers.length ? followers.map((user) => {
                                 return (
-                                    <Card title={user.profile.name} key={user.id} extra={
+                                <Card title={(<Link to={`/${user.id}`}>{user.profile.name}</Link>)} key={user.id} extra={
                                         <Popover content={<a href='' onClick={() => api.follow(id, user.id)} >Add to friends</a>} trigger="click" >
                                             <Icon type='ellipsis' />
                                         </Popover>}>
@@ -62,7 +62,7 @@ class FriendsRecommend extends Component {
                         <Card title='Followings' type='inner'>
                             {followings.length ? followings.map((user) => {
                                 return (
-                                    <Card title={user.profile.name} key={user.id} extra={
+                                    <Card title={(<Link to={`/${user.id}`}>{user.profile.name}</Link>)} key={user.id} extra={
                                         <Popover content={<a href='' onClick={() => api.unfollow(id, user.id)} >Unfollow</a>} trigger="click" >
                                             <Icon type='ellipsis' />
                                         </Popover>}>
@@ -78,7 +78,7 @@ class FriendsRecommend extends Component {
                         <Card title='Recomended friends' type='inner'>
                             {recommended.length ? recommended.map((user) => {
                                 return (
-                                    <Card title={user.profile.name} key={user.id} extra={
+                                    <Card title={(<Link to={`/${user.id}`}>{user.profile.name}</Link>)} key={user.id} extra={
                                         <Popover content={<a href='' onClick={() => api.follow(id, user.id)} >Follow</a>} trigger="click" >
                                             <Icon type='ellipsis' />
                                         </Popover>}>
