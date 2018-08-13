@@ -51,10 +51,10 @@ class Middle extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    followerCount: state.friends.followers.length,
-    friendCount: state.friends.friends.length,
-    followers: state.friends.followers,
-    friends: state.friends.friends,
+    followerCount: state.active_user.followers.length,
+    friendCount: state.active_user.friends.length,
+    followers: state.active_user.followers,
+    friends: state.active_user.friends,
     user: state.active_user,
     ...ownProps,
 });

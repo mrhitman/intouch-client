@@ -2,37 +2,25 @@ import { Avatar, Card, Col, Icon, Menu, Pagination, Popover, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Actions } from '../../constats';
 import api from '../../services/api';
 import Layout from '../Common/Layout';
 import LeftMenu from '../Common/LeftMenu';
 
 class FriendsRecommend extends Component {
-    state = {
-        recommendUsers: [],
-        friends: [],
-        followers: [],
-        followings: [],
-    }
-
-    pages = {
-        friends: {},
-        followers: {},
-        followings: {},
-        recommends: {},
-    }
-
     UNSAFE_componentWillMount() {
-        const { id, token } = this.props;
-        api.getFriends(token, id)
-            .then((response) => {
-                this.setState({ ...response.data });
-            })
-            .catch(console.log);
+        const { account, getProfile, getFriends } = this.props;
+        const { id, token } = account;
+        api.getProfile(token, id)
+            .then(getProfile)
+            .then(() => {
+                return api.getFriends(token, id).then(getFriends);
+            });
     }
 
     render() {
-        const { friends, followers, followings, recommendUsers } = this.state;
-        const { id } = this.props;
+        const { id, friends, followers, followings, recommended } = this.props.active_user;
+        // console.log(this.props.active_user);
         return (
             <Layout>
                 <Row>
@@ -87,7 +75,7 @@ class FriendsRecommend extends Component {
                             <Pagination total={followings.length} hideOnSinglePage />
                         </Card>
                         <Card title='Recomended friends' type='inner'>
-                            {recommendUsers.length ? recommendUsers.map((user) => {
+                            {recommended.length ? recommended.map((user) => {
                                 return (
                                     <Card title={user.profile.name} key={user.id} extra={
                                         <Popover content={<a href='' onClick={() => api.follow(id, user.id)} >Follow</a>} trigger="click" >
@@ -99,7 +87,7 @@ class FriendsRecommend extends Component {
                                     </Card>
                                 );
                             }) : 'No any recommended friends'}
-                            <Pagination total={recommendUsers.length} hideOnSinglePage />
+                            <Pagination total={recommended.length} hideOnSinglePage />
                         </Card>
                     </Col>
                     <Col span={5}>
@@ -127,9 +115,14 @@ class FriendsRecommend extends Component {
     }
 }
 
-const mapStateToProps = state => state.user;
+const mapStateToProps = state => state;
 const mapDispatchToState = dispatch => ({
-
+    getProfile: payload => {
+        dispatch({ type: Actions.getProfile, payload });
+    },
+    getFriends: payload => {
+        dispatch({ type: Actions.getFriends, payload });
+    },
 });
 
 export default connect(

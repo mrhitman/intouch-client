@@ -23,10 +23,10 @@ class LoginForm extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        const { id, status } = this.props;
+        const { account } = this.props;
         return (
             <Layout>
-                {status && <Redirect to={`/${id}`} />}
+                {!!account.id && <Redirect to={`/${account.id}`} />}
                 <Row>
                     <Col offset={1} span={7} style={{ margin: 12 }}>
                         <Form onSubmit={this.handleSubmit} className="login-form" style={{ maxWidth: 300 }}>
@@ -63,7 +63,7 @@ class LoginForm extends Component {
 
 }
 
-const mapStateToProps = state => state.user;
+const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
     login: payload => {
         dispatch({ type: Actions.login, payload: payload.data });

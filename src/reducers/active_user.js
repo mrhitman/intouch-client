@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { Record, Map } from 'immutable';
+import { Record, Map, List } from 'immutable';
 import { Actions } from '../constats';
 
 
@@ -19,6 +19,14 @@ const ActiveUser = Record({
         life_priorities: '',
         hobbies: '',
     }),
+    friends: new List([
+    ]),
+    followers: new List([
+    ]),
+    followings: new List([
+    ]),
+    recommended: new List([
+    ]),
 });
 
 const initialState = new ActiveUser();
@@ -26,11 +34,17 @@ const initialState = new ActiveUser();
 export default (state = initialState, action: Action) => {
     switch (action.type) {
         case Actions.getProfile:
-            const payload = action.payload.data.shift();
+            const user = action.payload.data.shift();
             return state
-                .set('id', payload.id)
-                .set('profile', payload.profile);
-
+                .set('id', user.id)
+                .set('profile', user.profile);
+        case Actions.getFriends:
+            const friends = action.payload.data;
+            return state
+                .set('friends', friends.friends)
+                .set('followers', friends.followers)
+                .set('followings', friends.followings)
+                .set('recommended', friends.recommendUsers)
         default:
             return state;
     }
