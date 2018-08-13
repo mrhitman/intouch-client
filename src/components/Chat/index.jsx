@@ -45,13 +45,14 @@ class Chat extends Component {
     }
 
     send = e => {
-        const { account, active_user } = this.props;
+        const { account, active_user, match } = this.props;
+        const user_id = match.params.id;
         if (e.key === 'Enter') {
             const { socket, messages } = this.state;
             socket.send(JSON.stringify({
                 text: e.target.value,
                 from: account.id,
-                to: account.id == 1 ? 2 : 1,
+                to: user_id,
                 name: active_user.profile.name
             }));
             messages.push({ text: e.target.value, name: active_user.profile.name });

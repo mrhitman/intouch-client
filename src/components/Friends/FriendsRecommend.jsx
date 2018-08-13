@@ -38,7 +38,7 @@ class FriendsRecommend extends Component {
                                         <Card.Meta
                                             avatar={<Avatar size='large' shape='square' src='/photo-mini.jpg' />}
                                             description={user.profile.birthday} />
-                                        <Link to=''>Send message</Link>
+                                        <Link to={`/messages/${user.id}`}>Send message</Link>
                                     </Card>
                                 );
                             }) : 'No any friends'}
@@ -54,6 +54,7 @@ class FriendsRecommend extends Component {
                                         <Card.Meta
                                             avatar={<Avatar size='large' shape='square' src='/photo-mini.jpg' />}
                                             description={user.profile.birthday} />
+                                        <Link to={`/messages/${user.id}`}>Send message</Link>
                                     </Card>
                                 );
                             }) : 'No any followers'}
@@ -69,6 +70,7 @@ class FriendsRecommend extends Component {
                                         <Card.Meta
                                             avatar={<Avatar size='large' shape='square' src='/photo-mini.jpg' />}
                                             description={user.profile.birthday} />
+                                        <Link to={`/messages/${user.id}`}>Send message</Link>
                                     </Card>
                                 );
                             }) : 'No any followings'}
