@@ -55,7 +55,7 @@ const mapStateToProps = (state, ownProps) => ({
     friendCount: state.friends.friends.length,
     followers: state.friends.followers,
     friends: state.friends.friends,
-    user: state.user,
+    user: state.active_user,
     ...ownProps,
 });
 const mapDispatchToProps = (dispatch, ownProps) => ({});

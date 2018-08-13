@@ -2,7 +2,7 @@ import { Layout, BackTop } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
-import Header from '../common/Header';
+import Header from '../Common/Header';
 
 const { Sider, Content } = Layout;
 
@@ -24,7 +24,7 @@ class BasicLayout extends Component {
 
 }
 
-const mapStateToProps = state => state.user;
+const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => ({
     login: payload => {
         dispatch({ type: Actions.login, payload: payload.data });

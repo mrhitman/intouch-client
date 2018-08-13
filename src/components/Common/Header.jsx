@@ -2,12 +2,11 @@ import { Avatar, Badge, Col, Divider, Dropdown, Icon, Input, Layout, Menu, Row }
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Logout from '../common/Logout';
-import { Actions } from '../../constats';
+import Logout from '../Common/Logout';
 
 class Header extends Component {
     render() {
-        const { messages, comments, isAuthentificated } = this.props;
+        const { new_messages, new_followers, isAuthentificated } = this.props;
         return (
             <Layout.Header className='header' style={{ background: '#2980B9' }}>
                 <Row>
@@ -20,17 +19,17 @@ class Header extends Component {
                     {isAuthentificated && (
                         <Fragment>
                             <Col offset={7} span={1}>
-                                <Badge count={messages}>
+                                <Badge count={new_messages}>
                                     <Icon type="message" />
                                 </Badge>
                             </Col>
                             <Col span={1}>
-                                <Badge count={comments}>
+                                <Badge count={0}>
                                     <Icon type="mail" />
                                 </Badge>
                             </Col>
                             <Col span={1}>
-                                <Badge count={3}>
+                                <Badge count={new_followers}>
                                     <Icon type="user" />
                                 </Badge>
                             </Col>
@@ -62,11 +61,11 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const { messages, comments } = state.user.profile;
+    const { new_messages, new_followers } = state.account;
     return {
-        messages,
-        comments,
-        isAuthentificated: state.user.status,
+        new_messages,
+        new_followers,
+        isAuthentificated: true,
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => ({});

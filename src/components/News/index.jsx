@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from '../common/Header';
-import LeftMenu from '../common/LeftMenu';
+import Header from '../Common/Header';
+import LeftMenu from '../Common/LeftMenu';
 
 class News extends Component {
     render() {

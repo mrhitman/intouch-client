@@ -15,7 +15,6 @@ const intitialState = {
 export default (state: List = intitialState, action: Action) => {
     switch (action.type) {
         case Actions.getFriends:
-            console.log(action.payload);
             return { ...state, ...action.payload.data };
         case Actions.follow:
             return state;

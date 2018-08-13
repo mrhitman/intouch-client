@@ -37,5 +37,6 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-react": "^7.9.1",
     "eslint-plugin-standard": "^3.1.0"
-  }
+  },
+  "theme": "./src/theme.js"
 }

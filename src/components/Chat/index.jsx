@@ -1,8 +1,10 @@
-import { Col, Input, Row, Card, Avatar } from 'antd';
+import { Avatar, Card, Col, Input, Row } from 'antd';
 import React, { Component } from 'react';
-import Layout from '../common/Layout';
-import LeftMenu from '../common/LeftMenu';
 import { connect } from 'react-redux';
+import { Actions } from '../../constats';
+import api from '../../services/api';
+import Layout from '../Common/Layout';
+import LeftMenu from '../Common/LeftMenu';
 
 class Chat extends Component {
 
@@ -12,14 +14,24 @@ class Chat extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        if (!this.state.socket) {
-            const socket = new WebSocket('ws://localhost:3001/ws');
-            socket.onopen = () => {
-                socket.send(JSON.stringify({ text: 'auth', from: this.props.id, name: this.props.profile.name }));
-            };
-            socket.onmessage = this.onmessage;
-            this.setState({ socket });
-        }
+        const { getProfile, account, active_user } = this.props;
+        const { id, token } = account;
+        api.getProfile(token, id)
+            .then(getProfile)
+            .then(() => {
+                if (!this.state.socket) {
+                    const socket = new WebSocket('ws://localhost:3001/ws');
+                    socket.onopen = () => {
+                        socket.send(JSON.stringify({
+                            text: 'auth',
+                            from: account.id,
+                            name: active_user.profile.name
+                        }));
+                    };
+                    socket.onmessage = this.onmessage;
+                    this.setState({ socket });
+                }
+            });
     }
 
     onmessage = e => {
@@ -33,10 +45,16 @@ class Chat extends Component {
     }
 
     send = e => {
+        const { account, active_user } = this.props;
         if (e.key === 'Enter') {
             const { socket, messages } = this.state;
-            socket.send(JSON.stringify({ text: e.target.value, from: this.props.id, to: this.props.id == 1 ? 2 : 1, name: this.props.profile.name }));
-            messages.push({ text: e.target.value, name: this.props.profile.name });
+            socket.send(JSON.stringify({
+                text: e.target.value,
+                from: account.id,
+                to: account.id == 1 ? 2 : 1,
+                name: active_user.profile.name
+            }));
+            messages.push({ text: e.target.value, name: active_user.profile.name });
             this.setState({ messages });
             e.target.value = '';
             e.preventDefault();
@@ -46,7 +64,7 @@ class Chat extends Component {
 
     render() {
         const { socket, messages } = this.state;
-        const { profile } = this.props;
+        const { profile } = this.props.active_user;
         return (
             <Layout>
                 <Row>
@@ -72,6 +90,10 @@ class Chat extends Component {
     }
 }
 
-const mapStateToProps = state => state.user;
-const mapDispatchToState = dispatch => ({});
+const mapStateToProps = state => state;
+const mapDispatchToState = dispatch => ({
+    getProfile: payload => {
+        dispatch({ type: Actions.getProfile, payload });
+    },
+});
 export default connect(mapStateToProps, mapDispatchToState)(Chat);

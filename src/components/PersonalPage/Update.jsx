@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
 import api from '../../services/api';
-import Layout from '../common/Layout';
-import LeftMenu from '../common/LeftMenu';
+import Layout from '../Common/Layout';
+import LeftMenu from '../Common/LeftMenu';
 
 const FormItem = Form.Item;
 

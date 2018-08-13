@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Actions } from '../../constats';
 import api from '../../services/api';
-import Layout from '../common/Layout';
+import Layout from '../Common/Layout';
 import RegistrationForm from '../Registration';
 
 const FormItem = Form.Item;

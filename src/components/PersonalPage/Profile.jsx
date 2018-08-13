@@ -31,17 +31,10 @@ class Profile extends Component {
         short: true,
     };
 
-    UNSAFE_componentWillMount() {
-        const { user_id, token, getProfile, getFriends } = this.props;
-        Promise.all([
-            api.getProfile(token, user_id).then(getProfile),
-            api.getFriends(token, user_id).then(getFriends),
-        ])
-    }
-
     render() {
-        const { user, status } = this.props;
-        const profile = user.profile;
+        const { active_user } = this.props;
+        const profile = active_user.profile;
+        const status = true;
         return (
             <div>
                 <Row style={{ margin: '20px 0 0 10px' }}>
@@ -89,7 +82,7 @@ class Profile extends Component {
     }
 
     renderMoreInfo() {
-        const { profile } = this.props.user;
+        const { profile } = this.props.active_user;
         return (
             <div>
                 <div onClick={this.toggleInfo} style={toggleCss}>
@@ -112,19 +105,8 @@ class Profile extends Component {
     };
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    };
-};
-const mapDispatchToState = dispatch => ({
-    getProfile: payload => {
-        dispatch({ type: Actions.getProfile, payload });
-    },
-    getFriends: payload => {
-        dispatch({ type: Actions.getFriends, payload });
-    },
-});
+const mapStateToProps = state => state;
+const mapDispatchToState = dispatch => ({});
 
 export default connect(
     mapStateToProps,

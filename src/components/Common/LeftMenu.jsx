@@ -45,7 +45,7 @@ class LeftMenu extends Component {
     }
 }
 
-const mapStateToProps = state => ({ isAuthentificated: state.user.status })
+const mapStateToProps = state => ({ isAuthentificated: true })
 const mapDispatchToProps = dispatch => ({});
 export default connect(
     mapStateToProps,
