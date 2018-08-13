@@ -37,7 +37,6 @@ class RegistrationForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            console.log(values);
             api.register(values);
             message.success('Registration complete!');
         });

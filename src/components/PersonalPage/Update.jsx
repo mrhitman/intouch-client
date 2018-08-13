@@ -32,7 +32,6 @@ class UpdateProfile extends Component {
         e.preventDefault();
         const { id, token } = this.props;
         this.props.form.validateFields((err, values) => {
-            console.log(values);
             api.setProfile(token, id, values);
         });
     }

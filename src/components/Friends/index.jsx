@@ -12,7 +12,6 @@ class Friends extends Component {
         const { id, token } = this.props;
         api.getFriends(token, id)
             .then(console.log)
-            .catch(console.log);
     }
 
     render() {

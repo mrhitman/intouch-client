@@ -20,7 +20,6 @@ class FriendsRecommend extends Component {
 
     render() {
         const { id, friends, followers, followings, recommended } = this.props.active_user;
-        // console.log(this.props.active_user);
         return (
             <Layout>
                 <Row>
