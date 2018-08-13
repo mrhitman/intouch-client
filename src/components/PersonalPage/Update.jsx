@@ -22,8 +22,10 @@ const formSubmitLayout = {
 class UpdateProfile extends Component {
 
     UNSAFE_componentWillMount() {
-        const { id, token, getProfile } = this.props;
-        api.getProfile(token, id).then(getProfile);
+        const { getProfile, account, active_user } = this.props;
+        const { id, token } = account;
+        api.getProfile(token, id)
+            .then(getProfile);
     }
 
     handleSubmit = (e) => {
@@ -37,7 +39,7 @@ class UpdateProfile extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        const { profile } = this.props;
+        const { profile } = this.props.active_user;
         return (
             <Layout >
                 <Row>
@@ -116,7 +118,7 @@ class UpdateProfile extends Component {
     }
 }
 
-const mapStateToProps = state => state.user;
+const mapStateToProps = state => state;
 const mapDispatchToState = dispatch => ({
     getProfile: payload => {
         dispatch({ type: Actions.getProfile, payload });
