@@ -1,21 +1,17 @@
+import 'antd/dist/antd.css';
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createStore } from "redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import PersonalPage from "./components/PersonalPage";
-import News from "./components/News";
 import Chat from "./components/Chat";
-import LoginForm from "./components/Login";
-import Friends from "./components/Friends";
+import Channel from "./components/Chat/Channel";
 import FriendsRecommend from "./components/Friends/FriendsRecommend";
-
-import reducer from "./reducers";
-
-import 'antd/dist/antd.css';
+import LoginForm from "./components/Login";
+import News from "./components/News";
+import PersonalPage from "./components/PersonalPage";
 import UpdateProfile from "./components/PersonalPage/Update";
-
+import reducer from "./reducers";
 
 const store = createStore(reducer);
 
@@ -26,7 +22,8 @@ ReactDOM.render(
         <Route path="/update" component={UpdateProfile} />
         <Route path="/news" component={News} />
         <Route path="/friends" component={FriendsRecommend} />
-        <Route path="/messages/:id" component={Chat} />
+        <Route exact path="/messages" component={Chat} />
+        <Route path="/messages/:id" component={Channel} />
         <Route path="/:id" component={PersonalPage} />
         <Route exact path="/" component={LoginForm} />
       </Switch>

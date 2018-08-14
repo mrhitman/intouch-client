@@ -7,6 +7,7 @@
         new_followers: Number;
         news: [];
         chat: {
+            socket: WebSocket;
             channels: [
                 {
                     with: {
@@ -17,8 +18,8 @@
                     messages: [
                         {
                             text: String,
-                            written_on: Date,
                             viewed: Boolean,
+                            created_at: Date,
                         }
                     ]
                 }

@@ -30,7 +30,7 @@ class UpdateProfile extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { id, token } = this.props;
+        const { id, token } = this.props.active_user;
         this.props.form.validateFields((err, values) => {
             api.setProfile(token, id, values);
         });

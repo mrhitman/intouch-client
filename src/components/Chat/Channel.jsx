@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Row } from 'antd';
+import { Avatar, Card, Col, Input, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions, wsPath } from '../../constats';
@@ -6,34 +6,28 @@ import api from '../../services/api';
 import Layout from '../Common/Layout';
 import LeftMenu from '../Common/LeftMenu';
 
-class Chat extends Component {
+class Channel extends Component {
 
     UNSAFE_componentWillMount() {
-        const { getProfile, chatAuth, account, active_user } = this.props;
+        const { getProfile, account, active_user } = this.props;
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile)
             .then(() => {
-                if (!account.chat.socket) {
+                if (!this.state.socket) {
                     const socket = new WebSocket(wsPath);
-                    socket.onopen = this.onopen(socket);
+                    socket.onopen = () => {
+                        socket.send(JSON.stringify({
+                            text: 'auth',
+                            from: account.id,
+                            name: active_user.profile.name
+                        }));
+                    };
                     socket.onmessage = this.onmessage;
-                    return socket;
+                    this.setState({ socket });
                 }
-                return account.chat.socket;
-            })
-            .then(chatAuth);
+            });
     }
-
-    onopen(socket) {
-        return () => {
-            socket.send(JSON.stringify({
-                text: 'auth',
-                from: this.props.account.id,
-                name: this.props.active_user.profile.name
-            }));
-        }
-    };
 
     onmessage = e => {
         const messages = this.state.messages;
@@ -41,15 +35,14 @@ class Chat extends Component {
             messages.push(JSON.parse(e.data));
             this.setState({ messages });
         } catch (e) {
+
         }
-    };
+    }
 
     send = e => {
         const { account, active_user, match } = this.props;
         const user_id = match.params.id;
         if (e.key === 'Enter') {
-            e.preventDefault();
-            e.stopPropagation();
             const { socket, messages } = this.state;
             socket.send(JSON.stringify({
                 text: e.target.value,
@@ -60,11 +53,14 @@ class Chat extends Component {
             messages.push({ text: e.target.value, name: active_user.profile.name });
             this.setState({ messages });
             e.target.value = '';
+            e.preventDefault();
+            e.stopPropagation();
         }
     };
 
     render() {
-        const account = this.props.account.toJS();
+        const { socket, messages } = this.state;
+        const { profile } = this.props.active_user;
         return (
             <Layout>
                 <Row>
@@ -72,12 +68,17 @@ class Chat extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={14}>
-                        {account.chat.channels.map(channel =>
-                            <Card extra={<a href={`/messages/${channel.with.id}`}>view</a>}>
-                                <Avatar size='small' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                <span style={{ marginLeft: 40 }}>{channel.with.name}</span>
-                            </Card>
-                        )}
+                        <div style={{ overflowY: 'scroll', height: '80vh' }}>
+                            {messages.map(message => {
+                                return <Card style={{ fontSize: 13, margin: 0, padding: 0 }}>
+                                    <Card.Meta title={message.name} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
+                                    {message.text}
+                                </Card>;
+                            })}
+                        </div>
+                        <Input.TextArea onKeyPress={this.send}
+                            style={{ position: 'absolute', top: '80vh' }} >
+                        </Input.TextArea>
                     </Col>
                 </Row>
             </Layout>
@@ -87,11 +88,8 @@ class Chat extends Component {
 
 const mapStateToProps = state => state;
 const mapDispatchToState = dispatch => ({
-    chatAuth: payload => {
-        dispatch({ type: Actions.chatAuth, payload });
-    },
     getProfile: payload => {
         dispatch({ type: Actions.getProfile, payload });
     },
 });
-export default connect(mapStateToProps, mapDispatchToState)(Chat);
+export default connect(mapStateToProps, mapDispatchToState)(Channel);

@@ -6,10 +6,12 @@ export const Actions = {
     follow: 'FRIEND_FOLLOW',
     unfollow: 'FRIEND_UNFOLLOW',
     getProfile: 'GET_PROFILE',
+    chatAuth: 'CHAT_AUTH',
 }
 
 const port = 3001;
 const protocol = 'http';
 const host = 'localhost';
 
-export const baseUri = `${protocol}://${host}:${port}`
+export const baseUri = `${protocol}://${host}:${port}`;
+export const wsPath = `ws://${host}:${port}/ws`;
