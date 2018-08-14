@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Row } from 'antd';
+import { Avatar, Card, Col, Icon, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions, wsPath } from '../../constats';
@@ -13,54 +13,33 @@ class Chat extends Component {
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile)
-            .then(() => {
-                if (!account.chat.socket) {
-                    const socket = new WebSocket(wsPath);
-                    socket.onopen = this.onopen(socket);
-                    socket.onmessage = this.onmessage;
-                    return socket;
-                }
-                return account.chat.socket;
-            })
+            .then(() => this.initChat)
             .then(chatAuth);
     }
 
-    onopen(socket) {
-        return () => {
-            socket.send(JSON.stringify({
-                text: 'auth',
-                from: this.props.account.id,
-                name: this.props.active_user.profile.name
-            }));
+    initChat = () => {
+        const { account, active_user } = this.props;
+        const chat = account.chat;
+        if (!account.chat.socket) {
+            const socket = new WebSocket(wsPath);
+            socket.onopen = () => {
+                socket.send(JSON.stringify({
+                    text: 'auth',
+                    from: account.id,
+                    name: active_user.profile.name
+                }));
+            };
+            socket.onmessage = e => {
+                const messages = [];
+                try {
+                    // messages.push(JSON.parse(e.data));
+                    // this.setState({ messages });
+                } catch (e) {
+                }
+            };
+            return socket;
         }
-    };
-
-    onmessage = e => {
-        const messages = this.state.messages;
-        try {
-            messages.push(JSON.parse(e.data));
-            this.setState({ messages });
-        } catch (e) {
-        }
-    };
-
-    send = e => {
-        const { account, active_user, match } = this.props;
-        const user_id = match.params.id;
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            e.stopPropagation();
-            const { socket, messages } = this.state;
-            socket.send(JSON.stringify({
-                text: e.target.value,
-                from: account.id,
-                to: user_id,
-                name: active_user.profile.name
-            }));
-            messages.push({ text: e.target.value, name: active_user.profile.name });
-            this.setState({ messages });
-            e.target.value = '';
-        }
+        return chat.socket;
     };
 
     render() {
@@ -73,8 +52,17 @@ class Chat extends Component {
                     </Col>
                     <Col span={14}>
                         {account.chat.channels.map(channel =>
-                            <Card extra={<a href={`/messages/${channel.with.id}`}>view</a>}>
-                                <Avatar size='small' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                            <Card >
+                                <Row>
+                                    <Col span={23}>
+                                        <Avatar size='small' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                    </Col>
+                                    <Col>
+                                        <a href={`/messages/${channel.with.id}`}>
+                                            <Icon type="ellipsis" />
+                                        </a>
+                                    </Col>
+                                </Row>
                                 <span style={{ marginLeft: 40 }}>{channel.with.name}</span>
                             </Card>
                         )}

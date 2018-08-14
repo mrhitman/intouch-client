@@ -11,7 +11,8 @@ const Account = Record({
     chat: new (Record({
         socket: null,
         channels: new List([
-            { with: { id: 3, name: 'Test name' }, messages: [] }
+            { with: { id: 2, name: 'Test name' }, messages: [] },
+            { with: { id: 3, name: 'Test name 2' }, messages: [] }
         ]),
     })),
 });

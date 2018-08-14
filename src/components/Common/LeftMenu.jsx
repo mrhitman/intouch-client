@@ -11,7 +11,7 @@ class LeftMenu extends Component {
         if (isAuthentificated) return (
             <Menu mode='inline'>
                 <Item>
-                    <Icon type="profile" />
+                    <Icon type="idcard" />
                     <span><Link to='/' >Personal page</Link></span>
                 </Item>
                 <Item>
