@@ -40,9 +40,9 @@ class Middle extends Component {
                 {people.map(person => (
                     <Col key={person.id} span={7}>
                         <Avatar size="large" shape="square" src='photo-mini.jpg' />
-                        <a href={`/${person.id}`}>
+                        <Link to={`/${person.id}`}>
                             <div className="name" style={{ fontSize: 11 }}>{person.profile.name}</div>
-                        </a>
+                        </Link>
                     </Col>
                 ))}
             </Row>

@@ -1,4 +1,4 @@
-import { List, Record, fromJS } from 'immutable';
+import { Map, Record, fromJS } from 'immutable';
 import { Action } from 'redux';
 import { Actions } from '../constats';
 
@@ -10,10 +10,16 @@ const Account = Record({
     new_followers: 0,
     chat: new (Record({
         socket: null,
-        channels: new List([
-            { with: { id: 2, name: 'Test name' }, messages: [] },
-            { with: { id: 3, name: 'Test name 2' }, messages: [] }
-        ]),
+        channels: {
+            2: {
+                with: { id: 2, name: 'Test name' },
+                messages: [{ text: "messsage", viewed: false, created_at: 2121 }]
+            },
+            3: {
+                with: { id: 3, name: 'Test name 2' },
+                messages: [{ text: "messsage", viewed: false, created_at: 2121 }]
+            }
+        },
     })),
 });
 

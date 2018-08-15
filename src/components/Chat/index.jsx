@@ -1,8 +1,10 @@
 import { Avatar, Card, Col, Icon, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Actions, wsPath } from '../../constats';
+import { Link } from 'react-router-dom';
+import { Actions } from '../../constats';
 import api from '../../services/api';
+import chat from '../../services/chat';
 import Layout from '../Common/Layout';
 import LeftMenu from '../Common/LeftMenu';
 
@@ -13,34 +15,9 @@ class Chat extends Component {
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile)
-            .then(() => this.initChat)
+            .then(() => chat(account, active_user))
             .then(chatAuth);
     }
-
-    initChat = () => {
-        const { account, active_user } = this.props;
-        const chat = account.chat;
-        if (!account.chat.socket) {
-            const socket = new WebSocket(wsPath);
-            socket.onopen = () => {
-                socket.send(JSON.stringify({
-                    text: 'auth',
-                    from: account.id,
-                    name: active_user.profile.name
-                }));
-            };
-            socket.onmessage = e => {
-                const messages = [];
-                try {
-                    // messages.push(JSON.parse(e.data));
-                    // this.setState({ messages });
-                } catch (e) {
-                }
-            };
-            return socket;
-        }
-        return chat.socket;
-    };
 
     render() {
         const account = this.props.account.toJS();
@@ -51,16 +28,16 @@ class Chat extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={14}>
-                        {account.chat.channels.map(channel =>
+                        {Object.values(account.chat.channels).map(channel =>
                             <Card >
                                 <Row>
                                     <Col span={23}>
                                         <Avatar size='small' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                     </Col>
                                     <Col>
-                                        <a href={`/messages/${channel.with.id}`}>
+                                        <Link to={`/messages/${channel.with.id}`}>
                                             <Icon type="ellipsis" />
-                                        </a>
+                                        </Link>
                                     </Col>
                                 </Row>
                                 <span style={{ marginLeft: 40 }}>{channel.with.name}</span>

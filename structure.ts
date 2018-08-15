@@ -8,13 +8,13 @@
         news: [];
         chat: {
             socket: WebSocket;
-            channels: [
-                {
+            channels: {
+                1: {
                     with: {
-                        id: Number,
-                        name: String,
-                        photo: String,
-                    },
+                        id: Number;
+                        name: String;
+                        photo: String;
+                    };
                     messages: [
                         {
                             text: String,
@@ -23,7 +23,7 @@
                         }
                     ]
                 }
-            ];
+            };
         }
     };
     active_user: {

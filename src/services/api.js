@@ -33,9 +33,4 @@ export default {
     register(data) {
         return axios.post(`${baseUri}/user/register`, data);
     },
-
-    sendMessage(id, friend_id, message) {
-
-    },
-
 }
