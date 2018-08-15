@@ -1,12 +1,14 @@
 export const Actions = {
     login: 'USER_LOGIN',
-    getProfile1: 'USER_GET_PROFILE',
     logout: 'USER_LOGOUT',
     getFriends: 'FRIEND_GET',
     follow: 'FRIEND_FOLLOW',
     unfollow: 'FRIEND_UNFOLLOW',
     getProfile: 'GET_PROFILE',
-    chatAuth: 'CHAT_AUTH',
+    connect: 'CONNECT_SOCKET',
+    getMessages: 'GET_MESSAGES',
+    getChannels: 'GET_CHANNELS',
+    newMessage: 'NEW_MESSAGE',
 }
 
 const port = 3001;

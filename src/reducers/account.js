@@ -1,4 +1,4 @@
-import { Map, Record, fromJS } from 'immutable';
+import { Map, Record, fromJS, List } from 'immutable';
 import { Action } from 'redux';
 import { Actions } from '../constats';
 
@@ -10,16 +10,7 @@ const Account = Record({
     new_followers: 0,
     chat: new (Record({
         socket: null,
-        channels: {
-            2: {
-                with: { id: 2, name: 'Test name' },
-                messages: [{ text: "messsage", viewed: false, created_at: 2121 }]
-            },
-            3: {
-                with: { id: 3, name: 'Test name 2' },
-                messages: [{ text: "messsage", viewed: false, created_at: 2121 }]
-            }
-        },
+        channels: new Map({}),
     })),
 });
 
@@ -34,10 +25,30 @@ export default (state = initialState, action: Action) => {
             return state
                 .set('id', user.id)
                 .set('token', user.token);
-        case Actions.chatAuth:
+        case Actions.connect:
             const socket = action.payload;
             return state
                 .setIn(['chat', 'socket'], socket);
+        case Actions.getChannels:
+            const data = action
+                .payload
+                .reduce((acc, channel) => acc.set(channel.id, {
+                    with: { id: channel.id, name: channel.name, photo: '' },
+                    messages: []
+                }), new Map({}));
+            return state
+                .setIn(['chat', 'channels'], fromJS(data));
+        case Actions.getMessages:
+            const { messages, user_id } = action.payload;
+            return state
+                .setIn(['chat', 'channels', user_id, 'messages'], messages);
+        case Actions.newMessage:
+            const message = action.payload;
+            return state
+                .updateIn(['chat', 'channels', user_id, 'messages'], messages => {
+                    console.log(messages);
+                    return messages.push(message);
+                });
         case Actions.logout:
             localStorage.clear();
             return initialState;

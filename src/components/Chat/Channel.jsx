@@ -10,38 +10,42 @@ import LeftMenu from '../Common/LeftMenu';
 class Channel extends Component {
 
     UNSAFE_componentWillMount() {
-        const { chatAuth, getProfile, account, active_user } = this.props;
+        const { chatAuth, getProfile, getChannels, getMessages, account, active_user, user_id } = this.props;
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile)
             .then(() => chat(account, active_user))
-            .then(chatAuth);
+            .then(chatAuth)
+            .then(() => api.getChannels(id))
+            .then(getChannels)
+            .then(() => api.getMessages(id, user_id))
+            .then((response) => getMessages(response, user_id))
     }
 
     send = e => {
-        const { account, active_user, match } = this.props;
-        const user_id = match.params.id;
+        const { account, active_user, user_id, newMessage } = this.props;
         const socket = account.chat.socket;
         if (e.key === 'Enter') {
-            e.preventDefault();
-            e.stopPropagation();
             socket.send(JSON.stringify({
                 text: e.target.value,
                 from: account.id,
                 to: user_id,
                 name: active_user.profile.name
             }));
-            // messages.push({ text: e.target.value, name: active_user.profile.name });
+            newMessage({ text: e.target.value, viewed: false })
             e.target.value = '';
+            e.preventDefault();
+            e.stopPropagation();
         }
     };
 
     render() {
-        const { account, active_user, match } = this.props;
-        const user_id = match.params.id;
-        const socket = account.socket;
-        const channel = account.chat.channels[user_id];
-        const { profile } = this.props.active_user;
+        const { account, user_id, chat } = this.props;
+        const channel = chat.channels.get(user_id);
+        if (!channel) {
+            return null;
+        }
+        const messages = channel.get('messages');
         return (
             <Layout>
                 <Row>
@@ -50,9 +54,9 @@ class Channel extends Component {
                     </Col>
                     <Col span={14}>
                         <div style={{ overflowY: 'scroll', height: '80vh' }}>
-                            {channel.messages.map(message => {
+                            {messages.map(message => {
                                 return <Card style={{ fontSize: 13, margin: 0, padding: 0 }}>
-                                    <Card.Meta title={channel.with.name} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
+                                    <Card.Meta title={'asd'} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
                                     {message.text}
                                 </Card>;
                             })}
@@ -67,13 +71,27 @@ class Channel extends Component {
     }
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = (state, own) => ({
+    account: state.account,
+    active_user: state.active_user,
+    chat: state.account.get('chat'),
+    user_id: own.match.params.id,
+});
 const mapDispatchToState = dispatch => ({
     getProfile: payload => {
         dispatch({ type: Actions.getProfile, payload });
     },
     chatAuth: payload => {
-        dispatch({ type: Actions.chatAuth, payload });
+        dispatch({ type: Actions.connect, payload });
     },
+    getChannels: payload => {
+        dispatch({ type: Actions.getChannels, payload: payload.data });
+    },
+    getMessages: (payload, user_id) => {
+        dispatch({ type: Actions.getMessages, payload: { messages: payload.data, user_id } })
+    },
+    newMessage: payload => {
+        dispatch({ type: Actions.newMessage, payload });
+    }
 });
 export default connect(mapStateToProps, mapDispatchToState)(Channel);

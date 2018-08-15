@@ -33,4 +33,12 @@ export default {
     register(data) {
         return axios.post(`${baseUri}/user/register`, data);
     },
+
+    getChannels(id) {
+        return axios.get(`${baseUri}/chat/channels/${id}`);
+    },
+
+    getMessages(from, to) {
+        return axios.get(`${baseUri}/chat/messages/${from}/${to}`);
+    },
 }

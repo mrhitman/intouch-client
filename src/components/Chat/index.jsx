@@ -11,12 +11,14 @@ import LeftMenu from '../Common/LeftMenu';
 class Chat extends Component {
 
     UNSAFE_componentWillMount() {
-        const { getProfile, chatAuth, account, active_user } = this.props;
+        const { getProfile, getChannels, chatAuth, account, active_user } = this.props;
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile)
             .then(() => chat(account, active_user))
-            .then(chatAuth);
+            .then(chatAuth)
+            .then(() => api.getChannels(id))
+            .then(getChannels);
     }
 
     render() {
@@ -53,10 +55,13 @@ class Chat extends Component {
 const mapStateToProps = state => state;
 const mapDispatchToState = dispatch => ({
     chatAuth: payload => {
-        dispatch({ type: Actions.chatAuth, payload });
+        dispatch({ type: Actions.connect, payload });
     },
     getProfile: payload => {
         dispatch({ type: Actions.getProfile, payload });
+    },
+    getChannels: payload => {
+        dispatch({ type: Actions.getChannels, payload: payload.data });
     },
 });
 export default connect(mapStateToProps, mapDispatchToState)(Chat);
