@@ -1,6 +1,9 @@
-import { Button, Checkbox, DatePicker, Form, Input, message, Select, Steps } from 'antd';
+import { Button, Checkbox, Col, DatePicker, Form, Input, message, Row, Select, Steps } from 'antd';
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import api from '../../services/api';
+import Layout from '../Common/Layout';
 
 const FormItem = Form.Item;
 const Step = Steps.Step;
@@ -61,30 +64,36 @@ class RegistrationForm extends Component {
 
     render() {
         const { current } = this.state;
+        const { account } = this.props;
         const steps = this.getSteps();
         return (
-            <div>
-                <div className="steps-action" style={{ margin: 40 }}>
-                    {current < steps.length - 1 && <Button type="primary" onClick={this.next}>Next</Button>}
-                    {current === steps.length - 1 && <Button type="primary" onClick={this.handleSubmit}>Done</Button>}
-                    {current > 0 && (<Button style={{ marginLeft: 8 }} onClick={this.prev}>Previous</Button>)}
-                </div>
-                <div className="steps-content">
-                    <Form onSubmit={this.handleSubmit}>
-                        {steps.map(({ title, content }, i) => (
-                            <div
-                                key={title}
-                                style={{ display: i === this.state.current ? '' : 'none' }}
-                            >
-                                {content}
-                            </div>
-                        ))}
-                    </Form>
-                </div>
-                <Steps current={current} style={{ margin: 60, marginTop: 180 }}>
-                    {steps.map(step => <Step key={step.title} title={step.title} />)}
-                </Steps>
-            </div>
+            <Layout>
+                {!!account.id && <Redirect to={`/${account.id}`} />}
+                <Row>
+                    <Col offset={5} span={13} style={{ margin: 12 }}>
+                        <div className="steps-action" style={{ margin: 40 }}>
+                            {current < steps.length - 1 && <Button type="primary" onClick={this.next}>Next</Button>}
+                            {current === steps.length - 1 && <Button type="primary" onClick={this.handleSubmit}>Done</Button>}
+                            {current > 0 && (<Button style={{ marginLeft: 8 }} onClick={this.prev}>Previous</Button>)}
+                        </div>
+                        <div className="steps-content">
+                            <Form onSubmit={this.handleSubmit}>
+                                {steps.map(({ title, content }, i) => (
+                                    <div
+                                        key={title}
+                                        style={{ display: i === this.state.current ? '' : 'none' }}
+                                    >
+                                        {content}
+                                    </div>
+                                ))}
+                            </Form>
+                        </div>
+                        <Steps current={current} style={{ margin: 60, marginTop: 180 }}>
+                            {steps.map(step => <Step key={step.title} title={step.title} />)}
+                        </Steps>
+                    </Col>
+                </Row>
+            </Layout>
         );
     }
 
@@ -177,4 +186,10 @@ class RegistrationForm extends Component {
     }
 }
 
-export default Form.create()(RegistrationForm);
+const mapStateToProps = state => state;
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Form.create()(RegistrationForm));

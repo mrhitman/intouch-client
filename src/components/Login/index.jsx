@@ -2,28 +2,32 @@ import { Button, Checkbox, Col, Form, Icon, Input, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Actions } from '../../constats';
 import api from '../../services/api';
 import Layout from '../Common/Layout';
-import RegistrationForm from '../Registration';
 
 const FormItem = Form.Item;
 
 class LoginForm extends Component {
+    state = { loginError: false };
 
     handleSubmit = (e) => {
-        e.preventDefault();
+        const { login } = this.props;
+        this.setState({ loginError: false });
         this.props.form.validateFields((err, values) => {
             const { email, password } = values;
             api.login(email, password)
-                .then(this.props.login)
+                .then(login)
                 .catch(response => this.setState({ loginError: true }));
         });
+        e.preventDefault();
     }
 
     render() {
         const { getFieldDecorator } = this.props.form;
         const { account } = this.props;
+        const { loginError } = this.state;
         return (
             <Layout>
                 {!!account.id && <Redirect to={`/${account.id}`} />}
@@ -44,6 +48,7 @@ class LoginForm extends Component {
                                     <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
                                 )}
                             </FormItem>
+                            {loginError && <div>No such user/password!</div>}
                             <FormItem>
                                 {getFieldDecorator('remember', { valuePropName: 'checked', initialValue: true })(<Checkbox>Remember me</Checkbox>)}
                                 <a className="login-form-forgot" href="" style={{ float: 'right' }}>Forgot password</a>
@@ -54,7 +59,7 @@ class LoginForm extends Component {
                         </Form>
                     </Col>
                     <Col offset={1} span={15} style={{ margin: 20 }}>
-                        <RegistrationForm />
+                        <Link to='/registrate'>Registrate</Link>
                     </Col>
                 </Row>
             </Layout>

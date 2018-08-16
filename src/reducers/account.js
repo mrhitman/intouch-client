@@ -15,13 +15,12 @@ const initialState = new Account();
 export default (state = initialState, action: Action) => {
     switch (action.type) {
         case Actions.login:
-            const user = action.payload;
-            localStorage.set('id', user.id);
-            localStorage.set('token', user.token);
+            const { token, user } = action.payload;
+            localStorage.setItem('id', user.id);
+            localStorage.setItem('token', token);
             return state
                 .set('id', user.id)
-                .set('token', user.token);
-
+                .set('token', token);
         case Actions.logout:
             localStorage.clear();
             return initialState;

@@ -11,17 +11,17 @@ export const Actions = {
     newMessage: 'NEW_MESSAGE',
 }
 
-// const config = {
-//     port: 443,
-//     protocol: 'https',
-//     host: 'hitman-intouchapp.herokuapp.com',
-// };
-
 const config = {
-    port: 3001,
-    protocol: 'http',
-    host: 'localhost',
+    port: 443,
+    protocol: 'https',
+    host: 'hitman-intouchapp.herokuapp.com',
 };
+
+// const config = {
+//     port: 3001,
+//     protocol: 'http',
+//     host: 'localhost',
+// };
 
 export const baseUri = `${config.protocol}://${config.host}:${config.port}`;
 export const wsPath = `ws://${config.host}:${config.port}/ws`;

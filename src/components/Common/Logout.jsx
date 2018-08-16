@@ -15,7 +15,7 @@ class Logout extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    return { isAuthentificated: state.user.status };
+    return { isAuthentificated: !!state.account.id };
 };
 const mapDispatchToProps = (dispatch, ownProps) => ({
     logout: () => {

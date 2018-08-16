@@ -11,6 +11,7 @@ import LoginForm from "./components/Login";
 import News from "./components/News";
 import PersonalPage from "./components/PersonalPage";
 import UpdateProfile from "./components/PersonalPage/Update";
+import RegistrationForm from './components/Registration';
 import reducer from "./reducers";
 
 const store = createStore(reducer);
@@ -22,6 +23,7 @@ ReactDOM.render(
         <Route path="/update" component={UpdateProfile} />
         <Route path="/news" component={News} />
         <Route path="/friends" component={FriendsRecommend} />
+        <Route path="/registrate" component={RegistrationForm} />
         <Route exact path="/messages" component={Chat} />
         <Route path="/messages/:id" component={Channel} />
         <Route path="/:id" component={PersonalPage} />
