@@ -1,7 +1,7 @@
 import { wsPath } from '../constats';
 
 export default (state) => {
-    const { account, active_user, chat } = state;
+    const { account, active_user, chat, newMessage } = state;
     if (!chat.get('socket')) {
         const socket = new WebSocket(wsPath);
         socket.onopen = () => {
@@ -13,7 +13,7 @@ export default (state) => {
         };
         socket.onmessage = e => {
             try {
-                // messages.push(JSON.parse(e.data));
+                newMessage(JSON.parse(e.data));
                 console.log(JSON.parse(e.data));
             } catch (e) {
             }

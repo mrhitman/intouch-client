@@ -10,11 +10,11 @@ import LeftMenu from '../Common/LeftMenu';
 class Channel extends Component {
 
     UNSAFE_componentWillMount() {
-        const { chatAuth, getProfile, getChannels, getMessages, account, active_user, chat, user_id } = this.props;
+        const { chatAuth, getProfile, getChannels, getMessages, account, active_user, chat, user_id, newMessage } = this.props;
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile)
-            .then(() => chatApi({ account, active_user, chat }))
+            .then(() => chatApi({ account, active_user, chat, newMessage }))
             .then(chatAuth)
             .then(() => api.getChannels(id))
             .then(getChannels)
@@ -32,7 +32,11 @@ class Channel extends Component {
                 to: user_id,
                 name: active_user.getIn(['profile', 'name']),
             }));
-            newMessage({ text: e.target.value, viewed: false })
+            newMessage({
+                from: active_user.id,
+                to: user_id,
+                text: e.target.value,
+            })
             e.target.value = '';
             e.preventDefault();
             e.stopPropagation();
@@ -41,11 +45,12 @@ class Channel extends Component {
 
     render() {
         const { user_id, chat } = this.props;
-        const channel = chat.getIn(['channels', user_id]);
+        const channels = chat.get('channels').toJS();
+        const channel = channels[user_id];
         if (!channel) {
             return null;
         }
-        const messages = channel.get('messages');
+        const messages = chat.get('messages');
         return (
             <Layout>
                 <Row>

@@ -38,7 +38,7 @@ export default (state = initialState, action: Action) => {
             return state.set('channels', data);
         case Actions.getMessages:
             const { messages, user_id } = action.payload;
-            return state.set('messages', messages.map(message => new Message(message)));
+            return state.set('messages', List(messages.map(message => new Message(message))));
         case Actions.newMessage:
             const message = action.payload;
             return state.update('messages', messages => messages.push(new Message(message)));
