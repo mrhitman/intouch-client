@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Collapse, Icon, Menu, Pagination, Popover, Row } from 'antd';
+import { Avatar, Card, Col, Collapse, Icon, Pagination, Popover, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';

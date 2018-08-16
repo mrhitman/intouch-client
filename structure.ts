@@ -6,25 +6,25 @@
         new_messages: Number;
         new_followers: Number;
         news: [];
-        chat: {
-            socket: WebSocket;
-            channels: {
-                1: {
-                    with: {
-                        id: Number;
-                        name: String;
-                        photo: String;
-                    };
-                    messages: [
-                        {
-                            text: String,
-                            viewed: Boolean,
-                            created_at: Date,
-                        }
-                    ]
-                }
+    };
+    chat: {
+        socket: WebSocket;
+        channels: {
+            1: {
+                interlocutor_id: Number;
+                name: String;
+                photo: String;
             };
         }
+        messages: [
+            {
+                from: Number,
+                to: Number,
+                text: String,
+                viewed: Boolean,
+                created_at: Date,
+            }
+        ]
     };
     active_user: {
         id: Number;

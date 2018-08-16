@@ -22,7 +22,7 @@ const formSubmitLayout = {
 class UpdateProfile extends Component {
 
     UNSAFE_componentWillMount() {
-        const { getProfile, account, active_user } = this.props;
+        const { getProfile, account } = this.props;
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile);
@@ -52,7 +52,7 @@ class UpdateProfile extends Component {
                                     {getFieldDecorator('first_name', { initialValue: profile.first_name, rules: [{ required: true }] })(<Input />)}
                                 </FormItem>
                                 <FormItem label='Middle name' {...formItemLayout} >
-                                    {getFieldDecorator('middle_name', { initialValue: profile.first_name, rules: [{ required: true }] })(<Input />)}
+                                    {getFieldDecorator('middle_name', { initialValue: profile.middle_name, rules: [{ required: true }] })(<Input />)}
                                 </FormItem>
                                 <FormItem label='Last name' {...formItemLayout}>
                                     {getFieldDecorator('last_name', { initialValue: profile.last_name })(<Input />)}

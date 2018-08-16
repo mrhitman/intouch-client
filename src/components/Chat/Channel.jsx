@@ -3,18 +3,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
 import api from '../../services/api';
-import chat from '../../services/chat';
+import chatApi from '../../services/chat';
 import Layout from '../Common/Layout';
 import LeftMenu from '../Common/LeftMenu';
 
 class Channel extends Component {
 
     UNSAFE_componentWillMount() {
-        const { chatAuth, getProfile, getChannels, getMessages, account, active_user, user_id } = this.props;
+        const { chatAuth, getProfile, getChannels, getMessages, account, active_user, chat, user_id } = this.props;
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile)
-            .then(() => chat(account, active_user))
+            .then(() => chatApi({ account, active_user, chat }))
             .then(chatAuth)
             .then(() => api.getChannels(id))
             .then(getChannels)
@@ -23,14 +23,14 @@ class Channel extends Component {
     }
 
     send = e => {
-        const { account, active_user, user_id, newMessage } = this.props;
-        const socket = account.chat.socket;
+        const { account, chat, active_user, user_id, newMessage } = this.props;
+        const socket = chat.get('socket');
         if (e.key === 'Enter') {
             socket.send(JSON.stringify({
                 text: e.target.value,
-                from: account.id,
+                from: account.get('id'),
                 to: user_id,
-                name: active_user.profile.name
+                name: active_user.getIn(['profile', 'name']),
             }));
             newMessage({ text: e.target.value, viewed: false })
             e.target.value = '';
@@ -40,8 +40,8 @@ class Channel extends Component {
     };
 
     render() {
-        const { account, user_id, chat } = this.props;
-        const channel = chat.channels.get(user_id);
+        const { user_id, chat } = this.props;
+        const channel = chat.getIn(['channels', user_id]);
         if (!channel) {
             return null;
         }
@@ -76,6 +76,7 @@ const mapStateToProps = (state, own) => ({
     active_user: state.active_user,
     chat: state.account.get('chat'),
     user_id: own.match.params.id,
+    chat: state.chat,
 });
 const mapDispatchToState = dispatch => ({
     getProfile: payload => {

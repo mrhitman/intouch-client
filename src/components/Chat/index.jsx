@@ -15,14 +15,15 @@ class Chat extends Component {
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile)
-            .then(() => chat(account, active_user))
+            .then(() => chat(this.props))
             .then(chatAuth)
             .then(() => api.getChannels(id))
             .then(getChannels);
     }
 
     render() {
-        const account = this.props.account.toJS();
+        const { chat } = this.props;
+        const channels = chat.get('channels').toJS();
         return (
             <Layout>
                 <Row>
@@ -30,20 +31,20 @@ class Chat extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={14}>
-                        {Object.values(account.chat.channels).map(channel =>
-                            <Card >
+                        {Object.values(channels).map(channel =>
+                            (<Card key={`channel_${channel.interlocutor_id}`}>
                                 <Row>
                                     <Col span={23}>
-                                        <Avatar size='small' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                        <Avatar size='small' src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />
                                     </Col>
                                     <Col>
-                                        <Link to={`/messages/${channel.with.id}`}>
+                                        <Link to={`/messages/${channel.interlocutor_id}`}>
                                             <Icon type="ellipsis" />
                                         </Link>
                                     </Col>
                                 </Row>
-                                <span style={{ marginLeft: 40 }}>{channel.with.name}</span>
-                            </Card>
+                                <span style={{ marginLeft: 40 }}>{channel.name}</span>
+                            </Card>)
                         )}
                     </Col>
                 </Row>

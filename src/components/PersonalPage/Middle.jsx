@@ -10,8 +10,8 @@ class Middle extends Component {
             <Row style={{ textAlign: 'center' }}>
                 <Col>
                     <img src="photo.jpg" alt="" style={{ height: 200, margin: 12 }} />
-                    {account.id != active_user.id && <Button type='primary' style={{ marginBottom: 10 }} ><a href={`/messages/${active_user.id}`}>Send a message</a></Button>}
-                    {account.id != active_user.id && <div>{active_user.profile.name} is your friend</div>}
+                    {account.id !== active_user.id && <Button type='primary' style={{ marginBottom: 10 }} ><a href={`/messages/${active_user.id}`}>Send a message</a></Button>}
+                    {account.id !== active_user.id && <div>{active_user.profile.name} is your friend</div>}
                     <Divider />
 
                     {active_user.followers.length > 0 &&

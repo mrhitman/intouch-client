@@ -2,27 +2,29 @@ import { List, Record } from 'immutable';
 import { Action } from 'redux';
 import { Actions } from '../constats';
 
+const Profile = Record({
+    name: '',
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    quote: 'Do and win',
+    birtday: '',
+    hometown: '',
+    company: '',
+    relationships: '',
+    language: '',
+    life_priorities: '',
+    hobbies: '',
+    photo: 'photo.jpg',
+});
 
 const ActiveUser = Record({
     id: undefined,
-    profile: new (Record({
-        name: '',
-        first_name: '',
-        middle_name: '',
-        last_name: '',
-        quote: 'Do and win',
-        birtday: '',
-        hometown: '',
-        company: '',
-        relationships: '',
-        language: '',
-        life_priorities: '',
-        hobbies: '',
-    })),
-    friends: new List([]),
-    followers: new List([]),
-    followings: new List([]),
-    recommended: new List([]),
+    profile: new Profile(),
+    friends: List([]),
+    followers: List([]),
+    followings: List([]),
+    recommended: List([]),
 });
 
 const initialState = new ActiveUser();
