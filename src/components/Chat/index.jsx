@@ -11,7 +11,7 @@ import LeftMenu from '../Common/LeftMenu';
 class Chat extends Component {
 
     UNSAFE_componentWillMount() {
-        const { getProfile, getChannels, chatAuth, account, active_user } = this.props;
+        const { getProfile, getChannels, chatAuth, account } = this.props;
         const { id, token } = account;
         api.getProfile(token, id)
             .then(getProfile)
@@ -23,7 +23,7 @@ class Chat extends Component {
 
     render() {
         const { chat } = this.props;
-        const channels = chat.get('channels').toJS();
+        const channels = chat.get('channels');
         return (
             <Layout>
                 <Row>
@@ -31,7 +31,7 @@ class Chat extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={14}>
-                        {Object.values(channels).map(channel =>
+                        {channels.toArray().map(channel =>
                             (<Card key={`channel_${channel.interlocutor_id}`}>
                                 <Row>
                                     <Col span={23}>

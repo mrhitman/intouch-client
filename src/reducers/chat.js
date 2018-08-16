@@ -32,15 +32,16 @@ export default (state = initialState, action: Action) => {
             const data = action
                 .payload
                 .reduce((acc, channel) =>
-                    acc.set(channel.id, new Channel({ interlocutor_id: channel.id, name: channel.name })),
+                    acc.set(String(channel.id), new Channel({ interlocutor_id: channel.id, name: channel.name })),
                     Map({})
                 );
             return state.set('channels', data);
         case Actions.getMessages:
-            const { messages, user_id } = action.payload;
+            const { messages } = action.payload;
             return state.set('messages', List(messages.map(message => new Message(message))));
         case Actions.newMessage:
             const message = action.payload;
+            console.log(message);
             return state.update('messages', messages => messages.push(new Message(message)));
         default:
             return state;

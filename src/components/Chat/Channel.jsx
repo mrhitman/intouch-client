@@ -1,4 +1,5 @@
 import { Avatar, Card, Col, Input, Row } from 'antd';
+import { List } from 'immutable';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
@@ -8,6 +9,7 @@ import Layout from '../Common/Layout';
 import LeftMenu from '../Common/LeftMenu';
 
 class Channel extends Component {
+    messagesEl;
 
     UNSAFE_componentWillMount() {
         const { chatAuth, getProfile, getChannels, getMessages, account, active_user, chat, user_id, newMessage } = this.props;
@@ -23,34 +25,51 @@ class Channel extends Component {
     }
 
     send = e => {
-        const { account, chat, active_user, user_id, newMessage } = this.props;
+        const { chat, active_user, user_id, newMessage } = this.props;
         const socket = chat.get('socket');
         if (e.key === 'Enter') {
-            socket.send(JSON.stringify({
-                text: e.target.value,
-                from: account.get('id'),
-                to: user_id,
-                name: active_user.getIn(['profile', 'name']),
-            }));
-            newMessage({
-                from: active_user.id,
-                to: user_id,
-                text: e.target.value,
-            })
+            if (e.target.value.trim()) {
+                const message = {
+                    text: e.target.value,
+                    from: active_user.id,
+                    to: user_id,
+                };
+                socket.send(JSON.stringify(message));
+                newMessage(message)
+                this.scrollToBottom();
+            }
             e.target.value = '';
             e.preventDefault();
             e.stopPropagation();
         }
     };
 
+    scrollToBottom = () => {
+        const messagesEl = this.messagesEl;
+        if (messagesEl) {
+            messagesEl.scrollTop = 1e+10;
+        }
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
     render() {
-        const { user_id, chat } = this.props;
-        const channels = chat.get('channels').toJS();
-        const channel = channels[user_id];
+        const { user_id, chat, account, active_user } = this.props;
+        const channel = chat.getIn(['channels', user_id]);
         if (!channel) {
             return null;
         }
-        const messages = chat.get('messages');
+        const messages = chat.get('messages')
+            .filter(message =>
+                List([Number(message.from), Number(message.to)])
+                    .sort()
+                    .equals(List([Number(account.id), Number(user_id)]).sort()));
         return (
             <Layout>
                 <Row>
@@ -58,12 +77,15 @@ class Channel extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={14}>
-                        <div style={{ overflowY: 'scroll', height: '80vh' }}>
+                        <div style={{ overflowY: 'scroll', height: '80vh' }} ref={el => { this.messagesEl = el; }}>
                             {messages.map(message => {
-                                return <Card style={{ fontSize: 13, margin: 0, padding: 0 }}>
-                                    <Card.Meta title={'asd'} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
-                                    {message.text}
-                                </Card>;
+                                const title = message.get('from') === account.get('id') ? active_user.get('profile').name : channel.get('name');
+                                return (
+                                    <Card style={{ fontSize: 13, margin: 0, padding: 0 }}>
+                                        <Card.Meta title={title} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
+                                        {message.get('text')}
+                                    </Card>
+                                );
                             })}
                         </div>
                         <Input.TextArea onKeyPress={this.send}
@@ -71,7 +93,7 @@ class Channel extends Component {
                         </Input.TextArea>
                     </Col>
                 </Row>
-            </Layout>
+            </Layout >
         );
     }
 }
@@ -79,7 +101,6 @@ class Channel extends Component {
 const mapStateToProps = (state, own) => ({
     account: state.account,
     active_user: state.active_user,
-    chat: state.account.get('chat'),
     user_id: own.match.params.id,
     chat: state.chat,
 });
