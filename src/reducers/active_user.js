@@ -35,14 +35,14 @@ export default (state = initialState, action: Action) => {
             const user = action.payload.data.shift();
             return state
                 .set('id', user.id)
-                .set('profile', user.profile);
+                .set('profile', new Profile(user.profile));
         case Actions.getFriends:
             const friends = action.payload.data;
             return state
-                .set('friends', friends.friends)
-                .set('followers', friends.followers)
-                .set('followings', friends.followings)
-                .set('recommended', friends.recommendUsers)
+                .set('friends', List(friends.friends))
+                .set('followers', List(friends.followers))
+                .set('followings', List(friends.followings))
+                .set('recommended', List(friends.recommendUsers))
         default:
             return state;
     }

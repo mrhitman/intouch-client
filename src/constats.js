@@ -24,4 +24,4 @@ const config = {
 // };
 
 export const baseUri = `${config.protocol}://${config.host}:${config.port}`;
-export const wsPath = `ws://${config.host}:${config.port}/ws`;
+export const wsPath = `ws://${config.host}/ws`;
