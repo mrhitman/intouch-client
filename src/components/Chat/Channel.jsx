@@ -66,11 +66,11 @@ class Channel extends Component {
             api.createChannel(account.id, user_id)
                 .then(response => getChannels({ data: [response.data] }));
         }
-        const messages = chat.get('messages')
-            .filter(message =>
-                List([Number(message.from), Number(message.to)])
-                    .sort()
-                    .equals(List([Number(account.id), Number(user_id)]).sort()));
+        const messages = chat.get('messages');
+        //.filter(message =>
+        //    List([Number(message.from), Number(message.to)])
+        //        .sort()
+        //        .equals(List([Number(account.id), Number(user_id)]).sort()));
         return (
             <Layout>
                 <Row>
