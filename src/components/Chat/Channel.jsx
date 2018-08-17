@@ -34,7 +34,6 @@ class Channel extends Component {
                     from: active_user.id,
                     to: user_id,
                 };
-                console.log(message);
                 socket.send(JSON.stringify(message));
                 newMessage(message)
                 this.scrollToBottom();
@@ -81,7 +80,7 @@ class Channel extends Component {
                     <Col span={14}>
                         <div style={{ overflowY: 'scroll', height: '80vh' }} ref={el => { this.messagesEl = el; }}>
                             {messages.map(message => {
-                                const title = message.get('from') === account.get('id') ? active_user.get('profile').name : channel.get('name');
+                                const title = Number(message.get('from')) === Number(account.get('id')) ? active_user.get('profile').name : channel.get('name');
                                 return (
                                     <Card style={{ fontSize: 13, margin: 0, padding: 0 }}>
                                         <Card.Meta title={title} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
