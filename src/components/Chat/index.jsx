@@ -22,7 +22,7 @@ class Chat extends Component {
     }
 
     render() {
-        const { chat } = this.props;
+        const { chat, account } = this.props;
         const channels = chat.get('channels');
         return (
             <Layout>
@@ -38,8 +38,11 @@ class Chat extends Component {
                                         <Avatar size='small' src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />
                                     </Col>
                                     <Col>
+                                        <a href='/messages' >
+                                            <Icon onClick={() => api.closeChannel(account.id, channel.interlocutor_id)} type="close" />
+                                        </a>
                                         <Link to={`/messages/${channel.interlocutor_id}`}>
-                                            <Icon type="ellipsis" />
+                                            <Icon type="wechat" />
                                         </Link>
                                     </Col>
                                 </Row>

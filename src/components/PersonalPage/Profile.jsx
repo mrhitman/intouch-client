@@ -30,37 +30,37 @@ class Profile extends Component {
 
     render() {
         const { active_user } = this.props;
-        const profile = active_user.profile;
+        const profile = active_user.get('profile');
         const status = true;
         return (
             <div>
-                <Row style={{ margin: '20px 0 0 10px' }}>
-                    <Col span={18}>{profile.name}</Col>
+                <Row style={{ marginTop: 20, marginRight: 10 }}>
+                    <Col span={18}>{profile.get('name')}</Col>
                     <Col span={4}>{status ? 'Online' : 'Offline'}</Col>
                 </Row>
                 <Row>
-                    <Col>{profile.quote}</Col>
+                    <Col>{profile.get('quote')}</Col>
                     <Divider />
                 </Row>
                 <Row>
                     <Col span={15}>Birthday:</Col>
-                    <Col>{profile.birthday}</Col>
+                    <Col>{profile.get('birthday')}</Col>
                 </Row>
                 <Row>
                     <Col span={15}>Hometown:</Col>
-                    <Col>{profile.town}</Col>
+                    <Col>{profile.get('town')}</Col>
                 </Row>
                 <Row>
                     <Col span={15}>Relationship status:</Col>
-                    <Col>{Relationships[profile.relationship]}</Col>
+                    <Col>{Relationships[profile.get('relationship')]}</Col>
                 </Row>
                 <Row>
                     <Col span={15}>Company: </Col>
-                    <Col>{profile.company}</Col>
+                    <Col>{profile.get('company')}</Col>
                 </Row>
                 <Row>
                     <Col span={15}>Language: </Col>
-                    <Col>{profile.language}</Col>
+                    <Col>{profile.get('language')}</Col>
                 </Row>
                 {this.state.short ? this.renderShortInfo() : this.renderMoreInfo()}
                 <Divider />
@@ -79,7 +79,8 @@ class Profile extends Component {
     }
 
     renderMoreInfo() {
-        const { profile } = this.props.active_user;
+        const { active_user } = this.props;
+        const profile = active_user.get('profile');
         return (
             <div>
                 <div onClick={this.toggleInfo} style={toggleCss}>

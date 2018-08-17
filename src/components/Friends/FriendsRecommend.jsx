@@ -78,7 +78,6 @@ class FriendsRecommend extends Component {
                             </Collapse.Panel>
                             <Collapse.Panel header='Recommended' key={4}>
                                 {recommended.length ? recommended.map((user) => {
-                                    console.log(user);
                                     return (
                                         <Card title={(<Link to={`/${user.id}`}>{user.profile.name}</Link>)} key={user.id} extra={
                                             <Popover content={<a href='' onClick={() => api.follow(id, user.id)} >Follow</a>} trigger="click" >

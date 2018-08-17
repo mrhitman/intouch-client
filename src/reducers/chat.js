@@ -41,7 +41,6 @@ export default (state = initialState, action: Action) => {
             return state.set('messages', List(messages.map(message => new Message(message))));
         case Actions.newMessage:
             const message = action.payload;
-            console.log(message);
             return state.update('messages', messages => messages.push(new Message(message)));
         default:
             return state;

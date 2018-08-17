@@ -38,6 +38,14 @@ export default {
         return axios.get(`${baseUri}/chat/channels/${id}`);
     },
 
+    createChannel(from, to) {
+        return axios.post(`${baseUri}/chat/channels/create`, { from, to });
+    },
+
+    closeChannel(from, to) {
+        return axios.post(`${baseUri}/chat/channels/delete`, { from, to });
+    },
+
     getMessages(from, to) {
         return axios.get(`${baseUri}/chat/messages/${from}/${to}`);
     },

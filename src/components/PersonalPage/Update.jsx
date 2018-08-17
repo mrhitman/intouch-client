@@ -38,7 +38,7 @@ class UpdateProfile extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        const { profile } = this.props.active_user;
+        const profile = this.props.active_user.get('profile');
         return (
             <Layout >
                 <Row>
@@ -49,29 +49,29 @@ class UpdateProfile extends Component {
                         <Tabs>
                             <Tabs.TabPane tab="Profile" key={1} >
                                 <FormItem label='Name' {...formItemLayout} >
-                                    {getFieldDecorator('first_name', { initialValue: profile.first_name, rules: [{ required: true }] })(<Input />)}
+                                    {getFieldDecorator('first_name', { initialValue: profile.get('first_name'), rules: [{ required: true }] })(<Input />)}
                                 </FormItem>
                                 <FormItem label='Middle name' {...formItemLayout} >
-                                    {getFieldDecorator('middle_name', { initialValue: profile.middle_name, rules: [{ required: true }] })(<Input />)}
+                                    {getFieldDecorator('middle_name', { initialValue: profile.get('middle_name'), rules: [{ required: true }] })(<Input />)}
                                 </FormItem>
                                 <FormItem label='Last name' {...formItemLayout}>
-                                    {getFieldDecorator('last_name', { initialValue: profile.last_name })(<Input />)}
+                                    {getFieldDecorator('last_name', { initialValue: profile.get('last_name') })(<Input />)}
                                 </FormItem>
                                 <FormItem label='gender' {...formItemLayout}>
-                                    {getFieldDecorator('gender', { initialValue: profile.gender, rules: [{ required: true }] })(
+                                    {getFieldDecorator('gender', { initialValue: profile.get('gender'), rules: [{ required: true }] })(
                                         <Select>
                                             <Select.Option value={1}>male</Select.Option>
                                             <Select.Option value={0}>female</Select.Option>
                                         </Select>)}
                                 </FormItem>
                                 <FormItem label='Birthday' {...formItemLayout}>
-                                    {getFieldDecorator('birthday', { initialValue: moment(profile.birthday, 'YYYY/MMMM/Do'), rules: [{ required: true }] })(<DatePicker format='YYYY/MMMM/Do' />)}
+                                    {getFieldDecorator('birthday', { initialValue: moment(profile.birthday, 'Do MMMM YYYY'), rules: [{ required: true }] })(<DatePicker format='Do MMMM YYYY' />)}
                                 </FormItem>
                                 <FormItem label='Hometown' {...formItemLayout}>
-                                    {getFieldDecorator('town', { initialValue: profile.town })(<Input />)}
+                                    {getFieldDecorator('town', { initialValue: profile.get('town') })(<Input />)}
                                 </FormItem>
                                 <FormItem label='Relationships' {...formItemLayout}>
-                                    {getFieldDecorator('relationship', { initialValue: profile.relationship })(
+                                    {getFieldDecorator('relationship', { initialValue: profile.get('relationship') })(
                                         <Select allowClear style={{ width: 200 }}>
                                             <Select.Option value={0}>Single</Select.Option>
                                             <Select.Option value={1}>In a relationship</Select.Option>
@@ -85,14 +85,14 @@ class UpdateProfile extends Component {
                                         </Select>)}
                                 </FormItem>
                                 <FormItem label='Languages' {...formItemLayout}>
-                                    {getFieldDecorator('language', { initialValue: profile.language ? profile.language.split(',') : [] })(
+                                    {getFieldDecorator('language', { initialValue: profile.get('language') ? profile.get('language').split(',') : [] })(
                                         <Select mode='multiple' style={{ width: 200 }} allowClear>
                                             <Select.Option value='English'>English</Select.Option>
                                             <Select.Option value='Russian'>Russian</Select.Option>
                                         </Select>)}
                                 </FormItem>
                                 <FormItem label='Company' {...formItemLayout}>
-                                    {getFieldDecorator('company', { initialValue: profile.company })(<Input />)}
+                                    {getFieldDecorator('company', { initialValue: profile.get('company') })(<Input />)}
                                 </FormItem>
                                 <FormItem wrapperCol={formSubmitLayout}>
                                     <Button type="primary" onClick={this.handleSubmit}>Update</Button>
@@ -100,10 +100,10 @@ class UpdateProfile extends Component {
                             </Tabs.TabPane>
                             <Tabs.TabPane tab="Additional" key={2}>
                                 <FormItem label='Hobbies' {...formItemLayout}>
-                                    {getFieldDecorator('hobbies', { initialValue: profile.hobbies })(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
+                                    {getFieldDecorator('hobbies', { initialValue: profile.get('hobbies') })(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
                                 </FormItem>
                                 <FormItem label='Priorities' {...formItemLayout}>
-                                    {getFieldDecorator('priorities', { initialValue: profile.priorities })(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
+                                    {getFieldDecorator('priorities', { initialValue: profile.get('priorities') })(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
                                 </FormItem>
                                 <FormItem wrapperCol={formSubmitLayout}>
                                     <Button type="primary" onClick={this.handleSubmit}>Update</Button>

@@ -34,6 +34,7 @@ class Channel extends Component {
                     from: active_user.id,
                     to: user_id,
                 };
+                console.log(message);
                 socket.send(JSON.stringify(message));
                 newMessage(message)
                 this.scrollToBottom();
@@ -60,10 +61,11 @@ class Channel extends Component {
     }
 
     render() {
-        const { user_id, chat, account, active_user } = this.props;
+        const { user_id, chat, account, active_user, getChannels } = this.props;
         const channel = chat.getIn(['channels', user_id]);
         if (!channel) {
-            return null;
+            api.createChannel(account.id, user_id)
+                .then(response => getChannels({ data: [response.data] }));
         }
         const messages = chat.get('messages')
             .filter(message =>

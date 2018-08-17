@@ -5,6 +5,7 @@ export default (state) => {
     if (!chat.get('socket')) {
         const socket = new WebSocket(wsPath);
         socket.onopen = () => {
+            console.log('open socket');
             socket.send(JSON.stringify({
                 text: 'auth',
                 from: account.id,

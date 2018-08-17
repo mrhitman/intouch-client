@@ -8,10 +8,11 @@ const Profile = Record({
     middle_name: '',
     last_name: '',
     quote: 'Do and win',
-    birtday: '',
-    hometown: '',
+    birthday: '',
+    town: '',
     company: '',
-    relationships: '',
+    gender: 1,
+    relationship: '',
     language: '',
     life_priorities: '',
     hobbies: '',
@@ -20,7 +21,7 @@ const Profile = Record({
 
 const ActiveUser = Record({
     id: undefined,
-    profile: new Profile(),
+    profile: new Profile({}),
     friends: List([]),
     followers: List([]),
     followings: List([]),
@@ -32,7 +33,7 @@ const initialState = new ActiveUser();
 export default (state = initialState, action: Action) => {
     switch (action.type) {
         case Actions.getProfile:
-            const user = action.payload.data.shift();
+            const user = action.payload.data;
             return state
                 .set('id', user.id)
                 .set('profile', new Profile(user.profile));
