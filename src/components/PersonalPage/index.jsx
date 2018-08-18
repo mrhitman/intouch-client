@@ -12,6 +12,10 @@ import Wall from './Wall';
 
 class PersonalPage extends Component {
 
+    state = {
+        isLoading: true,
+    }
+
     UNSAFE_componentWillMount() {
         const { token, match, getProfile, getFriends } = this.props;
         const user_id = match.params.id;
@@ -19,20 +23,22 @@ class PersonalPage extends Component {
             api.getProfile(token, user_id).then(getProfile),
             api.getFriends(token, user_id).then(getFriends),
         ])
+        .then(() => this.setState({ isLoading: false }))
     }
 
     render() {
+        const { isLoading } = this.state;
         return (
             <Layout>
                 <Row>
-                    <Col lg={5} xxl={4}>
+                    <Col span={6}>
                         <LeftMenu />
                     </Col>
-                    <Col lg={6} xxl={4}>
+                    <Col span={6}>
                         <Middle />
                     </Col>
-                    <Col lg={13} xxl={10}>
-                        <Profile />
+                    <Col span={12}>
+                        <Profile isLoading={isLoading} />
                         <Photos />
                         <Wall />
                     </Col>

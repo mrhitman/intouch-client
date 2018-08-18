@@ -1,5 +1,4 @@
 import { Avatar, Card, Col, Input, Row } from 'antd';
-import { List } from 'immutable';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';

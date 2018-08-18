@@ -11,6 +11,7 @@ export default (state) => {
             }));
         };
         socket.onmessage = e => {
+            console.log(e.data);
             try {
                 newMessage(JSON.parse(e.data));
             } catch (e) {

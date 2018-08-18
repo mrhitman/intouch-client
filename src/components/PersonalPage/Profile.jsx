@@ -1,4 +1,4 @@
-import { Col, Divider, Row } from 'antd';
+import { Col, Divider, Icon, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -29,9 +29,12 @@ class Profile extends Component {
     };
 
     render() {
-        const { active_user } = this.props;
+        const { active_user, isLoading } = this.props;
         const profile = active_user.get('profile');
         const status = true;
+        if (isLoading) {
+            return <Icon type="loading" />
+        }
         return (
             <div>
                 <Row style={{ marginTop: 20, marginRight: 10 }}>

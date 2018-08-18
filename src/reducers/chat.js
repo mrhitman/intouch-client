@@ -27,7 +27,8 @@ const initialState = new Chat();
 export default (state = initialState, action: Action) => {
     switch (action.type) {
         case Actions.connect:
-            return state.set('socket', action.payload);
+            return state
+                .set('socket', action.payload);
         case Actions.getChannels:
             const data = action
                 .payload
@@ -35,13 +36,18 @@ export default (state = initialState, action: Action) => {
                     acc.set(String(channel.id), new Channel({ interlocutor_id: channel.id, name: channel.name })),
                     Map({})
                 );
-            return state.set('channels', data);
+            return state
+                .set('channels', data);
         case Actions.getMessages:
             const { messages } = action.payload;
-            return state.set('messages', List(messages.map(message => new Message(message))));
+            return state
+                .set('messages', List(messages.map(message => new Message(message))));
         case Actions.newMessage:
             const message = action.payload;
-            return state.update('messages', messages => messages.push(new Message(message)));
+            message.from = Number(message.from);
+            message.to = Number(message.to);
+            return state
+                .update('messages', messages => messages.push(new Message(message)));
         default:
             return state;
     }
