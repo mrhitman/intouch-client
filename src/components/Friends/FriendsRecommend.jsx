@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Collapse, Icon, Pagination, Popover, Row } from 'antd';
+import { Avatar, Card, Col, Collapse, Icon, Pagination, Popover, Row, List } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -31,15 +31,16 @@ class FriendsRecommend extends Component {
                             <Collapse.Panel header='All friends' key={1}>
                                 {friends.length ? friends.map((user) => {
                                     return (
-                                        <Card title={(<Link to={`/${user.id}`}>{user.profile.name}</Link>)} key={user.id} extra={
+                                        <List.Item key={user.id} >
                                             <Popover content={<a href='' >Delete from friends</a>} trigger="click" >
                                                 <Icon type='ellipsis' />
-                                            </Popover>} >
-                                            <Card.Meta
+                                            </Popover>
+                                            <List.Item.Meta
                                                 avatar={<Avatar size='large' shape='square' src='/photo-mini.jpg' />}
-                                                description={user.profile.birthday} />
-                                            <Link to={`/messages/${user.id}`}>Send message</Link>
-                                        </Card>
+                                                title={<Link to={`/${user.id}`}>{user.profile.name}</Link>}
+                                                description={<Link to={`/messages/${user.id}`}>Send message</Link>}
+                                            />
+                                        </List.Item>
                                     );
                                 }) : 'No any friends'}
                                 <Pagination total={friends.length} hideOnSinglePage />
@@ -47,15 +48,16 @@ class FriendsRecommend extends Component {
                             <Collapse.Panel header='Followers' key={2}>
                                 {followers.length ? followers.map((user) => {
                                     return (
-                                        <Card title={(<Link to={`/${user.id}`}>{user.profile.name}</Link>)} key={user.id} extra={
+                                        <List.Item key={user.id} >
                                             <Popover content={<a href='' onClick={() => api.follow(id, user.id)} >Add to friends</a>} trigger="click" >
                                                 <Icon type='ellipsis' />
-                                            </Popover>}>
-                                            <Card.Meta
+                                            </Popover>
+                                            <List.Item.Meta
                                                 avatar={<Avatar size='large' shape='square' src='/photo-mini.jpg' />}
-                                                description={user.profile.birthday} />
-                                            <Link to={`/messages/${user.id}`}>Send message</Link>
-                                        </Card>
+                                                title={<Link to={`/${user.id}`}>{user.profile.name}</Link>}
+                                                description={<Link to={`/messages/${user.id}`}>Send message</Link>}
+                                            />
+                                        </List.Item>
                                     );
                                 }) : 'No any followers'}
                                 <Pagination total={followers.length} hideOnSinglePage />
@@ -63,15 +65,16 @@ class FriendsRecommend extends Component {
                             <Collapse.Panel header='Followings' key={3}>
                                 {followings.length ? followings.map((user) => {
                                     return (
-                                        <Card title={(<Link to={`/${user.id}`}>{user.profile.name}</Link>)} key={user.id} extra={
+                                        <List.Item key={user.id} >
                                             <Popover content={<a href='' onClick={() => api.unfollow(id, user.id)} >Unfollow</a>} trigger="click" >
                                                 <Icon type='ellipsis' />
-                                            </Popover>}>
-                                            <Card.Meta
+                                            </Popover>
+                                            <List.Item.Meta
                                                 avatar={<Avatar size='large' shape='square' src='/photo-mini.jpg' />}
-                                                description={user.profile.birthday} />
-                                            <Link to={`/messages/${user.id}`}>Send message</Link>
-                                        </Card>
+                                                title={<Link to={`/${user.id}`}>{user.profile.name}</Link>}
+                                                description={<Link to={`/messages/${user.id}`}>Send message</Link>}
+                                            />
+                                        </List.Item>
                                     );
                                 }) : 'No any followings'}
                                 <Pagination total={followings.length} hideOnSinglePage />
@@ -79,14 +82,16 @@ class FriendsRecommend extends Component {
                             <Collapse.Panel header='Recommended' key={4}>
                                 {recommended.length ? recommended.map((user) => {
                                     return (
-                                        <Card title={(<Link to={`/${user.id}`}>{user.profile.name}</Link>)} key={user.id} extra={
+                                        <List.Item key={user.id} >
                                             <Popover content={<a href='' onClick={() => api.follow(id, user.id)} >Follow</a>} trigger="click" >
                                                 <Icon type='ellipsis' />
-                                            </Popover>}>
-                                            <Card.Meta
+                                            </Popover>
+                                            <List.Item.Meta
                                                 avatar={<Avatar size='large' shape='square' src='/photo-mini.jpg' />}
-                                                description={user.profile.birthday} />
-                                        </Card>
+                                                title={<Link to={`/${user.id}`}>{user.profile.name}</Link>}
+                                                description={<Link to={`/messages/${user.id}`}>Send message</Link>}
+                                            />
+                                        </List.Item>
                                     );
                                 }) : 'No any recommended friends'}
                                 <Pagination total={recommended.length} hideOnSinglePage />

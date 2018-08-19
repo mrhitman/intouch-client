@@ -36,8 +36,8 @@ class Profile extends Component {
             return <Icon type="loading" />
         }
         return (
-            <div>
-                <Row style={{ marginTop: 20, marginRight: 10 }}>
+            <div style={{ marginLeft: 10}}>
+                <Row style={{ marginTop: 20, fontSize: 16 }}>
                     <Col span={18}>{profile.get('name')}</Col>
                     <Col span={4}>{status ? 'Online' : 'Offline'}</Col>
                 </Row>

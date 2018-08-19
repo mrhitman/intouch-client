@@ -31,13 +31,13 @@ class PersonalPage extends Component {
         return (
             <Layout>
                 <Row>
-                    <Col span={6}>
+                    <Col span={6} style={{ minWidth: 200 }}>
                         <LeftMenu />
                     </Col>
-                    <Col span={6}>
+                    <Col span={6} style={{ minWidth: 200 }}>
                         <Middle />
                     </Col>
-                    <Col span={12}>
+                    <Col span={12} style={{ minWidth: 400 }}>
                         <Profile isLoading={isLoading} />
                         <Photos />
                         <Wall />
