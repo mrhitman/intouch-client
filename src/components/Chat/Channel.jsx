@@ -71,23 +71,16 @@ class Channel extends Component {
                             dataSource={messages}
                             size='small'
                             loading={this.state.isLoading}
-                            renderItem={message => {
-                                const ownerId = parseInt(message.from);
-                                const receiverId = parseInt(message.to);
-                                console.log(channel);
-                                console.log(active_user);
-                                const title = ownerId === id ? active_user.get('profile').name : channel.name;
-                                return (
-                                    <List.Item >
-                                        <List.Item.Meta
-                                            style={{ marginLeft: 20 }}
-                                            avatar={<Avatar size='small' src='/photo-mini.jpg' />}
-                                            title={title}
-                                            description={message.get('text')}
-                                        />
-                                    </List.Item>
-                                );
-                            }}
+                            renderItem={message => (
+                                <List.Item >
+                                    <List.Item.Meta
+                                        style={{ marginLeft: 20 }}
+                                        avatar={<Avatar size='small' src='/photo-mini.jpg' />}
+                                        title={parseInt(message.from) === id ? active_user.get('profile').name : channel.name}
+                                        description={message.get('text')}
+                                    />
+                                </List.Item>)
+                            }
                         />
                         <Input.TextArea onKeyPress={this.send}
                             style={{ position: 'absolute', top: '80vh' }} >

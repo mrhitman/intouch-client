@@ -16,7 +16,7 @@ const Profile = Record({
     language: '',
     life_priorities: '',
     hobbies: '',
-    photo: 'photo.jpg',
+    photo: '',
 });
 
 const ActiveUser = Record({
