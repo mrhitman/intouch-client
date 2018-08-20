@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Icon, Row } from 'antd';
+import { Avatar, Card, Col, Icon, Row, List } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -22,7 +22,7 @@ class Chat extends Component {
     }
 
     render() {
-        const { chat, account } = this.props;
+        const { chat, account, closeChannel } = this.props;
         const channels = chat.get('channels');
         return (
             <Layout>
@@ -31,24 +31,29 @@ class Chat extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={14}>
-                        {channels.toArray().map(channel =>
-                            (<Card key={`channel_${channel.interlocutor_id}`}>
-                                <Row>
-                                    <Col span={23}>
-                                        <Avatar size='small' src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />
-                                    </Col>
-                                    <Col>
-                                        <a href='/messages' >
-                                            <Icon onClick={() => api.closeChannel(account.id, channel.interlocutor_id)} type="close" />
-                                        </a>
+                        <List
+                            size='large'
+                            dataSource={channels.toArray()}
+                            renderItem={channel => (
+                                <List.Item
+                                    actions={[
                                         <Link to={`/messages/${channel.interlocutor_id}`}>
                                             <Icon type="wechat" />
-                                        </Link>
-                                    </Col>
-                                </Row>
-                                <span style={{ marginLeft: 40 }}>{channel.name}</span>
-                            </Card>)
-                        )}
+                                        </Link>,
+                                        <Link to='/messages' >
+                                            <Icon onClick={() => closeChannel(account.id, channel.interlocutor_id)} type="close" />
+                                        </Link>,
+                                    ]}
+                                >
+                                    <List.Item.Meta
+                                        avatar={<Avatar src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />}
+                                        title={channel.name}
+                                        description=' '
+                                        style={{ marginLeft: 30 }}
+                                    />
+                                </List.Item>
+                            )}
+                        />
                     </Col>
                 </Row>
             </Layout>
@@ -67,5 +72,11 @@ const mapDispatchToState = dispatch => ({
     getChannels: payload => {
         dispatch({ type: Actions.getChannels, payload: payload.data });
     },
+    closeChannel: (id, interlocutor_id) => {
+        api.closeChannel(id, interlocutor_id)
+            .then(() => {
+                dispatch({ type: Actions.closeChannel, payload: interlocutor_id });
+            });
+    }
 });
 export default connect(mapStateToProps, mapDispatchToState)(Chat);

@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Input, Row } from 'antd';
+import { Avatar, Col, Input, List, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';
@@ -8,11 +8,14 @@ import Layout from '../Common/Layout';
 import LeftMenu from '../Common/LeftMenu';
 
 class Channel extends Component {
-    messagesEl;
+    state = {
+        isLoading: false,
+    };
 
     UNSAFE_componentWillMount() {
         const { chatAuth, getProfile, getChannels, getMessages, account, active_user, chat, user_id, newMessage } = this.props;
         const { id, token } = account;
+        this.setState({ isLoading: true });
         api.getProfile(token, id)
             .then(getProfile)
             .then(() => chatApi({ account, active_user, chat, newMessage }))
@@ -21,6 +24,7 @@ class Channel extends Component {
             .then(getChannels)
             .then(() => api.getMessages(id, user_id))
             .then((response) => getMessages(response, user_id))
+            .then(() => this.setState({ isLoading: false }));
     }
 
     send = e => {
@@ -43,33 +47,18 @@ class Channel extends Component {
         }
     };
 
-    scrollToBottom = () => {
-        const messagesEl = this.messagesEl;
-        if (messagesEl) {
-            messagesEl.scrollTop = 1e+10;
-        }
-    }
-
-    componentDidMount() {
-        this.scrollToBottom();
-    }
-
-    componentDidUpdate() {
-        this.scrollToBottom();
-    }
-
     render() {
         const { user_id, chat, account, active_user, getChannels } = this.props;
-        const channel = chat.getIn(['channels', user_id]);
+        const channel = chat.getIn(['channels', user_id.toString()]);
         if (!channel) {
             api.createChannel(account.id, user_id)
                 .then(response => getChannels({ data: [response.data] }));
         }
+        const id = parseInt(account.id);
         const messages = chat.get('messages');
-        //.filter(message =>
-        //    List([Number(message.from), Number(message.to)])
-        //        .sort()
-        //        .equals(List([Number(account.id), Number(user_id)]).sort()));
+        // .filter(message =>
+        // List([Number(message.from), Number(message.to)]).sort()
+        // .equals(List([Number(account.id), Number(user_id)]).sort()));
         return (
             <Layout>
                 <Row>
@@ -77,17 +66,29 @@ class Channel extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={14}>
-                        <div style={{ overflowY: 'scroll', height: '80vh' }} ref={el => { this.messagesEl = el; }}>
-                            {messages.map(message => {
-                                const title = Number(message.get('from')) === Number(account.get('id')) ? active_user.get('profile').name : channel.get('name');
+                        <List
+                            style={{ overflowY: 'scroll', height: '80vh' }}
+                            dataSource={messages}
+                            size='small'
+                            loading={this.state.isLoading}
+                            renderItem={message => {
+                                const ownerId = parseInt(message.from);
+                                const receiverId = parseInt(message.to);
+                                console.log(channel);
+                                console.log(active_user);
+                                const title = ownerId === id ? active_user.get('profile').name : channel.name;
                                 return (
-                                    <Card style={{ fontSize: 13, margin: 0, padding: 0 }}>
-                                        <Card.Meta title={title} avatar={<Avatar size='small' src='/photo-mini.jpg' />} />
-                                        {message.get('text')}
-                                    </Card>
+                                    <List.Item >
+                                        <List.Item.Meta
+                                            style={{ marginLeft: 20 }}
+                                            avatar={<Avatar size='small' src='/photo-mini.jpg' />}
+                                            title={title}
+                                            description={message.get('text')}
+                                        />
+                                    </List.Item>
                                 );
-                            })}
-                        </div>
+                            }}
+                        />
                         <Input.TextArea onKeyPress={this.send}
                             style={{ position: 'absolute', top: '80vh' }} >
                         </Input.TextArea>
@@ -101,7 +102,7 @@ class Channel extends Component {
 const mapStateToProps = (state, own) => ({
     account: state.account,
     active_user: state.active_user,
-    user_id: own.match.params.id,
+    user_id: parseInt(own.match.params.id),
     chat: state.chat,
 });
 const mapDispatchToState = dispatch => ({

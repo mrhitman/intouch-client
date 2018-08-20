@@ -44,10 +44,13 @@ export default (state = initialState, action: Action) => {
                 .set('messages', List(messages.map(message => new Message(message))));
         case Actions.newMessage:
             const message = action.payload;
-            message.from = Number(message.from);
-            message.to = Number(message.to);
+            message.from = parseInt(message.from);
+            message.to = parseInt(message.to);
             return state
                 .update('messages', messages => messages.push(new Message(message)));
+        case Actions.closeChannel:
+            return state
+                .deleteIn(['channels', action.payload.toString()]);
         default:
             return state;
     }

@@ -9,6 +9,7 @@ export const Actions = {
     getMessages: 'GET_MESSAGES',
     getChannels: 'GET_CHANNELS',
     newMessage: 'NEW_MESSAGE',
+    closeChannel: 'CLOSE_CHANNEL',
 }
 
 // const config = {
