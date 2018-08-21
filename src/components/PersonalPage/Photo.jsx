@@ -40,9 +40,8 @@ class Photo extends Component {
         if (image) {
             const formData = new FormData();
             fileList.forEach(file => formData.append('photo', file));
-            console.log(crop);
             formData.append('x', crop.x);
-            formData.append('y', crop.x);
+            formData.append('y', crop.y);
             formData.append('height', crop.height);
             formData.append('width', crop.width);
             api.uploadProfileImage('', account.id, formData)

@@ -11,7 +11,7 @@ const Chat = Record({
 const Channel = Record({
     interlocutor_id: undefined,
     name: '',
-    photo: 'photo-mini.jpg',
+    photo: '',
 });
 
 const Message = Record({
@@ -33,7 +33,10 @@ export default (state = initialState, action: Action) => {
             const data = action
                 .payload
                 .reduce((acc, channel) =>
-                    acc.set(String(channel.id), new Channel({ interlocutor_id: channel.id, name: channel.name })),
+                    acc.set(
+                        channel.id.toString(),
+                        new Channel({ interlocutor_id: channel.id, name: channel.name, photo: channel.photo })
+                    ),
                     Map({})
                 );
             return state

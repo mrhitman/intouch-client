@@ -2,6 +2,7 @@ import { Avatar, Col, Divider, Row } from 'antd';
 import React, { Component, Fragment } from 'react';
 import 'react-image-crop/dist/ReactCrop.css';
 import { connect } from 'react-redux';
+import { baseUri } from '../../constats';
 import Photo from './Photo';
 
 class Middle extends Component {
@@ -32,11 +33,12 @@ class Middle extends Component {
     }
 
     renderPeople(people) {
+        const { active_user } = this.props;
         return (
             <Row justify='space-around' >
                 {people.map(person => (
                     <Col key={person.id} span={7}>
-                        <Avatar size="large" shape="square" src='photo-mini.jpg' />
+                        <Avatar size="large" shape="square" src={`${baseUri}/mini_${person.profile.photo}`} />
                         <a href={`/${person.id}`}>
                             <div className="name" style={{ fontSize: 11 }}>{person.profile.name}</div>
                         </a>

@@ -4,6 +4,7 @@ let delay = 1000;
 let instance;
 
 const open = (account, newMessage) => {
+    console.log('connect chat');
     instance = new WebSocket(wsPath);
     instance.onopen = () => {
         instance.send(JSON.stringify({
@@ -12,7 +13,6 @@ const open = (account, newMessage) => {
         }));
     };
     instance.onmessage = e => {
-        console.log(e.data);
         try {
             newMessage(JSON.parse(e.data));
         } catch (e) {
@@ -26,7 +26,11 @@ export default (state) => {
     if (!chat.get('socket')) {
         open(account, newMessage);
         instance.onclose = e => {
-            setTimeout(() => open(account, newMessage), delay);
+            console.log('connection closed');
+            setTimeout(() => () => {
+                console.log('reconnect');
+                open(account, newMessage);
+            }, delay);
             if (delay < 20000) {
                 delay *= 2;
             }

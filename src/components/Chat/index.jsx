@@ -2,7 +2,7 @@ import { Avatar, Card, Col, Icon, Row, List } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Actions } from '../../constats';
+import { Actions, baseUri } from '../../constats';
 import api from '../../services/api';
 import chat from '../../services/chat';
 import Layout from '../Common/Layout';
@@ -46,7 +46,7 @@ class Chat extends Component {
                                     ]}
                                 >
                                     <List.Item.Meta
-                                        avatar={<Avatar src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />}
+                                        avatar={<Avatar src={`${baseUri}/mini_${channel.photo}`} />}
                                         title={channel.name}
                                         description=' '
                                         style={{ marginLeft: 30 }}

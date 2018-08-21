@@ -1,7 +1,7 @@
 import { Avatar, Col, Input, List, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Actions } from '../../constats';
+import { Actions, baseUri } from '../../constats';
 import api from '../../services/api';
 import chatApi from '../../services/chat';
 import Layout from '../Common/Layout';
@@ -39,7 +39,6 @@ class Channel extends Component {
                 };
                 socket.send(JSON.stringify(message));
                 newMessage(message)
-                this.scrollToBottom();
             }
             e.target.value = '';
             e.preventDefault();
@@ -75,7 +74,7 @@ class Channel extends Component {
                                 <List.Item >
                                     <List.Item.Meta
                                         style={{ marginLeft: 20 }}
-                                        avatar={<Avatar size='small' src='/photo-mini.jpg' />}
+                                        avatar={<Avatar size='small' src={`${baseUri}/${channel.photo}`} />}
                                         title={parseInt(message.from) === id ? active_user.get('profile').name : channel.name}
                                         description={message.get('text')}
                                     />
