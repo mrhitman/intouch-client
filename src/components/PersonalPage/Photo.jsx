@@ -1,4 +1,4 @@
-import { Avatar, Button, Col, Divider, Icon, Modal, Row, Upload } from 'antd';
+import { Button, Divider, Icon, Modal, Upload } from 'antd';
 import React, { Component, Fragment } from 'react';
 import ReactCrop, { makeAspectCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -13,6 +13,7 @@ class Photo extends Component {
         crop: {},
         image: undefined,
         imagePreviewUrl: '',
+        imageUrl: '',
         minHeight: 200,
         minWidth: 160,
     }
@@ -35,7 +36,7 @@ class Photo extends Component {
     }
 
     handleOk = () => {
-        const { account } = this.props;
+        const { account, active_user } = this.props;
         const { crop, image, fileList } = this.state;
         if (image) {
             const formData = new FormData();
@@ -45,7 +46,11 @@ class Photo extends Component {
             formData.append('height', crop.height);
             formData.append('width', crop.width);
             api.uploadProfileImage('', account.id, formData)
-                .then(() => this.setState({ visible: false }));
+                .then(() => this.setState({
+                    visible: false,
+                    imageUrl: `${baseUri}/${active_user.get('profile').photo}?=${new Date().getTime()}`,
+                    imagePreviewUrl: '',
+                }));
         }
     }
 
@@ -65,13 +70,20 @@ class Photo extends Component {
         this.setState({ fileList: [file] });
     }
 
+    componentWillReceiveProps() {
+        const { active_user } = this.props;
+        this.setState({
+            imageUrl: `${baseUri}/${active_user.get('profile').photo}?=${new Date().getTime()}`
+        });
+    }
+
     render() {
         const { account, active_user } = this.props;
-        const { imagePreviewUrl } = this.state;
+        const { imagePreviewUrl, imageUrl } = this.state;
         return (
             <Fragment>
                 <img
-                    src={`${baseUri}/${active_user.get('profile').photo}`}
+                    src={imageUrl}
                     style={{ maxHeight: 200, maxWidth: 160, minHeight: 250, maxWidth: 200, margin: 12 }}
                 />
                 <Modal

@@ -26,7 +26,7 @@ class FriendsRecommend extends Component {
                         <LeftMenu />
                     </Col>
                     <Col span={14}>
-                        <Collapse bordered={false} defaultActiveKey={['1']}>
+                        <Collapse bordered={false} defaultActiveKey={['1', '2', '3', '4']}>
                             <Collapse.Panel header='All friends' key={1}>
                                 {friends.length ? friends.map(user => (
                                     <List.Item key={user.id} >
