@@ -1,15 +1,6 @@
-import { Col, Divider, Icon, Row } from 'antd';
+import { Col, Collapse, Divider, Icon, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-const toggleCss = {
-    margin: '8px',
-    textAlign: 'center',
-    color: '#4c77a4',
-    fontSize: '0.8em',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-};
 
 const Relationships = [
     "Single",
@@ -23,11 +14,12 @@ const Relationships = [
     "Divorced",
 ];
 
-class Profile extends Component {
-    state = {
-        short: true,
-    };
+const rowClass = {
+    marginTop: 8,
+    marginBottom: 8,
+};
 
+class Profile extends Component {
     render() {
         const { active_user, isLoading } = this.props;
         const profile = active_user.get('profile');
@@ -36,74 +28,50 @@ class Profile extends Component {
             return <Icon type="loading" />
         }
         return (
-            <div style={{ marginLeft: 10}}>
-                <Row style={{ marginTop: 20, fontSize: 16 }}>
-                    <Col span={18}>{profile.get('name')}</Col>
-                    <Col span={4}>{status ? 'Online' : 'Offline'}</Col>
-                </Row>
-                <Row>
-                    <Col>{profile.get('quote')}</Col>
-                    <Divider />
-                </Row>
-                <Row>
-                    <Col span={15}>Birthday:</Col>
-                    <Col>{profile.get('birthday')}</Col>
-                </Row>
-                <Row>
-                    <Col span={15}>Hometown:</Col>
-                    <Col>{profile.get('town')}</Col>
-                </Row>
-                <Row>
-                    <Col span={15}>Relationship status:</Col>
-                    <Col>{Relationships[profile.get('relationship')]}</Col>
-                </Row>
-                <Row>
-                    <Col span={15}>Company: </Col>
-                    <Col>{profile.get('company')}</Col>
-                </Row>
-                <Row>
-                    <Col span={15}>Language: </Col>
-                    <Col>{profile.get('language')}</Col>
-                </Row>
-                {this.state.short ? this.renderShortInfo() : this.renderMoreInfo()}
-                <Divider />
-            </div >
+            <Collapse accordion={false} bordered={false} defaultActiveKey={['1']} style={{ marginBottom: 40 }}>
+                <Collapse.Panel key="1" showArrow={false} disabled>
+                    <Row style={{ marginTop: 20, fontSize: 16, ...rowClass }}>
+                        <Col span={18}>{profile.get('name')}</Col>
+                        <Col span={4}>{status ? 'Online' : 'Offline'}</Col>
+                    </Row>
+                    <Row style={rowClass}>
+                        <Col>{profile.get('quote')}</Col>
+                        <Divider />
+                    </Row>
+                    <Row style={rowClass}>
+                        <Col span={15}>Birthday:</Col>
+                        <Col>{profile.get('birthday')}</Col>
+                    </Row>
+                    <Row style={rowClass}>
+                        <Col span={15}>Hometown:</Col>
+                        <Col>{profile.get('town')}</Col>
+                    </Row>
+                    <Row style={rowClass}>
+                        <Col span={15}>Relationship status:</Col>
+                        <Col>{Relationships[profile.get('relationship')]}</Col>
+                    </Row>
+                    <Row style={rowClass}>
+                        <Col span={15}>Company: </Col>
+                        <Col>{profile.get('company')}</Col>
+                    </Row>
+                    <Row style={rowClass}>
+                        <Col span={15}>Language: </Col>
+                        <Col>{profile.get('language')}</Col>
+                    </Row>
+                </Collapse.Panel>
+                <Collapse.Panel key="2" header='Additional info' showArrow={false}>
+                    <Row style={rowClass}>
+                        <Col span={15}>Your life priorities:</Col>
+                        <Col>{profile.priorities}</Col>
+                    </Row>
+                    <Row style={rowClass}>
+                        <Col span={15}>Your hobbies:</Col>
+                        <Col>{profile.hobbies}</Col>
+                    </Row>
+                </Collapse.Panel>
+            </Collapse>
         );
     }
-
-    renderShortInfo() {
-        return (
-            <div>
-                <div onClick={this.toggleInfo} style={toggleCss}>
-                    Show more
-                </div>
-            </div>
-        );
-    }
-
-    renderMoreInfo() {
-        const { active_user } = this.props;
-        const profile = active_user.get('profile');
-        return (
-            <div>
-                <div onClick={this.toggleInfo} style={toggleCss}>
-                    Show less
-                </div>
-                <Row>
-                    <Col span={15}>Your life priorities:</Col>
-                    <Col>{profile.priorities}</Col>
-                </Row>
-                <Row>
-                    <Col span={15}>Your hobbies:</Col>
-                    <Col>{profile.hobbies}</Col>
-                </Row>
-            </div>
-        );
-    }
-
-    toggleInfo = () => {
-        this.setState(({ short }) => ({ short: !short }));
-    };
 }
 
 const mapStateToProps = state => state;
