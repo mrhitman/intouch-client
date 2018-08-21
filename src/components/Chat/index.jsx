@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Icon, Row, List } from 'antd';
+import { Avatar, Col, Icon, List, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
