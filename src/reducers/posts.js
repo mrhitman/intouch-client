@@ -1,6 +1,7 @@
 import Chance from "chance";
-import { List } from 'immutable';
+import { List, Record } from 'immutable';
 import { Action } from 'redux';
+import { Actions } from "../constats";
 
 const chance = new Chance();
 
@@ -27,8 +28,20 @@ const intitialState = List(
     ]
 );
 
+const Post = Record({
+    id: undefined,
+    author: '',
+    title: '',
+    content: '',
+    dislikes: '',
+    likes: '',
+    comments: List([])
+});
+
 export default (state: List = intitialState, action: Action) => {
     switch (action.type) {
+        case Actions.post:
+            return state;
         default:
             return state;
     }
