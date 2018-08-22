@@ -1,6 +1,8 @@
 import { Avatar, Icon, List } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { baseUri } from '../../constats';
 
 const IconText = ({ type, text }) => (
     <span>
@@ -16,7 +18,6 @@ class Wall extends Component {
             <List
                 size='large'
                 dataSource={posts}
-                itemLayout='vertical'
                 renderItem={post => (
                     <List.Item
                         key={post.id}
@@ -28,9 +29,9 @@ class Wall extends Component {
                         style={{ margin: 15 }}
                     >
                         <List.Item.Meta
-                            avatar={<Avatar src='https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png' />}
-                            title={<a href='#'>{post.author.name}</a>}
-                            description={post.title}
+                            avatar={<Avatar shape='square' src={`${baseUri}/mini_${post.author.photo}`} />}
+                            title={<Link to={`${post.author_id}`} > {post.author.name}</Link>}
+                            description={post.header}
                         />
                         {post.content}
                     </List.Item>
@@ -40,9 +41,7 @@ class Wall extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return { posts: state.posts };
-};
+const mapStateToProps = state => ({ posts: state.posts });
 const mapDispatchToState = (dispatch, ownProps) => ({});
 
 export default connect(

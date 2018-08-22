@@ -17,13 +17,15 @@ class PersonalPage extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        const { token, match, getProfile, getFriends } = this.props;
+        const { token, match, getProfile, getFriends, getPosts } = this.props;
         const user_id = match.params.id;
         Promise.all([
             api.getProfile(token, user_id).then(getProfile),
             api.getFriends(token, user_id).then(getFriends),
+            api.getPosts(user_id).then(getPosts),
         ])
         .then(() => this.setState({ isLoading: false }))
+        .catch(console.log)
     }
 
     render() {
@@ -56,6 +58,9 @@ const mapDispatchToState = dispatch => ({
     getFriends: payload => {
         dispatch({ type: Actions.getFriends, payload });
     },
+    getPosts: payload => {
+        dispatch({ type: Actions.getPosts, payload: payload.data });
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToState)(PersonalPage);

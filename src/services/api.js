@@ -42,4 +42,7 @@ export default {
     getMessages(from, to) {
         return axios.get(`${baseUri}/chat/messages/${from}/${to}`);
     },
+    getPosts(owner_id) {
+        return axios.get(`${baseUri}/posts/${owner_id}`);
+    },
 }
