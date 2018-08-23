@@ -45,4 +45,7 @@ export default {
     getPosts(owner_id) {
         return axios.get(`${baseUri}/posts/${owner_id}`);
     },
+    doPost(data) {
+        return axios.post(`${baseUri}/posts/comment`, data);
+    }
 }

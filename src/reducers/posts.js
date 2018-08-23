@@ -23,7 +23,8 @@ export default (state: List = intitialState, action: Action) => {
         case Actions.getPosts:
             const { posts, authors } = action.payload;
             const authorsMap = authors.reduce((acc, author) => acc.set(author.id, author), Map({}));
-            return List(posts.map(post => new PostItem({ ...post, author: authorsMap.get(post.author_id) })));
+            return List(posts.map(post => new PostItem({ ...post, author: authorsMap.get(post.author_id) })))
+                .reverse();
         case Actions.post:
             const { post, author } = action.payload;
             return state

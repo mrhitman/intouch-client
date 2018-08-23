@@ -1,8 +1,9 @@
-import { Avatar, Icon, List } from 'antd';
-import React, { Component } from 'react';
+import { Avatar, Icon, List, Input, Col, Row } from 'antd';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { baseUri } from '../../constats';
+import { baseUri, Actions } from '../../constats';
+import api from '../../services/api';
 
 const IconText = ({ type, text }) => (
     <span>
@@ -12,37 +13,70 @@ const IconText = ({ type, text }) => (
 );
 
 class Wall extends Component {
+
+    post = e => {
+        const { account, active_user, doPost } = this.props;
+        if (e.key === 'Enter') {
+            if (e.target.value.trim()) {
+                const post = {
+                    header: '',
+                    content: e.target.value,
+                    author_id: account.id,
+                    owner_id: active_user.id,
+                };
+                api.doPost(post)
+                    .then(doPost);
+            }
+            e.target.value = '';
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    };
+
     render() {
-        const { posts } = this.props;
+        const { posts, account } = this.props;
         return (
-            <List
-                size='large'
-                dataSource={posts}
-                renderItem={post => (
-                    <List.Item
-                        key={post.id}
-                        actions={[
-                            <IconText type="dislike-o" text={post.dislikes} />,
-                            <IconText type="like-o" text={post.likes} />,
-                            <IconText type="message" text={post.comments} />
-                        ]}
-                        style={{ margin: 15 }}
-                    >
-                        <List.Item.Meta
-                            avatar={<Avatar shape='square' src={`${baseUri}/mini_${post.author.photo}`} />}
-                            title={<Link to={`${post.author_id}`} > {post.author.name}</Link>}
-                            description={post.header}
-                        />
-                        {post.content}
-                    </List.Item>
-                )}
-            />
+            <Fragment >
+                <Row>
+                    <Col span={22}>
+                        <Input.TextArea autosize={{ minRows: 1, maxRows: 3 }} onKeyDown={this.post} />
+                    </Col>
+                </Row>
+                <List
+                    size='large'
+                    dataSource={posts}
+                    itemLayout='vertical'
+                    renderItem={post => (
+                        <List.Item
+                            key={post.id}
+                            actions={[
+                                <IconText type="dislike-o" text={post.dislikes} />,
+                                <IconText type="like-o" text={post.likes} />,
+                                <IconText type="message" text={post.comments} />
+                            ]}
+                            style={{ margin: 15 }}
+                        >
+                            <List.Item.Meta
+                                avatar={<Avatar shape='square' src={`${baseUri}/mini_${post.author.photo}`} />}
+                                title={post.author_id != account.id && <Link to={`${post.author_id}`} > {post.author.name}</Link>}
+                            />
+                            {post.content}
+                        </List.Item>
+                    )}
+                />
+            </Fragment>
         );
     }
 }
 
-const mapStateToProps = state => ({ posts: state.posts });
-const mapDispatchToState = (dispatch, ownProps) => ({});
+const mapStateToProps = state => ({
+    ...state,
+});
+const mapDispatchToState = dispatch => ({
+    doPost: payload => {
+        dispatch({ type: Actions.post, payload: payload.data });
+    }
+});
 
 export default connect(
     mapStateToProps,
