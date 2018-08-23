@@ -14,17 +14,19 @@ export const Actions = {
     getPosts: 'GET_POSTS',
 }
 
+// const config = {
+//     port: 3001,
+//     protocol: 'http',
+//     host: 'localhost',
+// };
+// export const baseUri = `${config.protocol}://${config.host}:${config.port}`;
+// export const wsPath = `ws://${config.host}:${config.port}/ws`;
+
 const config = {
-    port: 3001,
-    protocol: 'http',
-    host: 'localhost',
+    port: 443,
+    protocol: 'https',
+    host: 'hitman-intouchapp.herokuapp.com',
 };
 
-// const config = {
-//     port: 443,
-//     protocol: 'https',
-//     host: 'hitman-intouchapp.herokuapp.com',
-// };
-
 export const baseUri = `${config.protocol}://${config.host}:${config.port}`;
-export const wsPath = `ws://${config.host}:${config.port}/ws`;
+export const wsPath = `wss://${config.host}/ws`;
