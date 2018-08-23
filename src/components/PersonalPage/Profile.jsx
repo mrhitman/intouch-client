@@ -43,12 +43,20 @@ class Profile extends Component {
                         <Col>{profile.get('birthday')}</Col>
                     </Row>
                     <Row style={rowClass}>
+                        <Col span={15}>Country:</Col>
+                        <Col>{profile.get('country')}</Col>
+                    </Row>
+                    <Row style={rowClass}>
+                        <Col span={15}>City:</Col>
+                        <Col>{profile.get('city')}</Col>
+                    </Row>
+                    <Row style={rowClass}>
                         <Col span={15}>Hometown:</Col>
-                        <Col>{profile.get('town')}</Col>
+                        <Col>{profile.get('home_town')}</Col>
                     </Row>
                     <Row style={rowClass}>
                         <Col span={15}>Relationship status:</Col>
-                        <Col>{Relationships[profile.get('relationship')]}</Col>
+                        <Col>{Relationships[profile.get('relation')]}</Col>
                     </Row>
                     <Row style={rowClass}>
                         <Col span={15}>Company: </Col>
@@ -67,6 +75,10 @@ class Profile extends Component {
                     <Row style={rowClass}>
                         <Col span={15}>Your hobbies:</Col>
                         <Col>{profile.hobbies}</Col>
+                    </Row>
+                    <Row style={rowClass}>
+                        <Col span={15}>Favourite books:</Col>
+                        <Col>{profile.books}</Col>
                     </Row>
                 </Collapse.Panel>
             </Collapse>

@@ -13,7 +13,7 @@ import Wall from './Wall';
 class PersonalPage extends Component {
 
     state = {
-        isLoading: true,
+        isLoading: false,
     }
 
     UNSAFE_componentWillMount() {

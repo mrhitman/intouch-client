@@ -67,8 +67,14 @@ class UpdateProfile extends Component {
                                 <FormItem label='Birthday' {...formItemLayout}>
                                     {getFieldDecorator('birthday', { initialValue: moment(profile.birthday, 'Do MMMM YYYY'), rules: [{ required: true }] })(<DatePicker format='Do MMMM YYYY' />)}
                                 </FormItem>
+                                <FormItem label='Country' {...formItemLayout}>
+                                    {getFieldDecorator('country', { initialValue: profile.get('country') })(<Input />)}
+                                </FormItem>
+                                <FormItem label='City' {...formItemLayout}>
+                                    {getFieldDecorator('city', { initialValue: profile.get('city') })(<Input />)}
+                                </FormItem>
                                 <FormItem label='Hometown' {...formItemLayout}>
-                                    {getFieldDecorator('town', { initialValue: profile.get('town') })(<Input />)}
+                                    {getFieldDecorator('home_town', { initialValue: profile.get('home_town') })(<Input />)}
                                 </FormItem>
                                 <FormItem label='Relationships' {...formItemLayout}>
                                     {getFieldDecorator('relationship', { initialValue: profile.get('relationship') })(
@@ -104,6 +110,9 @@ class UpdateProfile extends Component {
                                 </FormItem>
                                 <FormItem label='Priorities' {...formItemLayout}>
                                     {getFieldDecorator('priorities', { initialValue: profile.get('priorities') })(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
+                                </FormItem>
+                                <FormItem label='Books' {...formItemLayout}>
+                                    {getFieldDecorator('books', { initialValue: profile.get('books') })(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
                                 </FormItem>
                                 <FormItem wrapperCol={formSubmitLayout}>
                                     <Button type="primary" onClick={this.handleSubmit}>Update</Button>

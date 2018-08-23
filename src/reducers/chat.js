@@ -35,9 +35,12 @@ export default (state = initialState, action: Action) => {
                 .reduce((acc, channel) =>
                     acc.set(
                         channel.id.toString(),
-                        new Channel({ interlocutor_id: channel.id, name: channel.name, photo: channel.photo })
-                    ),
-                    Map({})
+                        new Channel({
+                            interlocutor_id: channel.id,
+                            name: channel.name,
+                            photo: channel.photo
+                        })
+                    ), Map({})
                 );
             return state
                 .set('channels', data);

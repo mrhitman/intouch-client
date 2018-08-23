@@ -70,7 +70,7 @@ class Photo extends Component {
         this.setState({ fileList: [file] });
     }
 
-    componentWillReceiveProps() {
+    UNSAFE_componentWillReceiveProps() {
         const { active_user } = this.props;
         this.setState({
             imageUrl: `${baseUri}/${active_user.get('profile').photo}?=${new Date().getTime()}`

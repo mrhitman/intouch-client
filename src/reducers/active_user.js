@@ -9,14 +9,17 @@ const Profile = Record({
     last_name: '',
     quote: 'Do and win',
     birthday: '',
-    town: '',
+    home_town: '',
+    city: '',
+    country: '',
     company: '',
     gender: 1,
-    relationship: '',
+    relation: '',
     language: '',
     life_priorities: '',
     hobbies: '',
     photo: '',
+    books: '',
 });
 
 const ActiveUser = Record({
