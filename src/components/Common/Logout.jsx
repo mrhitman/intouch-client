@@ -3,21 +3,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Actions } from '../../constats';
+import api from '../../services/api';
 
 class Logout extends Component {
+    logout = () => {
+        const { logout, account } = this.props;
+        api.logout(account.token)
+            .then(logout);
+    }
+
     render() {
-        const { isAuthentificated, logout } = this.props;
+        const { isAuthentificated } = this.props;
         if (isAuthentificated) {
-            return <div onClick={logout}>Logout</div>;
+            return <div onClick={this.logout}>Logout</div>;
         }
         return <Redirect to='/' />;
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return { isAuthentificated: !!state.account.id };
-};
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapStateToProps = (state, ownProps) => ({
+    isAuthentificated: !!state.account.id,
+    account: state.account,
+})
+const mapDispatchToProps = dispatch => ({
     logout: () => {
         dispatch({ type: Actions.logout })
     }

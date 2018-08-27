@@ -45,7 +45,7 @@ class Photo extends Component {
             formData.append('y', crop.y);
             formData.append('height', crop.height);
             formData.append('width', crop.width);
-            api.uploadProfileImage('', account.id, formData)
+            api.uploadProfileImage(account.token, account.id, formData)
                 .then(() => this.setState({
                     visible: false,
                     imageUrl: `${baseUri}/${active_user.get('profile').photo}?=${new Date().getTime()}`,

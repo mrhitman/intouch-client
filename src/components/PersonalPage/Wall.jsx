@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import { baseUri, Actions } from '../../constats';
 import api from '../../services/api';
 
-const IconText = ({ type, text }) => (
+const IconText = ({ type, text, onClick }) => (
     <span>
-        <Icon type={type} style={{ marginRight: 8 }} />
+        <Icon type={type} style={{ marginRight: 8 }} onClick={onClick} />
         {text}
     </span>
 );
@@ -31,7 +31,11 @@ class Wall extends Component {
             e.preventDefault();
             e.stopPropagation();
         }
-    };
+    }
+
+    addLike = item_id => {
+        api.addLike(item_id);
+    }
 
     render() {
         const { posts, account } = this.props;
@@ -51,7 +55,7 @@ class Wall extends Component {
                             key={post.id}
                             actions={[
                                 <IconText type="dislike-o" text={post.dislikes} />,
-                                <IconText type="like-o" text={post.likes} />,
+                                <IconText type="like-o" text={post.likes} onClick={() => this.addLike(post.id)} />,
                                 <IconText type="message" text={post.comments} />
                             ]}
                             style={{ margin: 15 }}
@@ -75,7 +79,13 @@ const mapStateToProps = state => ({
 const mapDispatchToState = dispatch => ({
     doPost: payload => {
         dispatch({ type: Actions.post, payload: payload.data });
-    }
+    },
+    addLike: payload => {
+        dispatch({ type: Actions.addLike, payload });
+    },
+    deleteLike: payload => {
+
+    },
 });
 
 export default connect(

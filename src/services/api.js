@@ -2,12 +2,15 @@ import axios from 'axios';
 import { baseUri } from '../constats';
 
 function getHeaders(token) {
-    return { headers: { Authorization: `${token}` } };
+    return { headers: { Authorization: `Bearer ${token}` } };
 }
 
 export default {
     login(email, password) {
         return axios.post(`${baseUri}/user/login`, { email, password });
+    },
+    logout(token) {
+        return axios.post(`${baseUri}/user/logout`, getHeaders);
     },
     getProfile(token, id) {
         return axios.get(`${baseUri}/user/profile/${id}`, getHeaders(token));
@@ -47,5 +50,8 @@ export default {
     },
     doPost(data) {
         return axios.post(`${baseUri}/posts/comment`, data);
-    }
+    },
+    addLike(item_id) {
+        return axios.post(`${baseUri}/likes/likes/add`, { item_id });
+    },
 }
