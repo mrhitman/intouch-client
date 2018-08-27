@@ -29,6 +29,9 @@ export default (state: List = intitialState, action: Action) => {
             const { post, author } = action.payload;
             return state
                 .insert(0, new PostItem({ ...post, author }));
+        case Actions.addLike:
+            const id = action.payload;
+            return state.update(state.findIndex(item => item.id == id), item => item.set('likes', item.likes + 1));
         default:
             return state;
     }

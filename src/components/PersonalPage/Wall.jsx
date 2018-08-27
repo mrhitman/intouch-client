@@ -6,8 +6,8 @@ import { baseUri, Actions } from '../../constats';
 import api from '../../services/api';
 
 const IconText = ({ type, text, onClick }) => (
-    <span>
-        <Icon type={type} style={{ marginRight: 8 }} onClick={onClick} />
+    <span onClick={onClick}>
+        <Icon type={type} style={{ marginRight: 8 }} />
         {text}
     </span>
 );
@@ -34,7 +34,9 @@ class Wall extends Component {
     }
 
     addLike = item_id => {
-        api.addLike(item_id);
+        const { addLike } = this.props;
+        api.addLike(item_id)
+            .then(() => addLike(item_id))
     }
 
     render() {
@@ -84,7 +86,6 @@ const mapDispatchToState = dispatch => ({
         dispatch({ type: Actions.addLike, payload });
     },
     deleteLike: payload => {
-
     },
 });
 
