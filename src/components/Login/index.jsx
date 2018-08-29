@@ -16,8 +16,7 @@ class LoginForm extends Component {
         const { login } = this.props;
         this.setState({ loginError: false });
         this.props.form.validateFields((err, values) => {
-            const { email, password } = values;
-            api.login(email, password)
+            api.login(values)
                 .then(login)
                 .catch(response => this.setState({ loginError: true }));
         });

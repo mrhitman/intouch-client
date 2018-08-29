@@ -6,6 +6,9 @@
         new_messages: Number;
         new_followers: Number;
         news: [];
+        profile: {
+
+        };
     };
     chat: {
         socket: WebSocket;

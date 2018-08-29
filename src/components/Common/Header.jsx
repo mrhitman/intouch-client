@@ -1,12 +1,24 @@
-import { Avatar, Badge, Col, Divider, Dropdown, Icon, Input, Layout, Menu, Row } from 'antd';
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Logout from '../Common/Logout';
+import { Avatar, Badge, Col, Divider, Dropdown, Icon, Input, Layout, Menu, Row } from 'antd'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import Logout from '../Common/Logout'
+
+const OverlayMenu = () => (
+    <Menu>
+        <Menu.Item>
+            <Link to='/update'>Settings</Link>
+        </Menu.Item>
+        <Divider />
+        <Menu.Item>
+            <Logout />
+        </Menu.Item>
+    </Menu>
+)
 
 class Header extends Component {
     render() {
-        const { new_messages, new_followers, isAuthentificated } = this.props;
+        const { isAuthentificated } = this.props
         return (
             <Layout.Header className='header' style={{ background: '#2980B9' }}>
                 <Row>
@@ -19,58 +31,45 @@ class Header extends Component {
                     {isAuthentificated && (
                         <Fragment>
                             <Col offset={7} span={1}>
-                                <Badge count={new_messages}>
-                                    <Icon type="message" />
+                                <Badge count={0}>
+                                    <Icon type='message' />
                                 </Badge>
                             </Col>
                             <Col span={1}>
                                 <Badge count={0}>
-                                    <Icon type="mail" />
+                                    <Icon type='mail' />
                                 </Badge>
                             </Col>
                             <Col span={1}>
-                                <Badge count={new_followers}>
-                                    <Icon type="user" />
+                                <Badge count={0}>
+                                    <Icon type='user' />
                                 </Badge>
                             </Col>
                             <Col span={1}>
-                                <Dropdown overlay={this.drawMenu()} trigger={['click']}>
-                                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                <Dropdown overlay={<OverlayMenu />} trigger={['click']}>
+                                    <Avatar src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />
                                 </Dropdown>
                             </Col>
                         </Fragment>
                     )}
                 </Row>
             </Layout.Header>
-        );
+        )
     }
 
     drawMenu() {
-        return (
-            <Menu>
-                <Menu.Item>
-                    <Link to='/update'>Settings</Link>
-                </Menu.Item>
-                <Divider />
-                <Menu.Item>
-                    <Logout />
-                </Menu.Item>
-            </Menu>
-        );
+        return
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    const { new_messages, new_followers } = state.account;
+const mapStateToProps = state => {
     return {
-        new_messages,
-        new_followers,
-        isAuthentificated: true,
-    };
-};
-const mapDispatchToProps = (dispatch, ownProps) => ({});
+        isAuthentificated: !!state.account.id,
+    }
+}
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Header);
+)(Header)

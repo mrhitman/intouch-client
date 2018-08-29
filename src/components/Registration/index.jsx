@@ -1,12 +1,12 @@
-import { Button, Checkbox, Col, DatePicker, Form, Input, message, Row, Select, Steps } from 'antd';
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import api from '../../services/api';
-import Layout from '../Common/Layout';
+import { Button, Checkbox, Col, DatePicker, Form, Input, message, Row, Select, Steps } from 'antd'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
+import api from '../../services/api'
+import Layout from '../Common/Layout'
 
-const FormItem = Form.Item;
-const Step = Steps.Step;
+const FormItem = Form.Item
+const Step = Steps.Step
 
 const formItemLayout = {
     labelCol: {
@@ -17,7 +17,7 @@ const formItemLayout = {
         xs: { span: 24 },
         sm: { span: 16 },
     },
-};
+}
 
 const tailFormItemLayout = {
     wrapperCol: {
@@ -30,32 +30,34 @@ const tailFormItemLayout = {
             offset: 8,
         },
     },
-};
+}
 
 class RegistrationForm extends Component {
     state = {
-        current: 0
-    };
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            api.register(values);
-            message.success('Registration complete!');
-        });
+        current: 0,
+        completed: false,
     }
 
-    next = (e) => {
-        e.preventDefault();
+    handleSubmit = (e) => {
+        e.preventDefault()
         this.props.form.validateFields((err, values) => {
-            const current = this.state.current;
-            const step = this.getSteps()[current];
-            const errors = step.content.props.children.filter(item => err[item.props.label]);
+            api.register(values)
+            message.success('Registration complete!')
+            this.setState({ completed: true })
+        })
+    }
+
+    next = e => {
+        e.preventDefault()
+        this.props.form.validateFields((err, values) => {
+            const current = this.state.current
+            const step = this.getSteps()[current]
+            const errors = step.content.props.children.filter(item => err[item.props.label])
             if (errors.length) {
-                return;
+                return
             }
             this.setState({ current: current + 1 })
-        });
+        })
     }
 
     prev = () => {
@@ -63,11 +65,12 @@ class RegistrationForm extends Component {
     }
 
     render() {
-        const { current } = this.state;
-        const { account } = this.props;
-        const steps = this.getSteps();
+        const { current, completed } = this.state
+        const { account } = this.props
+        const steps = this.getSteps()
         return (
             <Layout>
+                {completed && <Redirect to='/' />}
                 {!!account.id && <Redirect to={`/${account.id}`} />}
                 <Row>
                     <Col offset={5} span={13} style={{ margin: 12 }}>
@@ -94,11 +97,11 @@ class RegistrationForm extends Component {
                     </Col>
                 </Row>
             </Layout>
-        );
+        )
     }
 
     getSteps() {
-        const { getFieldDecorator } = this.props.form;
+        const { getFieldDecorator } = this.props.form
         return [
             {
                 title: 'Registration',
@@ -182,14 +185,14 @@ class RegistrationForm extends Component {
                     </Fragment>
                 )
             }
-        ];
+        ]
     }
 }
 
-const mapStateToProps = state => state;
-const mapDispatchToProps = dispatch => ({});
+const mapStateToProps = state => state
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Form.create()(RegistrationForm));
+)(Form.create()(RegistrationForm))

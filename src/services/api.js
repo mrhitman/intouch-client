@@ -1,57 +1,189 @@
 import axios from 'axios';
 import { baseUri } from '../constats';
 
-function getHeaders(token) {
-    return { headers: { Authorization: `Bearer ${token}` } };
+
+export class Api {
+
+    constructor(options = {}) {
+        this.client = options.client || axios.create({ baseURL: baseUri })
+        this.token = options.token
+        this.refreshToken = options.refreshToken
+
+        this.client.interceptors.request.use(
+            config => {
+                if (!this.token) {
+                    return config;
+                }
+
+                const newConfig = {
+                    headers: {},
+                    ...config,
+                }
+
+                newConfig.headers.Authorization = `Bearer ${this.token} `
+                return newConfig
+            },
+            e => Promise.reject(e)
+        )
+
+        this.client.interceptors.response.use(
+            response => response,
+            async error => {
+                if (!this.refreshToken || error.response.status !== 401 || error.config.retry) {
+                    throw error
+                }
+                const response = await this.refresh()
+                this.token = response.token
+                this.refreshToken = response.refreshToken
+                const newRequest = {
+                    ...error.config,
+                    retry: true,
+                }
+                return this.client(newRequest)
+            }
+        )
+    }
+
+    login(data) {
+        return this.client(`user/login`, { method: 'post', data })
+            .then(response => {
+                this.token = response.data.token
+                this.refreshToken = response.data.refreshToken
+                return response
+            })
+    }
+
+    refresh() {
+        return this.client(`user/refresh`, { method: 'post', data: { token: this.refreshToken } })
+    }
+
+    logout() {
+        return this.client(`user/logout`, { method: 'post' })
+    }
+
+    getProfile(id) {
+        return this.client(`user/profile/${id}`)
+    }
+
+    getFriends(id) {
+        return this.client(`user/get-friends/${id}`)
+    }
+
+    follow({ id, friend_id }) {
+        return this.client(`friend/follow/${id}/${friend_id}`)
+    }
+
+    unfollow({ id, friend_id }) {
+        return this.client(`friend/unfollow/${id}/${friend_id}`)
+    }
+
+    setProfile({ id, data }) {
+        return this.client(`user/profile/${id}`, { method: 'post', data })
+    }
+
+    uploadProfileImage(id, data) {
+        return this.client(`user/profile/${id}/photo`, { method: 'post', data })
+    }
+
+    register(data) {
+        return this.client(`user/register`, { method: 'post', data })
+    }
+
+    getChannels(id) {
+        return this.client(`chat/channels/${id}`)
+    }
+
+    createChannel(from, to) {
+        return this.client(`chat/channels/create`, { method: 'post', data: { from, to } })
+    }
+
+    closeChannel(from, to) {
+        return this.client(`chat/channels/delete`, { method: 'post', data: { from, to } })
+    }
+
+    getMessages(from, to) {
+        return this.client(`chat/messages/${from}/${to}`)
+    }
+
+    getPosts(owner_id) {
+        return this.client(`posts/${owner_id}`)
+    }
+
+    addPost(data) {
+        return this.client(`posts/comment`, { method: 'post', data })
+    }
+
+    deletePost(id) {
+        return this.client(`posts/comment/delete`, { method: 'post', data: { id } })
+    }
+
+    addLike(item_id) {
+        return this.client(`likes/likes/add`, { method: 'post', data: { item_id } })
+    }
+
+    logout() {
+        return this.client(`user/logout`, { method: 'post' })
+    }
+
+    getProfile(id) {
+        return this.client(`user/profile/${id}`)
+    }
+
+    getFriends(id) {
+        return this.client(`user/get-friends/${id}`)
+    }
+
+    follow({ id, friend_id }) {
+        return this.client(`friend/follow/${id}/${friend_id}`)
+    }
+
+    unfollow({ id, friend_id }) {
+        return this.client(`friend/unfollow/${id}/${friend_id}`)
+    }
+
+    setProfile({ id, data }) {
+        return this.client(`user/profile/${id}`, { method: 'post', data })
+    }
+
+    uploadProfileImage(id, data) {
+        return this.client(`user/profile/${id}/photo`, { method: 'post', data })
+    }
+
+    register(data) {
+        return this.client(`user/register`, { method: 'post', data })
+    }
+
+    getChannels(id) {
+        return this.client(`chat/channels/${id}`)
+    }
+
+    createChannel(from, to) {
+        return this.client(`chat/channels/create`, { method: 'post', data: { from, to } })
+    }
+
+    closeChannel(from, to) {
+        return this.client(`chat/channels/delete`, { method: 'post', data: { from, to } })
+    }
+
+    getMessages(from, to) {
+        return this.client(`chat/messages/${from}/${to}`)
+    }
+
+    getPosts(owner_id) {
+        return this.client(`posts/${owner_id}`)
+    }
+
+    addPost(data) {
+        return this.client(`posts/comment`, { method: 'post', data })
+    }
+
+    deletePost(id) {
+        return this.client(`posts/comment/delete`, { method: 'post', data: { id } })
+    }
+
+    addLike(item_id) {
+        return this.client(`likes/likes/add`, { method: 'post', data: { item_id } })
+    }
 }
 
-export default {
-    login(email, password) {
-        return axios.post(`${baseUri}/user/login`, { email, password });
-    },
-    logout(token) {
-        return axios.post(`${baseUri}/user/logout`, getHeaders);
-    },
-    getProfile(token, id) {
-        return axios.get(`${baseUri}/user/profile/${id}`, getHeaders(token));
-    },
-    getFriends(token, id) {
-        return axios.get(`${baseUri}/user/get-friends/${id}`, getHeaders(token));
-    },
-    follow(id, friend_id) {
-        return axios.get(`${baseUri}/friend/follow/${id}/${friend_id}`);
-    },
-    unfollow(id, friend_id) {
-        return axios.get(`${baseUri}/friend/unfollow/${id}/${friend_id}`);
-    },
-    setProfile(token, id, data) {
-        return axios.post(`${baseUri}/user/profile/${id}`, data, getHeaders(token));
-    },
-    uploadProfileImage(token, id, data) {
-        return axios.post(`${baseUri}/user/profile/${id}/photo`, data, getHeaders(token));
-    },
-    register(data) {
-        return axios.post(`${baseUri}/user/register`, data);
-    },
-    getChannels(id) {
-        return axios.get(`${baseUri}/chat/channels/${id}`);
-    },
-    createChannel(from, to) {
-        return axios.post(`${baseUri}/chat/channels/create`, { from, to });
-    },
-    closeChannel(from, to) {
-        return axios.post(`${baseUri}/chat/channels/delete`, { from, to });
-    },
-    getMessages(from, to) {
-        return axios.get(`${baseUri}/chat/messages/${from}/${to}`);
-    },
-    getPosts(owner_id) {
-        return axios.get(`${baseUri}/posts/${owner_id}`);
-    },
-    doPost(data) {
-        return axios.post(`${baseUri}/posts/comment`, data);
-    },
-    addLike(item_id) {
-        return axios.post(`${baseUri}/likes/likes/add`, { item_id });
-    },
-}
+export default new Api()

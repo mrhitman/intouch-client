@@ -7,12 +7,12 @@ import api from '../../services/api';
 import Layout from '../Common/Layout';
 import LeftMenu from '../Common/LeftMenu';
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
 
 const formItemLayout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 14 },
-};
+}
 
 const formSubmitLayout = {
     xs: { span: 24, offset: 0 },
@@ -22,23 +22,23 @@ const formSubmitLayout = {
 class UpdateProfile extends Component {
 
     UNSAFE_componentWillMount() {
-        const { getProfile, account } = this.props;
-        const { id, token } = account;
+        const { getProfile, account } = this.props
+        const { id, token } = account
         api.getProfile(token, id)
-            .then(getProfile);
+            .then(getProfile)
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
-        const { id, token } = this.props.active_user;
+        e.preventDefault()
+        const { id, token } = this.props.active_user
         this.props.form.validateFields((err, values) => {
-            api.setProfile(token, id, values);
-        });
+            api.setProfile({ id, values })
+        })
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
-        const profile = this.props.active_user.get('profile');
+        const { getFieldDecorator } = this.props.form
+        const profile = this.props.active_user.get('profile')
         return (
             <Layout >
                 <Row>
@@ -47,7 +47,7 @@ class UpdateProfile extends Component {
                     </Col>
                     <Col span={18} style={{ margin: '30px 0 0 10px' }}>
                         <Tabs>
-                            <Tabs.TabPane tab="Profile" key={1} >
+                            <Tabs.TabPane tab='Profile' key={1} >
                                 <FormItem label='Name' {...formItemLayout} >
                                     {getFieldDecorator('first_name', { initialValue: profile.get('first_name'), rules: [{ required: true }] })(<Input />)}
                                 </FormItem>
@@ -101,10 +101,10 @@ class UpdateProfile extends Component {
                                     {getFieldDecorator('company', { initialValue: profile.get('company') })(<Input />)}
                                 </FormItem>
                                 <FormItem wrapperCol={formSubmitLayout}>
-                                    <Button type="primary" onClick={this.handleSubmit}>Update</Button>
+                                    <Button type='primary' onClick={this.handleSubmit}>Update</Button>
                                 </FormItem>
                             </Tabs.TabPane>
-                            <Tabs.TabPane tab="Additional" key={2}>
+                            <Tabs.TabPane tab='Additional' key={2}>
                                 <FormItem label='Hobbies' {...formItemLayout}>
                                     {getFieldDecorator('hobbies', { initialValue: profile.get('hobbies') })(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
                                 </FormItem>
@@ -115,25 +115,25 @@ class UpdateProfile extends Component {
                                     {getFieldDecorator('books', { initialValue: profile.get('books') })(<Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} />)}
                                 </FormItem>
                                 <FormItem wrapperCol={formSubmitLayout}>
-                                    <Button type="primary" onClick={this.handleSubmit}>Update</Button>
+                                    <Button type='primary' onClick={this.handleSubmit}>Update</Button>
                                 </FormItem>
                             </Tabs.TabPane>
                         </Tabs>
                     </Col>
                 </Row>
             </Layout >
-        );
+        )
     }
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => state
 const mapDispatchToState = dispatch => ({
     getProfile: payload => {
-        dispatch({ type: Actions.getProfile, payload });
+        dispatch({ type: Actions.getProfile, payload })
     },
-});
+})
 
 export default connect(
     mapStateToProps,
     mapDispatchToState,
-)(Form.create()(UpdateProfile));
+)(Form.create()(UpdateProfile))

@@ -8,8 +8,8 @@ const { Item } = Menu;
 class LeftMenu extends Component {
     render() {
         const { isAuthentificated } = this.props;
-        if (isAuthentificated) return (
-            <Menu mode='inline'>
+        if (isAuthentificated) {
+            return (<Menu mode='inline'>
                 <Item>
                     <Icon type="idcard" />
                     <span><Link to='/' >Personal page</Link></span>
@@ -40,7 +40,8 @@ class LeftMenu extends Component {
                     <span><Link to='/update'>Setting</Link></span>
                 </Item>
             </Menu>
-        );
+            );
+        }
         return null;
     }
 }

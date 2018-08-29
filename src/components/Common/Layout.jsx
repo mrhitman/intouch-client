@@ -1,4 +1,4 @@
-import { BackTop, Layout, Col, Row } from 'antd';
+import { BackTop, Col, Layout, Row } from 'antd';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../constats';

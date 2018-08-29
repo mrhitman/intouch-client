@@ -1,8 +1,8 @@
-import { Avatar, Icon, List, Input, Col, Row } from 'antd';
+import { Avatar, Col, Icon, Input, List, Row } from 'antd';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { baseUri, Actions } from '../../constats';
+import { Actions, baseUri } from '../../constats';
 import api from '../../services/api';
 
 const IconText = ({ type, text, onClick }) => (
@@ -10,12 +10,12 @@ const IconText = ({ type, text, onClick }) => (
         <Icon type={type} style={{ marginRight: 8 }} />
         {text}
     </span>
-);
+)
 
 class Wall extends Component {
 
     post = e => {
-        const { account, active_user, doPost } = this.props;
+        const { account, active_user, doPost } = this.props
         if (e.key === 'Enter') {
             if (e.target.value.trim()) {
                 const post = {
@@ -23,24 +23,23 @@ class Wall extends Component {
                     content: e.target.value,
                     author_id: account.id,
                     owner_id: active_user.id,
-                };
-                api.doPost(post)
-                    .then(doPost);
+                }
+                api.addPost(post).then(doPost)
             }
-            e.target.value = '';
-            e.preventDefault();
-            e.stopPropagation();
+            e.target.value = ''
+            e.preventDefault()
+            e.stopPropagation()
         }
     }
 
     addLike = item_id => {
-        const { addLike } = this.props;
+        const { addLike } = this.props
         api.addLike(item_id)
             .then(() => addLike(item_id))
     }
 
     render() {
-        const { posts, account } = this.props;
+        const { posts, account } = this.props
         return (
             <Fragment >
                 <Row>
@@ -55,10 +54,11 @@ class Wall extends Component {
                     renderItem={post => (
                         <List.Item
                             key={post.id}
+                            extra={<Icon type='close' onClick={() => console.log('delete post')} />}
                             actions={[
-                                <IconText type="dislike-o" text={post.dislikes} />,
-                                <IconText type="like-o" text={post.likes} onClick={() => this.addLike(post.id)} />,
-                                <IconText type="message" text={post.comments} />
+                                <IconText type='dislike-o' text={post.dislikes} />,
+                                <IconText type='like-o' text={post.likes} onClick={() => this.addLike(post.id)} />,
+                                <IconText type='message' text={post.comments} />
                             ]}
                             style={{ margin: 15 }}
                         >
@@ -71,25 +71,25 @@ class Wall extends Component {
                     )}
                 />
             </Fragment>
-        );
+        )
     }
 }
 
 const mapStateToProps = state => ({
     ...state,
-});
+})
 const mapDispatchToState = dispatch => ({
     doPost: payload => {
-        dispatch({ type: Actions.post, payload: payload.data });
+        dispatch({ type: Actions.post, payload: payload.data })
     },
     addLike: payload => {
-        dispatch({ type: Actions.addLike, payload });
+        dispatch({ type: Actions.addLike, payload })
     },
     deleteLike: payload => {
     },
-});
+})
 
 export default connect(
     mapStateToProps,
     mapDispatchToState,
-)(Wall);
+)(Wall)

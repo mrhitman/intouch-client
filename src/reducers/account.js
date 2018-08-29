@@ -1,13 +1,13 @@
 import { Record } from 'immutable';
 import { Action } from 'redux';
 import { Actions } from '../constats';
+import { ActiveUser } from './active_user';
 
 const Account = Record({
     id: localStorage.getItem('id'),
     token: localStorage.getItem('token'),
     refresh_token: localStorage.getItem('refreshToken'),
-    new_message: 0,
-    new_followers: 0,
+    user: new ActiveUser({})
 });
 
 const initialState = new Account();
@@ -24,7 +24,7 @@ export default (state = initialState, action: Action) => {
                 .set('token', token);
         case Actions.logout:
             localStorage.clear();
-            return initialState;
+            return new Account();
         default:
             return state;
     }

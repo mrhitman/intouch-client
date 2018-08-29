@@ -2,7 +2,7 @@ import { List, Record } from 'immutable';
 import { Action } from 'redux';
 import { Actions } from '../constats';
 
-const Profile = Record({
+export const Profile = Record({
     name: '',
     first_name: '',
     middle_name: '',
@@ -22,7 +22,7 @@ const Profile = Record({
     books: '',
 });
 
-const ActiveUser = Record({
+export const ActiveUser = Record({
     id: undefined,
     profile: new Profile({}),
     friends: List([]),

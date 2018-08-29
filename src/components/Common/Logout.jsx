@@ -7,17 +7,16 @@ import api from '../../services/api';
 
 class Logout extends Component {
     logout = () => {
-        const { logout, account } = this.props;
-        api.logout(account.token)
-            .then(logout);
+        const { logout } = this.props
+        api.logout().then(logout)
     }
 
     render() {
-        const { isAuthentificated } = this.props;
+        const { isAuthentificated } = this.props
         if (isAuthentificated) {
-            return <div onClick={this.logout}>Logout</div>;
+            return <div onClick={this.logout}>Logout</div>
         }
-        return <Redirect to='/' />;
+        return <Redirect to='/' />
     }
 }
 
@@ -29,9 +28,9 @@ const mapDispatchToProps = dispatch => ({
     logout: () => {
         dispatch({ type: Actions.logout })
     }
-});
+})
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Logout);
+)(Logout)

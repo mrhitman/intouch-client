@@ -25,12 +25,14 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test:env": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "stylus": "stylus src/styles",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
     "@types/immutable": "^3.8.7",
+    "axios-mock-adapter": "^1.15.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-react": "^6.0.0",
     "eslint-plugin-import": "^2.12.0",

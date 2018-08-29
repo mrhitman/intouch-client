@@ -1,7 +1,7 @@
 import { Avatar, Col, Collapse, Icon, List, Pagination, Popover, Row } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Actions, baseUri } from '../../constats';
 import api from '../../services/api';
 import Layout from '../Common/Layout';
@@ -114,4 +114,4 @@ const mapDispatchToState = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToState
-)(FriendsRecommend);
+)(FriendsRecommend)

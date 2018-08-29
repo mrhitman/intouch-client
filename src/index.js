@@ -1,20 +1,20 @@
-import 'antd/dist/antd.css';
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { createStore } from "redux";
-import Chat from "./components/Chat";
-import Channel from "./components/Chat/Channel";
-import FriendsRecommend from "./components/Friends/FriendsRecommend";
-import LoginForm from "./components/Login";
-import News from "./components/News";
-import PersonalPage from "./components/PersonalPage";
-import UpdateProfile from "./components/PersonalPage/Update";
-import RegistrationForm from './components/Registration';
-import reducer from "./reducers";
+import 'antd/dist/antd.css'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { createStore } from 'redux'
+import Chat from './components/Chat'
+import Channel from './components/Chat/Channel'
+import FriendsRecommend from './components/Friends/FriendsRecommend'
+import LoginForm from './components/Login'
+import News from './components/News'
+import PersonalPage from './components/PersonalPage'
+import UpdateProfile from './components/PersonalPage/Update'
+import RegistrationForm from './components/Registration'
+import reducer from './reducers'
 
-const store = createStore(reducer);
+const store = createStore(reducer)
 
 ReactDOM.render(
   <Provider store={store}>
@@ -31,5 +31,5 @@ ReactDOM.render(
       </Switch>
     </Router>
   </Provider>,
-  document.getElementById("root")
-);
+  document.getElementById('root')
+)
